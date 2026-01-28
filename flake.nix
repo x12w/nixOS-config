@@ -2,7 +2,7 @@
   description = "x12w's nixos configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs }@inputs: {

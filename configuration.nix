@@ -111,6 +111,8 @@
     };
   };
 
+  fonts.fontDir.enable = true;
+
   users.users.x12w = {
     isNormalUser = true;
     description = "x12w";
@@ -165,6 +167,11 @@
     vscode-fhs
     fastfetch
   ];
+
+  #启用flatpak
+  services.flatpak.enable = true;
+  # 让桌面环境（如 KDE/GNOME）能搜到 Flatpak 安装的软件图标
+  xdg.portal.enable = true;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

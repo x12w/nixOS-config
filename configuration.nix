@@ -166,6 +166,7 @@
     wechat-uos
     vscode-fhs
     fastfetch
+    blueman
   ];
 
   #启用flatpak

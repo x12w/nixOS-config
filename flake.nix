@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    daed.url = "github:daed-revived/daed";
   };
 
   outputs = { self, nixpkgs }@inputs: {
@@ -13,6 +14,7 @@
       modules = [
         # 关联现有的配置文件
         ./configuration.nix
+        daed.nixosModules.daed
       ];
     };
 

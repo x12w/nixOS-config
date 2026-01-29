@@ -177,6 +177,9 @@
 
   services.blueman.enable = true;
 
+  #代理
+  services.daed.enable = true;
+
 
   #启用flatpak
   services.flatpak.enable = true;

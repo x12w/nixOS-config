@@ -14,8 +14,8 @@
       modules = [
         # 关联现有的配置文件
         ./configuration.nix
-        daeuniverse.nixosModules.daed
-        daeuniverse.nixosModules.dae
+        inputs.daeuniverse.nixosModules.dae
+        inputs.daeuniverse.nixosModules.daed
       ];
     };
 

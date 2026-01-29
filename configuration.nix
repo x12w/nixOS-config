@@ -178,7 +178,17 @@
   services.blueman.enable = true;
 
   #代理
-  services.daed.enable = true;
+  services.daed = {
+    enable = true;
+    # 开启对应端口的防火墙（默认 Web 端口 2023）
+    openFirewall = {
+      enable = true;
+      port = 2023;
+    };
+  };
+
+  # 如果启用了 dae 内核服务
+  services.dae.enable = true;
 
 
   #启用flatpak

@@ -183,7 +183,7 @@
     # 开启对应端口的防火墙
     openFirewall = {
       enable = true;
-      port = 2023;
+      port = 12345;
     };
   };
 

@@ -6,7 +6,7 @@
     daed.url = "github:daeuniverse/flake.nix";
   };
 
-  outputs = { self, nixpkgs, daed }@inputs: {
+  outputs = { self, nixpkgs, daeuniverse, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

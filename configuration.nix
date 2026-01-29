@@ -178,19 +178,15 @@
   services.blueman.enable = true;
 
   #代理
-  services.daed = {
+  services.dae = {
     enable = true;
-    # 开启对应端口的防火墙（默认 Web 端口 2023）
+    # 开启对应端口的防火墙
     openFirewall = {
       enable = true;
       port = 2023;
     };
   };
 
-  services.dae = {
-  enable = true;
-  config = ""; # 明确告诉系统：我用字符串配置方式，哪怕它是空的
-};
 
 
   #启用flatpak

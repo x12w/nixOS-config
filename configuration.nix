@@ -169,6 +169,15 @@
     blueman
   ];
 
+  #系统服务
+
+  #开启蓝牙硬件支持
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
+  services.blueman.enable = true;
+
+
   #启用flatpak
   services.flatpak.enable = true;
   # 让桌面环境（如 KDE/GNOME）能搜到 Flatpak 安装的软件图标

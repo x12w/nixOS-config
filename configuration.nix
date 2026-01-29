@@ -178,7 +178,7 @@
   services.blueman.enable = true;
 
   #代理
-  services.dae = {
+  services.daed = {
     enable = true;
     # 开启对应端口的防火墙
     openFirewall = {

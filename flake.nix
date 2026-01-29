@@ -6,7 +6,7 @@
     daed.url = "github:daed-revived/daed";
   };
 
-  outputs = { self, nixpkgs, dead }@inputs: {
+  outputs = { self, nixpkgs, daed }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

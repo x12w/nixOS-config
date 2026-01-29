@@ -187,8 +187,10 @@
     };
   };
 
-  # 如果启用了 dae 内核服务
-  services.dae.enable = true;
+  services.dae = {
+  enable = true;
+  config = ""; # 明确告诉系统：我用字符串配置方式，哪怕它是空的
+};
 
 
   #启用flatpak

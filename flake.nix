@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    daed.url = "github:daeuniverse/flake.nix";
+    daeuniverse.url = "github:daeuniverse/flake.nix";
   };
 
   outputs = { self, nixpkgs, daeuniverse, ... }@inputs: {

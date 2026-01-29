@@ -204,9 +204,9 @@
   programs.clash-verge = {
     enable = true;
     package = pkgs.clash-verge-rev;
-    tunMode = true;
-    serviceMode = true;
-    autoStart = true;
+    tunMode = false;
+    serviceMode = false;
+    autoStart = false;
   };
 
   boot.kernel.sysctl = {

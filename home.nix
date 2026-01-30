@@ -29,10 +29,15 @@
   # 配置git
   programs.git = {
   enable = true;
-  userName = "x12w";
-  userEmail = "w17802627260@gmail.com";
-  extraConfig = {
-    init.defaultBranch = "main";
-  };
+
+  settings = {
+    user = {
+      name = "你的用户名";
+      email = "你的邮箱";
+    };
+
+    init = {
+      defaultBranch = "main";
+    };
 };
 }

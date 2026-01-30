@@ -104,7 +104,7 @@
       wqy_zenhei
       jetbrains-mono
       sarasa-gothic
-      (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      (nerd-fonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 
     fontconfig.defaultFonts = {

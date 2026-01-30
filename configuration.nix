@@ -171,6 +171,7 @@
     blueman
 
     catppuccin-kvantum # Kvantum 主题包
+    catppuccin-gtk
     catppuccin-kde          # 全局主题
     catppuccin-cursors      # 鼠标指针
     catppuccin-papirus-folders # 图标包增强

@@ -162,7 +162,6 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    firefox
     google-chrome
     wpsoffice-cn
     qq
@@ -219,6 +218,12 @@
     tunMode = false;
     serviceMode = false;
     autoStart = false;
+  };
+
+  programs.starship = {
+  enable = true;
+  # 开启后，Dolphin 终端会自动变得多彩且带有图标
+  enableZshIntegration = true;
   };
 
   boot.kernel.sysctl = {

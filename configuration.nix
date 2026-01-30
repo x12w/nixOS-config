@@ -102,6 +102,9 @@
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
       wqy_zenhei
+      jetbrains-mono
+      sarasa-gothic
+      nerdfonts.override { fonts = [ "JetBrainsMono" ]; }
     ];
 
     fontconfig.defaultFonts = {

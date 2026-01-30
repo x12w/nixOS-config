@@ -28,16 +28,17 @@
 
   # 配置git
   programs.git = {
-  enable = true;
+    enable = true;
 
-  settings = {
-    user = {
-      name = "你的用户名";
-      email = "你的邮箱";
-    };
+    settings = {
+      user = {
+        name = "你的用户名";
+        email = "你的邮箱";
+      };
 
-    init = {
-      defaultBranch = "main";
+      init = {
+        defaultBranch = "main";
+      };
     };
-};
+  };
 }

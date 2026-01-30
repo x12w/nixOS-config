@@ -220,12 +220,6 @@
     autoStart = false;
   };
 
-  programs.starship = {
-  enable = true;
-  # 开启后，Dolphin 终端会自动变得多彩且带有图标
-  enableZshIntegration = true;
-  };
-
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
 };

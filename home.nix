@@ -85,6 +85,39 @@
     enableZshIntegration = true; # 自动关联已有的 Zsh 配置
   };
 
+  programs.vscode = {
+    enable = true;
+    # 建议使用标准版 vscode 以获得更好的声明式支持
+    package = pkgs.vscode;
+
+    # 插件列表
+    extensions = with pkgs.vscode-extensions; [
+      # 主题
+      catppuccin.catppuccin-vsc
+      catppuccin.catppuccin-vsc-icons
+
+      # 编程支持 (根据你的兴趣定制)
+      ms-vscode.cpptools          # C++ 支持
+      redhat.java                 # Java 支持
+      vscjava.vscode-java-debug
+      jnoortheen.nix-ide          # Nix 语法高亮
+
+      # 工具
+      pkief.material-icon-theme
+      eamodio.gitlens
+    ];
+
+    # 用户设置 (settings.json)
+    userSettings = {
+      "workbench.colorTheme" = "Catppuccin Mocha";
+      "workbench.iconTheme" = "catppuccin-mocha";
+      "editor.fontSize" = 14;
+      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nil";
+    };
+  };
+
   home.packages = with pkgs; [
     eza
     fzf

@@ -105,7 +105,7 @@
 
         # --- Python ---
         ms-python.python
-        ms-python.vscode-pylint
+        ms-python.pylint
 
         # --- Rust ---
         rust-lang.rust-analyzer  # 核心 LSP 支持

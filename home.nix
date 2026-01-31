@@ -80,11 +80,17 @@
     };
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true; # 自动关联已有的 Zsh 配置
+  };
+
   home.packages = with pkgs; [
     eza
     fzf
     zoxide
     neovim
+    peazip
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标

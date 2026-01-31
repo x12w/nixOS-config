@@ -183,7 +183,7 @@
     wpsoffice-cn
     qq
     wechat-uos
-    vscode-fhs
+    vscode
     fastfetch
     blueman
 

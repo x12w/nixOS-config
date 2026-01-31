@@ -87,31 +87,27 @@
 
   programs.vscode = {
     enable = true;
-    # 建议使用标准版 vscode 以获得更好的声明式支持
-    package = pkgs.vscode;
 
-    # 插件列表
-    extensions = with pkgs.vscode-extensions; [
 
-      # 编程支持
-      ms-vscode.cpptools          # C++ 支持
-      redhat.java                 # Java 支持
-      vscjava.vscode-java-debug
-      jnoortheen.nix-ide          # Nix 语法高亮
+    profiles.default = {
+      # 插件列表
+      extensions = with pkgs.vscode-extensions; [
+        ms-vscode.cpptools          # C++ 开发支持
+        redhat.java                 # Java 实验项目支持
+        vscjava.vscode-java-debug
+        jnoortheen.nix-ide          # Nix 配置语法支持
+      ];
 
-      # 工具
-      pkief.material-icon-theme
-      eamodio.gitlens
-    ];
-
-    # 用户设置 (settings.json)
-    userSettings = {
-      "workbench.colorTheme" = "Catppuccin Mocha";
-      "workbench.iconTheme" = "catppuccin-mocha";
-      "editor.fontSize" = 14;
-      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nil";
+      # 2. 用户设置 (settings.json)
+      userSettings = {
+        "workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.iconTheme" = "catppuccin-mocha";
+        "editor.fontSize" = 14;
+        "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nil";
+        "editor.formatOnSave" = true;
+      };
     };
   };
 

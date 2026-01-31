@@ -90,7 +90,7 @@
     flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
 
-    pointerCursor.enable = true; # 光标主题
+    cursors.enable = true; # 光标主题
   };
 
 

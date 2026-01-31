@@ -81,7 +81,12 @@
   };
 
   home.packages = with pkgs; [
-    catppuccin-konsole
+    eza
+    fzf
+    zoxide
+
+    catppuccin-kvantum
+    catppuccin-cursors
     catppuccin-gtk
   ];
 }

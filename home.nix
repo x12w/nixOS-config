@@ -60,7 +60,7 @@
 
   # 设置输入法环境变量
   home.sessionVariables = {
-  GTK_IM_MODULE = ""; # 对应你 configuration.nix 中的 lib.mkForce ""
+  GTK_IM_MODULE = ""; # 对应 configuration.nix 中的 lib.mkForce ""
   QT_IM_MODULE = "";
   };
 
@@ -80,26 +80,15 @@
     };
   };
 
-  qt = {
-    enable = true;
-    platformTheme.name = "kvantum";
-    style.name = "kvantum";
-  };
-
-  # 2. 确保环境变量正确指向主题目录
-  home.sessionVariables = {
-    QT_STYLE_OVERRIDE = "kvantum";
-  };
-
   home.packages = with pkgs; [
     eza
     fzf
     zoxide
-
-    catppuccin-kvantum
-    catppuccin-cursors
-    catppuccin-gtk
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5ct
   ];
+
+  catppuccin = {
+    flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
+    enable = true;    # 这会尝试为所有支持的 program.* 开启主题
+  };
+
 }

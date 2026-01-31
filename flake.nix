@@ -9,9 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix/release-25.11";
+    nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, nur, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -38,6 +39,8 @@
         }
 
         catppuccin.nixosModules.catppuccin
+
+        { nixpkgs.overlays = [ nur.overlays.default ]; }
       ];
     };
 

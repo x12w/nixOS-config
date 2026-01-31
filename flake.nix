@@ -8,9 +8,10 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -28,6 +29,8 @@
           # 替换为用户名
           home-manager.users.x12w = import ./home.nix;
         }
+
+        catppuccin.nixosModules.catppuccin
       ];
     };
 

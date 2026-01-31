@@ -128,7 +128,7 @@
       window_padding_width = "4";
 
       # 隐藏标题栏（在 KDE 下配合 Kvantum 效果更佳）
-      hide_window_decorations = "yes";
+      hide_window_decorations = "no";
 
       # 设置背景透明度（配合你的 NVIDIA 驱动和 Plasma 合成器 [cite: 53]）
       background_opacity = "0.95";

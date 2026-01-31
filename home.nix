@@ -151,7 +151,7 @@
 
       # --- Java ---
       jdk
-      jdtls
+      jdt-language-server
 
       #Python
       nodePackages.pyright

@@ -92,11 +92,8 @@
 
     # 插件列表
     extensions = with pkgs.vscode-extensions; [
-      # 主题
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
 
-      # 编程支持 (根据你的兴趣定制)
+      # 编程支持
       ms-vscode.cpptools          # C++ 支持
       redhat.java                 # Java 支持
       vscjava.vscode-java-debug

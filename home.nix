@@ -119,7 +119,7 @@
 
       # 2. 核心：调整字符宽度和高度
       # 如果觉得间距太大，可以设置为负像素值（如 -1px 或 -0.5px）
-      "modify_font cell_width" = "95%";  # 或者用 "-1px"
+      "modify_font cell_width" = "100%";  # 或者用 "-1px"
       "modify_font cell_height" = "-2px";
       "modify_font baseline" = "0";
 

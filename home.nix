@@ -84,6 +84,10 @@
     eza
     fzf
     zoxide
+
+    catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
+    catppuccin-papirus-folders # 提供配套图标
+    catppuccin-cursors.mochaMauve
   ];
 
   catppuccin = {
@@ -91,7 +95,6 @@
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
 
     cursors.enable = true; # 光标主题
-    plasma.enable = true;
     fcitx5.enable = true;
     kvantum.enable = true;
     kvantum.apply = true;

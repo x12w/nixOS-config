@@ -127,9 +127,10 @@
       sansSerif = [ "Noto Sans CJK SC" ];
       monospace = [ "Noto Sans Mono CJK SC" ];
     };
+
+    fontDir.enable = true;
   };
 
-  fonts.fontDir.enable = true;
 
   users.users.x12w = {
     isNormalUser = true;

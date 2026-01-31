@@ -91,7 +91,19 @@
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
 
     cursors.enable = true; # 光标主题
+    fcitx5.enable = true;
   };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style.name = "kvantum";
+  };
+
+  # 显式开启 Kvantum 的 Catppuccin 主题
+  catppuccin.kvantum.enable = true;
+  # 如果你想要应用到所有 Qt 程序，确保这个也是开启的
+  catppuccin.kvantum.apply = true;
 
 
   programs.kitty.enable = true;

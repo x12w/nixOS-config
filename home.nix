@@ -48,7 +48,12 @@
   };
 
   # 开启 Zsh
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;      # 开启自动建议
+    syntaxHighlighting.enable = true; # 开启语法高亮
+  };
 
   # 设置 Home Manager 状态版本（建议保持与系统安装时一致）
   home.stateVersion = "25.11";

@@ -27,7 +27,7 @@
 
   boot.plymouth.enable = true;
 
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = false;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;

@@ -92,13 +92,32 @@
     profiles.default = {
       # 插件列表
       extensions = with pkgs.vscode-extensions; [
+
+        # --- C/C++ ---
         ms-vscode.cpptools          # C++ 开发支持
+
+        # --- Java ---
         redhat.java                 # Java 实验项目支持
         vscjava.vscode-java-debug
+
+        # --- Nix ---
         jnoortheen.nix-ide          # Nix 配置语法支持
+
+        # --- Python ---
+        ms-python.python
+        ms-python.vscode-pylint
+
+        # --- Rust ---
+        rust-lang.rust-analyzer  # 核心 LSP 支持
+        tamasfe.even-better-toml # 优化 Cargo.toml 编辑体验
+        serayuzgur.crates        # 自动检测 Rust 依赖库版本
+
+        # --- Haskell ---
+        haskell.haskell          # 核心 Haskell 插件 (提供 HLS 支持)
+        justusadam.language-haskell # 增强的语法高亮
       ];
 
-      # 2. 用户设置 (settings.json)
+      # 用户设置 (settings.json)
       userSettings = {
         "workbench.colorTheme" = "Catppuccin Mocha";
         "workbench.iconTheme" = "catppuccin-mocha";
@@ -109,6 +128,59 @@
         "editor.formatOnSave" = true;
       };
     };
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true; # 将 nvim 设为默认编辑器
+    viAlias = true;
+    vimAlias = true;
+
+    # 安装 LazyVim 运行所需的额外系统依赖
+    extraPackages = with pkgs; [
+      # 基础工具
+      ripgrep
+      fd
+      git
+      lua-language-server
+
+      # 语言服务器 (LSP)
+
+      # --- C/C++ ---
+      clang-tools          # C++ (clangd)
+
+      # --- Java ---
+      jdk
+      jdtls
+
+      #Python
+      nodePackages.pyright
+
+      # --- Nix ---
+      nil
+
+      # --- Rust ---
+      rustc
+      cargo
+      rust-analyzer
+      clippy
+      rustfmt
+
+      # --- Haskell ---
+      ghc
+      haskell-language-server
+      cabal-install
+      stack
+      haskellPackages.fourmolu
+
+
+
+      # --- Python ---
+      pyright
+
+      # 其他通用工具
+      nodePackages.typescript-language-server
+    ];
   };
 
   home.packages = with pkgs; [

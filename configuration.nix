@@ -176,7 +176,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     git
     google-chrome
@@ -187,7 +187,28 @@
     fastfetch
     blueman
 
+    # --- Rust ---
+    rustc
+    cargo
 
+    # --- Haskell ---
+    ghc
+    stack
+
+    # --- C/C++ ---
+    gcc
+    gdb
+    cmake
+    gnumake
+
+    # --- Java ---
+    jdk
+    maven
+
+    # --- Python ---
+    python3
+    python3Packages.pip
+    python3Packages.black
   ];
 
   catppuccin = {

@@ -124,6 +124,8 @@
       kdePackages.kate
     #  thunderbird
     ];
+
+    shell = pkgs.zsh;
   };
 
   # Install firefox.

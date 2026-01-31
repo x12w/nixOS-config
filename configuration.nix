@@ -177,6 +177,7 @@
 
   catppuccin = {
     flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
+    accent = "sapphire";
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
   };
 

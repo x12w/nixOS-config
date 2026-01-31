@@ -95,13 +95,6 @@
   };
 
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.catppuccin-cursors.mochaLavender; # 确保包名与 flavor/accent 对应
-    name = "Catppuccin-Mocha-Lavender-Cursors";
-    size = 24;
-  };
 
   gtk = {
     enable = true;

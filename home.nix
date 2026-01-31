@@ -153,9 +153,6 @@
       jdk
       jdt-language-server
 
-      #Python
-      nodePackages.pyright
-
       # --- Nix ---
       nil
 

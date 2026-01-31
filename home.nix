@@ -91,4 +91,5 @@
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
   };
 
+  programs.kitty.enable = true;
 }

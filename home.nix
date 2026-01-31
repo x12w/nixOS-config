@@ -95,11 +95,5 @@
   };
 
 
-
-  gtk = {
-    enable = true;
-    catppuccin.cursor.enable = true;
-  };
-
   programs.kitty.enable = true;
 }

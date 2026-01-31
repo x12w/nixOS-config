@@ -70,8 +70,8 @@
 
     settings = {
       user = {
-        name = "你的用户名";
-        email = "你的邮箱";
+        name = "x12w";
+        email = "w17802627260@gmail.com";
       };
 
       init = {
@@ -79,4 +79,9 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    catppuccin-konsole
+    catppuccin-gtk
+  ];
 }

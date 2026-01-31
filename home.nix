@@ -89,6 +89,24 @@
   catppuccin = {
     flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
+
+    pointerCursor.enable = true; # 光标主题
+    konsole.enable = true;       # Konsole 配色
+    gtk.enable = true;
+  };
+
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.catppuccin-cursors.mochaLavender; # 确保包名与 flavor/accent 对应
+    name = "Catppuccin-Mocha-Lavender-Cursors";
+    size = 24;
+  };
+
+  gtk = {
+    enable = true;
+    catppuccin.cursor.enable = true;
   };
 
   programs.kitty.enable = true;

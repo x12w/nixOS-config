@@ -12,6 +12,39 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    settings = {
+      # 每次命令之间不留空行
+      add_newline = false;
+
+      # 提示符形状
+      character = {
+      success_symbol = "[➜](bold green)";
+      error_symbol = "[➜](bold red)";
+      };
+
+      # 目录样式
+      directory = {
+        truncation_length = 3;
+        truncate_to_repo = true; # 在 git 仓库中缩短路径
+        style = "bold italic blue";
+      };
+
+      # Git 状态 (这是 Starship 最强的地方)
+      git_branch = {
+        symbol = "󰊢 ";
+        style = "bold yellow";
+      };
+
+      git_status = {
+        format = "([\[$all_status$conflicted$ahead_behind\]]($style) )";
+        style = "red";
+      };
+
+      # 编程语言图标 (需要 Nerd Fonts)
+      python.symbol = " ";
+      rust.symbol = " ";
+      nix_shell.symbol = " ";
+    };
   };
 
   # 开启 Zsh

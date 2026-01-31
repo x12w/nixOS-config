@@ -36,7 +36,7 @@
       };
 
       git_status = {
-        format = "([\[$all_status$conflicted$ahead_behind\]]($style) )";
+        format = "([$all_status$conflicted$ahead_behind]($style) )";
         style = "red";
       };
 

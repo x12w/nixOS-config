@@ -80,6 +80,17 @@
     };
   };
 
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style.name = "kvantum";
+  };
+
+  # 2. 确保环境变量正确指向主题目录
+  home.sessionVariables = {
+    QT_STYLE_OVERRIDE = "kvantum";
+  };
+
   home.packages = with pkgs; [
     eza
     fzf
@@ -88,5 +99,7 @@
     catppuccin-kvantum
     catppuccin-cursors
     catppuccin-gtk
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5ct
   ];
 }

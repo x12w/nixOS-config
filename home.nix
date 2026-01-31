@@ -91,7 +91,6 @@
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
 
     pointerCursor.enable = true; # 光标主题
-    gtk.enable = true;
   };
 
 

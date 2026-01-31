@@ -92,4 +92,5 @@
   };
 
   programs.kitty.enable = true;
+  programs.konsole.enable = true;
 }

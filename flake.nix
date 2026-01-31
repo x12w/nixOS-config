@@ -26,8 +26,14 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          # 替换为用户名
-          home-manager.users.x12w = import ./home.nix;
+
+          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.users.x12w = {
+            imports = [
+              ./home.nix
+              inputs.catppuccin.homeManagerModules.catppuccin # 引入模块
+            ];
+          };
         }
 
         catppuccin.nixosModules.catppuccin

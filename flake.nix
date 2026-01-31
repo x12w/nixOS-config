@@ -31,7 +31,7 @@
           home-manager.users.x12w = {
             imports = [
               ./home.nix
-              inputs.catppuccin.homeManagerModules.catppuccin # 引入模块
+              inputs.catppuccin.homeModules.catppuccin # 引入模块
             ];
           };
         }

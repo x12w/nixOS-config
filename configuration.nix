@@ -120,6 +120,7 @@
       jetbrains-mono
       sarasa-gothic
       nerd-fonts.jetbrains-mono
+      wqy_zenhei
     ];
 
     fontconfig.defaultFonts = {

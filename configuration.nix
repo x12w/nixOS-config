@@ -183,6 +183,11 @@
     kdePackages.qtstyleplugin-kvantum
   ];
 
+  catppuccin = {
+    flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
+    enable = true;    # 这会尝试为所有支持的 program.* 开启主题
+  };
+
   #系统服务
 
   #开启蓝牙硬件支持

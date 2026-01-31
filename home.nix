@@ -184,7 +184,6 @@
     eza
     fzf
     zoxide
-    neovim
     peazip
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰

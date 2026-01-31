@@ -88,6 +88,7 @@
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标
+    bibata-cursors
   ];
 
   catppuccin = {
@@ -95,10 +96,18 @@
     accent = "sapphire";
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
 
-    cursors.enable = true; # 光标主题
+    cursors.enable = false; # 光标主题
     fcitx5.enable = true;
     kvantum.enable = true;
     kvantum.apply = true;
+  };
+
+  home.pointerCursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice"; # 可选: Bibata-Modern-Amber, Bibata-Modern-Classic 等
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   qt = {

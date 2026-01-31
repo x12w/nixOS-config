@@ -91,7 +91,10 @@
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
 
     cursors.enable = true; # 光标主题
+    plasma.enable = true;
     fcitx5.enable = true;
+    kvantum.enable = true;
+    kvantum.apply = true;
   };
 
   qt = {
@@ -100,17 +103,6 @@
     style.name = "kvantum";
   };
 
-  gtk = {
-    enable = true;
-    catppuccin.enable = true;
-    # 可选：如果你想要特定的强调色
-    # catppuccin.accent = "lavender";
-  };
-
-  # 显式开启 Kvantum 的 Catppuccin 主题
-  catppuccin.kvantum.enable = true;
-  # 如果你想要应用到所有 Qt 程序，确保这个也是开启的
-  catppuccin.kvantum.apply = true;
 
 
   programs.kitty.enable = true;

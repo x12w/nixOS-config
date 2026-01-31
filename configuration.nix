@@ -11,7 +11,22 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
+
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev"; # 对于 EFI 模式，保持 nodev
+
+    # --removable ---
+    efiInstallAsRemovable = true;
+    # ------------------------------------
+
+    useOSProber = true; # 引导其它硬盘上的系统
+  };
+
+  boot.plymouth.enable = true;
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
@@ -179,6 +194,8 @@
     flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
     accent = "sapphire";
     enable = true;    # 这会尝试为所有支持的 program.* 开启主题
+    grub.enable = true;
+    plymouth.enable = true;
   };
 
   #系统服务

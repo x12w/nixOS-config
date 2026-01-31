@@ -172,15 +172,7 @@
     fastfetch
     blueman
 
-    catppuccin-kvantum # Kvantum 主题包
-    catppuccin-gtk
-    catppuccin-kde          # 全局主题
-    catppuccin-cursors      # 鼠标指针
-    catppuccin-papirus-folders # 图标包增强
-    papirus-icon-theme      # 基础图标包
 
-    libsForQt5.qtstyleplugin-kvantum
-    kdePackages.qtstyleplugin-kvantum
   ];
 
   catppuccin = {

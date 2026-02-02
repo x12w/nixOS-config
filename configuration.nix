@@ -17,15 +17,37 @@ let
       hash = "sha256-PmoNZ5QNSK8YqKPd3oFon3+BjfEc+47J+TAWFre0RBY=";
     };
 
-    nativeBuildInputs = [ pkgs.unzip ];
+    # nativeBuildInputs 包含编译/构建时的工具
+    nativeBuildInputs = [
+      pkgs.unzip
+      pkgs.autoPatchelfHook # 自动修复二进制文件的动态库路径，NixOS 必用
+    ];
 
-    setSourceRoot = "sourceRoot=$(ls -d daed-linux-*)";
+    # buildInputs 包含运行时需要的库（通常是 C++ 标准库）
+    buildInputs = [
+      pkgs.stdenv.cc.cc.lib
+    ];
 
-    # 将解压后的二进制文件移动到安装目录
+    dontBuild = true;
+    dontConfigure = true;
+
     installPhase = ''
+      runHook preInstall
       mkdir -p $out/bin
-      cp daed $out/bin/daed
+
+      # 使用 find 在当前及子目录中搜索名为 daed* 的可执行文件
+      # 这样即使它在深层文件夹里也能被找到
+      TARGET_BIN=$(find . -type f -executable -name "daed*" | head -n 1)
+
+      if [ -z "$TARGET_BIN" ]; then
+        echo "错误：在压缩包中未找到 daed 二进制文件！"
+        ls -R # 出错时列出目录结构，方便调试
+        exit 1
+      fi
+
+      cp "$TARGET_BIN" $out/bin/daed
       chmod +x $out/bin/daed
+      runHook postInstall
     '';
 
     meta = {

@@ -320,8 +320,17 @@ let
 
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
-};
+    "net.ipv4.conf.all.forwarding" = 1;
+    # 同样需要关闭反向路径过滤，防止内核丢弃 TUN 流量
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.ipv4.conf.default.rp_filter" = 0;
+  };
 
+  networking.firewall = {
+  enable = true;
+  # 必须信任 tun 接口，否则流量无法流转
+  trustedInterfaces = [ "tun0" ];
+  };
 
     i18n.inputMethod = {
       type = "fcitx5";

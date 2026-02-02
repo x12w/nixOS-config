@@ -17,35 +17,29 @@ let
       hash = "sha256-PmoNZ5QNSK8YqKPd3oFon3+BjfEc+47J+TAWFre0RBY=";
     };
 
-    # nativeBuildInputs 包含编译/构建时的工具
     nativeBuildInputs = [
       pkgs.unzip
-      pkgs.autoPatchelfHook # 自动修复二进制文件的动态库路径，NixOS 必用
+      pkgs.autoPatchelfHook
     ];
 
-    # buildInputs 包含运行时需要的库（通常是 C++ 标准库）
-    buildInputs = [
-      pkgs.stdenv.cc.cc.lib
-    ];
+    buildInputs = [ pkgs.stdenv.cc.cc.lib ];
 
     dontBuild = true;
     dontConfigure = true;
 
+    # 核心修正：直接拷贝那个带有平台后缀的二进制文件并重命名
     installPhase = ''
       runHook preInstall
       mkdir -p $out/bin
 
-      # 使用 find 在当前及子目录中搜索名为 daed* 的可执行文件
-      # 这样即使它在深层文件夹里也能被找到
-      TARGET_BIN=$(find . -type f -executable -name "daed*" | head -n 1)
-
-      if [ -z "$TARGET_BIN" ]; then
-        echo "错误：在压缩包中未找到 daed 二进制文件！"
-        ls -R # 出错时列出目录结构，方便调试
-        exit 1
+      # 根据 ls 日志，文件名就是这个：
+      if [ -f "daed-linux-x86_64" ]; then
+        cp daed-linux-x86_64 $out/bin/daed
+      else
+        echo "仍在尝试搜索二进制文件..."
+        find . -type f -executable -exec cp {} $out/bin/daed \;
       fi
 
-      cp "$TARGET_BIN" $out/bin/daed
       chmod +x $out/bin/daed
       runHook postInstall
     '';
@@ -308,6 +302,7 @@ let
     # 如果插件报错找不到某些库，在这里添加
   ];
 
+/*
   programs.clash-verge = {
     enable = true;
     package = pkgs.clash-verge-rev;
@@ -315,6 +310,7 @@ let
     serviceMode = false;
     autoStart = false;
   };
+*/
 
   programs.zsh = {
   enable = true;

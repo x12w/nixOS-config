@@ -4,6 +4,29 @@
 
 { config, pkgs, lib, ... }:
 
+let
+  # 手动定义最新版 daed 软件包
+  daed-latest = pkgs.stdenv.mkDerivation rec {
+    pname = "daed";
+    version = "1.22.0"; # 在此指定你想要的精确版本
+
+    # 直接从 GitHub Releases 下载预编译的二进制压缩包
+    src = pkgs.fetchurl {
+      url = "https://github.com/daeuniverse/daed/releases/download/v${version}/daed-linux-x86_64.zip";
+      # 先填这个占位符，执行构建时 Nix 会报错并给出正确的 hash
+      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    };
+
+    nativeBuildInputs = [ pkgs.unzip ];
+
+    # 将解压后的二进制文件移动到安装目录
+    installPhase = ''
+      mkdir -p $out/bin
+      cp daed $out/bin/daed
+      chmod +x $out/bin/daed
+    '';
+  };
+  in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -230,29 +253,6 @@
   services.blueman.enable = true;
 
   #代理
-  let
-  # 手动定义最新版 daed 软件包
-  daed-latest = pkgs.stdenv.mkDerivation rec {
-    pname = "daed";
-    version = "1.22.0"; # 在此指定你想要的精确版本
-
-    # 直接从 GitHub Releases 下载预编译的二进制压缩包
-    src = pkgs.fetchurl {
-      url = "https://github.com/daeuniverse/daed/releases/download/v${version}/daed-linux-x86_64.zip";
-      # 先填这个占位符，执行构建时 Nix 会报错并给出正确的 hash
-      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-    };
-
-    nativeBuildInputs = [ pkgs.unzip ];
-
-    # 将解压后的二进制文件移动到安装目录
-    installPhase = ''
-      mkdir -p $out/bin
-      cp daed $out/bin/daed
-      chmod +x $out/bin/daed
-    '';
-  };
-  in
   services.daed = {
     enable = true;
     # 强制使用我们上面定义的最新版包

@@ -14,7 +14,7 @@ let
     src = pkgs.fetchurl {
       url = "https://github.com/daeuniverse/daed/releases/download/v${version}/daed-linux-x86_64.zip";
       # 先填这个占位符，执行构建时 Nix 会报错并给出正确的 hash
-      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      hash = "sha256-PmoNZ5QNSK8YqKPd3oFon3+BjfEc+47J+TAWFre0RBY=";
     };
 
     nativeBuildInputs = [ pkgs.unzip ];
@@ -25,6 +25,12 @@ let
       cp daed $out/bin/daed
       chmod +x $out/bin/daed
     '';
+
+    meta = {
+      mainProgram = "daed";
+      description = "A modern web dashboard for dae";
+      homepage = "https://github.com/daeuniverse/daed";
+    };
   };
   in
 {

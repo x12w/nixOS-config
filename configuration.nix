@@ -278,7 +278,7 @@ let
 
   #代理
   services.daed = {
-    enable = true;
+    enable = false;
     # 强制使用我们上面定义的最新版包
     package = daed-latest;
 
@@ -287,6 +287,8 @@ let
       port = 12345;
     };
   };
+
+  services.v2raya.enable = true;
 
 
 

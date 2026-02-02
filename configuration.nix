@@ -252,10 +252,7 @@
       chmod +x $out/bin/daed
     '';
   };
-in
-{
-  # ... 其他配置 ...
-
+  in
   services.daed = {
     enable = true;
     # 强制使用我们上面定义的最新版包

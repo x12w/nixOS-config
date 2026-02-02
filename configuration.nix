@@ -19,6 +19,8 @@ let
 
     nativeBuildInputs = [ pkgs.unzip ];
 
+    setSourceRoot = "sourceRoot=$(ls -d daed-linux-*)";
+
     # 将解压后的二进制文件移动到安装目录
     installPhase = ''
       mkdir -p $out/bin

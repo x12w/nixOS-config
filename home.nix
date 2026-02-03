@@ -177,6 +177,8 @@
 
       # 其他通用工具
       nodePackages.typescript-language-server
+
+      jetbrains.clion
     ];
   };
 

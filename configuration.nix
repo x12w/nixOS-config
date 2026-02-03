@@ -278,8 +278,8 @@ let
 
   #代理
   services.daed = {
-    enable = false;
-    # 强制使用我们上面定义的最新版包
+    enable = true;
+    # 使用上面定义的最新版包
     package = daed-latest;
 
     openFirewall = {
@@ -288,7 +288,7 @@ let
     };
   };
 
-  services.v2raya.enable = true;
+  services.v2raya.enable = false;
 
 
 

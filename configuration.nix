@@ -208,11 +208,20 @@ let
 
   powerManagement.enable = true;
 
+  powerManagement.finegrained = false;
+
   open = true;
 
   nvidiaSettings = true;
 
   package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  environment.variables = {
+    # 彻底解决你遇到的 Tauri/WebKitGTK 协议错误
+    WEBKIT_DISABLE_DMABUF_RENDERER = "1";
+    # 确保 NVIDIA 显卡在 EGL 下被正确识别
+    __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.nvidia-vaapi-driver}/share/glvnd/egl_vendor.d/10_nvidia.json";
   };
 
   hardware.nvidia.prime = {
@@ -296,6 +305,14 @@ let
   services.flatpak.enable = true;
   # 让桌面环境（如 KDE/GNOME）能搜到 Flatpak 安装的软件图标
   xdg.portal.enable = true;
+
+  # 开启 Docker
+  virtualisation.docker.enable = true;
+  # 开启显卡支持
+  hardware.nvidia-container-toolkit.enable = true;
+
+  # 将自己加入 docker 组
+  users.users.x12w.extraGroups = [ "networkmanager" "wheel" "docker" ];
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

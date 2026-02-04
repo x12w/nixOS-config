@@ -8,7 +8,7 @@ let
   # 手动定义最新版 daed 软件包
   daed-latest = pkgs.stdenv.mkDerivation rec {
     pname = "daed";
-    version = "1.22.0"; # 在此指定你想要的精确版本
+    version = "1.23.0"; # 在此指定你想要的精确版本
 
     # 直接从 GitHub Releases 下载预编译的二进制压缩包
     src = pkgs.fetchurl {

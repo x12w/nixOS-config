@@ -183,7 +183,7 @@ let
   users.users.x12w = {
     isNormalUser = true;
     description = "x12w";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -310,9 +310,6 @@ let
   virtualisation.docker.enable = true;
   # 开启显卡支持
   hardware.nvidia-container-toolkit.enable = true;
-
-  # 将自己加入 docker 组
-  users.users.x12w.extraGroups = [ "networkmanager" "wheel" "docker" ];
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

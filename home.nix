@@ -177,9 +177,6 @@
 
       # 其他通用工具
       nodePackages.typescript-language-server
-
-      jetbrains.clion
-      feishu
     ];
   };
 
@@ -192,6 +189,9 @@
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标
     bibata-cursors
+
+    jetbrains.clion
+    feishu
 
     # --- NUR ---
     nur.repos.xddxdd.baidunetdisk

@@ -179,6 +179,7 @@
       nodePackages.typescript-language-server
 
       jetbrains.clion
+      feishu
     ];
   };
 

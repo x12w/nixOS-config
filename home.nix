@@ -192,6 +192,7 @@
 
     jetbrains.clion
     feishu
+    zerotierone
 
     # --- NUR ---
     nur.repos.xddxdd.baidunetdisk

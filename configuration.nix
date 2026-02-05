@@ -311,6 +311,10 @@ let
   # 开启显卡支持
   hardware.nvidia-container-toolkit.enable = true;
 
+  # zerotier
+  services.zerotierone.enable = true;
+  networking.firewall.allowedUDPPorts = [ 9993 ];
+
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc

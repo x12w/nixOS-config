@@ -217,13 +217,6 @@ let
   package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  environment.variables = {
-    # 彻底解决你遇到的 Tauri/WebKitGTK 协议错误
-    WEBKIT_DISABLE_DMABUF_RENDERER = "1";
-    # 确保 NVIDIA 显卡在 EGL 下被正确识别
-    __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.nvidia-vaapi-driver}/share/glvnd/egl_vendor.d/10_nvidia.json";
-  };
-
   hardware.nvidia.prime = {
   nvidiaBusId = "PCI:1:0:0";
   amdgpuBusId = "PCI:0:2:0";

@@ -193,6 +193,7 @@
     jetbrains.clion
     feishu
     zerotierone
+    vlc
 
     # --- NUR ---
     nur.repos.xddxdd.baidunetdisk

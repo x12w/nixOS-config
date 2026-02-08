@@ -237,6 +237,7 @@ let
     vscode
     fastfetch
     blueman
+    nvtopPackages.nvidia
 
     # --- Rust ---
     rustc

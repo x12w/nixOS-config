@@ -78,6 +78,12 @@
         defaultBranch = "main";
       };
     };
+
+    extraConfig = {
+    safe = {
+      directory = "/etc/nixos";
+    };
+  };
   };
 
   programs.zoxide = {
@@ -141,7 +147,6 @@
       # 基础工具
       ripgrep
       fd
-      git
       lua-language-server
 
       # 语言服务器 (LSP)

@@ -191,6 +191,7 @@
     fastfetch
     blueman
     nvtopPackages.nvidia
+    wineWowPackages.stagingFull
 
     # --- Rust ---
     rustc

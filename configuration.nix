@@ -298,10 +298,7 @@
   };
 
   # Steam 需要 32 位图形驱动才能运行
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
+  hardware.graphics.enable32Bit = true;
 
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;

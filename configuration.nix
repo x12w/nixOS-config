@@ -287,14 +287,10 @@
 
   programs.steam = {
     enable = true;
-    # 为 Steam 远程乐（Remote Play）开启防火墙端口
+    # 为 Steam 远程开启防火墙端口
     remotePlay.openFirewall = true; 
     # 为专用服务器开启防火墙端口
     dedicatedServer.openFirewall = true; 
-    # 强制 Steam 使用它自己的运行时（提高兼容性）
-    package = pkgs.steam.override {
-      withJava = true; # 某些需要 Java 的 Mod
-    };
   };
 
   # Steam 需要 32 位图形驱动才能运行

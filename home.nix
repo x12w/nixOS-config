@@ -185,7 +185,7 @@
     fzf
     zoxide
     peazip
-    bottles
+    (bottles.override { removeWarningPopup = true; })
     lutris
     protonplus
 

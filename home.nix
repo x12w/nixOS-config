@@ -194,6 +194,7 @@
     feishu
     zerotierone
     vlc
+    steam
 
     # --- NUR ---
     nur.repos.xddxdd.baidunetdisk

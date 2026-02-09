@@ -4,53 +4,6 @@
 
 { config, pkgs, lib, ... }:
 
-let
-  # 手动定义最新版 daed 软件包
-  daed-latest = pkgs.stdenv.mkDerivation rec {
-    pname = "daed";
-    version = "1.23.0"; # 在此指定你想要的精确版本
-
-    # 直接从 GitHub Releases 下载预编译的二进制压缩包
-    src = pkgs.fetchurl {
-      url = "https://github.com/daeuniverse/daed/releases/download/v${version}/daed-linux-x86_64.zip";
-      # 先填这个占位符，执行构建时 Nix 会报错并给出正确的 hash
-      hash = "sha256-PmoNZ5QNSK8YqKPd3oFon3+BjfEc+47J+TAWFre0RBY=";
-    };
-
-    nativeBuildInputs = [
-      pkgs.unzip
-      pkgs.autoPatchelfHook
-    ];
-
-    buildInputs = [ pkgs.stdenv.cc.cc.lib ];
-
-    dontBuild = true;
-    dontConfigure = true;
-
-    # 核心修正：直接拷贝那个带有平台后缀的二进制文件并重命名
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/bin
-
-      # 根据 ls 日志，文件名就是这个：
-      if [ -f "daed-linux-x86_64" ]; then
-        cp daed-linux-x86_64 $out/bin/daed
-      else
-        echo "仍在尝试搜索二进制文件..."
-        find . -type f -executable -exec cp {} $out/bin/daed \;
-      fi
-
-      chmod +x $out/bin/daed
-      runHook postInstall
-    '';
-
-    meta = {
-      mainProgram = "daed";
-      description = "A modern web dashboard for dae";
-      homepage = "https://github.com/daeuniverse/daed";
-    };
-  };
-  in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -282,8 +235,6 @@ let
   #代理
   services.daed = {
     enable = true;
-    # 使用上面定义的最新版包
-    package = daed-latest;
 
     openFirewall = {
       enable = true;
@@ -292,7 +243,6 @@ let
   };
 
   services.v2raya.enable = false;
-
 
 
   #启用flatpak
@@ -341,7 +291,7 @@ let
   networking.firewall = {
   enable = true;
   # 必须信任 tun 接口，否则流量无法流转
-  trustedInterfaces = [ "tun0" ];
+  # trustedInterfaces = [ "tun0" ];
   };
 
     i18n.inputMethod = {

@@ -192,6 +192,7 @@
     blueman
     nvtopPackages.nvidia
     wineWowPackages.stagingFull
+    winetricks
 
     # --- Rust ---
     rustc

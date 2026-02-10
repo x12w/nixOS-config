@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # 注意：用户名和 homeDirectory 必须正确
@@ -9,6 +9,7 @@
   programs.home-manager.enable = true;
 
   # Starship 配置
+  stylix.targets.starship.enable = false;
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
@@ -90,6 +91,8 @@
     enable = true;
     enableZshIntegration = true; # 自动关联已有的 Zsh 配置
   };
+
+  stylix.targets.vscode.enable = false;
 
   programs.vscode = {
     enable = true;
@@ -195,7 +198,7 @@
     protonplus
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
-    catppuccin-papirus-folders # 提供配套图标
+    # catppuccin-papirus-folders # 提供配套图标
     bibata-cursors
 
     jetbrains.clion
@@ -218,6 +221,7 @@
     kvantum.apply = true;
   };
 
+  /*
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Ice"; # 可选: Bibata-Modern-Amber, Bibata-Modern-Classic 等
@@ -225,14 +229,15 @@
     gtk.enable = true;
     x11.enable = true;
   };
+  */
 
   qt = {
     enable = true;
-    platformTheme.name = "kvantum";
-    style.name = "kvantum";
+    platformTheme.name = lib.mkForce "kvantum";
+    style.name = lib.mkForce "kvantum";
   };
 
-
+  stylix.targets.qt.enable = false;
 
   programs.kitty = {
     enable = true;
@@ -258,7 +263,7 @@
       hide_window_decorations = "no";
 
       # 设置背景透明度（配合你的 NVIDIA 驱动和 Plasma 合成器 [cite: 53]）
-      background_opacity = "0.95";
+      # background_opacity = "0.95";
     };
   };
 }

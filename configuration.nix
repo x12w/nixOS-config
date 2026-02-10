@@ -121,6 +121,8 @@
       sarasa-gothic
       nerd-fonts.jetbrains-mono
       wqy_zenhei
+      corefonts
+      vista-fonts
     ];
 
     fontconfig.defaultFonts = {

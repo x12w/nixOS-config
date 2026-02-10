@@ -258,51 +258,6 @@ in
     plymouth.enable = true;
   };
 
-  stylix = {
-    enable = true;
-
-    # 1. 基础壁纸：Stylix 必须有一张壁纸作为取色参考
-    image = ./pictures/wallpaper.png;
-
-    # 2. 配色方案：直接使用 Catppuccin Mocha 的 Base16 模板
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-
-    # 3. 极速统一光标与字体 (会同步应用到所有桌面环境和终端)
-    cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 24;
-    };
-
-    fonts = {
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
-      };
-      serif = {
-        package = pkgs.noto-fonts-cjk-sans;
-        name = "Noto Serif CJK SC";
-      };
-      sansSerif = {
-        package = pkgs.noto-fonts-cjk-sans;
-        name = "Noto Sans CJK SC";
-      };
-      sizes = {
-        applications = 12;
-        terminal = 14;
-      };
-    };
-
-    # 4. 自动美化程度调节
-    opacity.terminal = 0.8; # 为终端开启一点透明度，很有高级感
-
-    # 禁用
-    targets = {
-      grub.enable = false;
-      plymouth.enable = false;
-    };
-  };
-
   #系统服务
 
   #开启蓝牙硬件支持
@@ -337,28 +292,6 @@ in
   # zerotier
   services.zerotierone.enable = true;
   networking.firewall.allowedUDPPorts = [ 9993 ];
-
-  services.kmscon = {
-    enable = true;
-
-    # 开启硬件加速渲染，这会让滚动更加平滑
-    hwRender = true;
-
-    # 配置使用的字体包
-    fonts = [
-      {
-        name = "JetBrainsMono Nerd Font";
-        package = pkgs.nerd-fonts.jetbrains-mono;
-      }
-    ];
-
-    # 额外的配置选项
-    extraConfig = ''
-      # 设置光标样式为下划线
-      xkb-layout=us
-      palette=solarized
-    '';
-  };
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

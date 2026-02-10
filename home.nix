@@ -9,7 +9,6 @@
   programs.home-manager.enable = true;
 
   # Starship 配置
-  stylix.targets.starship.enable = false;
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
@@ -91,8 +90,6 @@
     enable = true;
     enableZshIntegration = true; # 自动关联已有的 Zsh 配置
   };
-
-  stylix.targets.vscode.enable = false;
 
   programs.vscode = {
     enable = true;
@@ -198,7 +195,7 @@
     protonplus
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
-    # catppuccin-papirus-folders # 提供配套图标
+    catppuccin-papirus-folders # 提供配套图标
     bibata-cursors
 
     jetbrains.clion
@@ -236,8 +233,6 @@
     platformTheme.name = lib.mkForce "kvantum";
     style.name = lib.mkForce "kvantum";
   };
-
-  stylix.targets.qt.enable = false;
 
   programs.kitty = {
     enable = true;

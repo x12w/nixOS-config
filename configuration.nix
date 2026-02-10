@@ -4,6 +4,28 @@
 
 { config, pkgs, lib, ... }:
 
+let
+  # 定义本地字体路径
+  fontPath = ./winFont;
+
+  # 创建一个条件化的字体包
+  myWinFonts = if (builtins.pathExists fontPath) then
+    pkgs.stdenv.mkDerivation {
+      pname = "local-win-fonts";
+      version = "1.0";
+      src = fontPath;
+
+      # 避免在没有字体文件时报错
+      installPhase = ''
+        mkdir -p $out/share/fonts/truetype
+        # 查找所有 ttf 和 ttc 文件并拷贝，如果没有则不操作
+        find . -maxdepth 1 -type f \( -name "*.[tT][tT][cC]" -o -name "*.[tT][tT][fF]" \) -exec cp {} $out/share/fonts/truetype/ \;
+      '';
+    }
+  else
+    null; # 如果目录不存在，返回空
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -123,7 +145,7 @@
       wqy_zenhei
       corefonts
       vista-fonts
-    ];
+    ] ++ (if myWinFonts != null then [ myWinFonts ] else []);
 
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif CJK SC" ];

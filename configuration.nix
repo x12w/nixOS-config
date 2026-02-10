@@ -195,6 +195,7 @@
     nvtopPackages.nvidia
     wineWowPackages.stagingFull
     winetricks
+    zip
 
     # --- Rust ---
     rustc

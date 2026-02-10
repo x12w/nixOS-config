@@ -25,7 +25,7 @@ let
       tar -xzf $src
 
       # 递归查找解压出来的所有 ttf 和 ttc 文件并拷贝
-      # 这样即使你打包时包含了子文件夹也没关系
+      # 这样即使打包时包含了子文件夹也没关系
       find . -type f \( -name "*.[tT][tT][cC]" -o -name "*.[tT][tT][fF]" \) -exec cp {} $out/share/fonts/truetype/ \;
     '';
   };
@@ -58,6 +58,8 @@ in
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 
   networking.hostName = "x12w-nix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -335,6 +337,28 @@ in
   # zerotier
   services.zerotierone.enable = true;
   networking.firewall.allowedUDPPorts = [ 9993 ];
+
+  services.kmscon = {
+    enable = true;
+
+    # 开启硬件加速渲染，这会让滚动更加平滑
+    hwRender = true;
+
+    # 配置使用的字体包
+    fonts = [
+      {
+        name = "JetBrainsMono Nerd Font";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+      }
+    ];
+
+    # 额外的配置选项
+    extraConfig = ''
+      # 设置光标样式为下划线
+      xkb-layout=us
+      palette=solarized
+    '';
+  };
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

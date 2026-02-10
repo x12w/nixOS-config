@@ -5,25 +5,30 @@
 { config, pkgs, lib, ... }:
 
 let
-  # 定义本地字体路径
-  fontPath = ./winFont;
+  myWinFonts = pkgs.stdenv.mkDerivation {
+    pname = "local-win-fonts";
+    version = "1.0";
 
-  # 创建一个条件化的字体包
-  myWinFonts = if (builtins.pathExists fontPath) then
-    pkgs.stdenv.mkDerivation {
-      pname = "local-win-fonts";
-      version = "1.0";
-      src = fontPath;
+    src = pkgs.requireFile {
+      name = "winFonts.tar.gz";
+      # 使用你刚才得到的哈希值
+      sha256 = "1srdmk7fyjh1qxdf9lchf3wjfiv0za9i4nwzvf84ir6z4nj58xx1";
+      url = "手动生成的字体包";
+    };
 
-      # 避免在没有字体文件时报错
-      installPhase = ''
-        mkdir -p $out/share/fonts/truetype
-        # 查找所有 ttf 和 ttc 文件并拷贝，如果没有则不操作
-        find . -maxdepth 1 -type f \( -name "*.[tT][tT][cC]" -o -name "*.[tT][tT][fF]" \) -exec cp {} $out/share/fonts/truetype/ \;
-      '';
-    }
-  else
-    null; # 如果目录不存在，返回空
+    # 关键修改：跳过默认的解压阶段，我们在 installPhase 手动处理
+    unpackPhase = "true";
+
+    installPhase = ''
+      mkdir -p $out/share/fonts/truetype
+      # 手动解压到当前目录
+      tar -xzf $src
+
+      # 递归查找解压出来的所有 ttf 和 ttc 文件并拷贝
+      # 这样即使你打包时包含了子文件夹也没关系
+      find . -type f \( -name "*.[tT][tT][cC]" -o -name "*.[tT][tT][fF]" \) -exec cp {} $out/share/fonts/truetype/ \;
+    '';
+  };
 in
 
 {

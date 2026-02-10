@@ -318,6 +318,7 @@
       fcitx5.addons = with pkgs; [
         fcitx5-rime          # Rime 鼠须管
         qt6Packages.fcitx5-chinese-addons # 包含拼音、五笔等基础插件
+        qt6Packages.fcitx5-configtool
         fcitx5-gtk           # GTK 程序的兼容层
         fcitx5-lua           # 扩展支持
       ];

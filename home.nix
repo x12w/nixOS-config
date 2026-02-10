@@ -60,8 +60,10 @@
 
   # 设置输入法环境变量
   home.sessionVariables = {
-  GTK_IM_MODULE = ""; # 对应 configuration.nix 中的 lib.mkForce ""
-  QT_IM_MODULE = "";
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+    SDL_IM_MODULE = "fcitx";
   };
 
   # 配置git
@@ -77,13 +79,11 @@
       init = {
         defaultBranch = "main";
       };
-    };
 
-    extraConfig = {
-    safe = {
-      directory = "/etc/nixos";
+      safe = {
+        directory = "/etc/nixos";
+      };
     };
-  };
   };
 
   programs.zoxide = {

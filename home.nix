@@ -197,6 +197,7 @@
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标
     bibata-cursors
+    layan-gtk-theme
 
     jetbrains.clion
     feishu
@@ -232,6 +233,19 @@
     enable = true;
     platformTheme.name = lib.mkForce "kvantum";
     style.name = lib.mkForce "kvantum";
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = lib.mkForce "Layan-Dark";
+      package = lib.mkForce pkgs.layan-gtk-theme;
+    };
+
+    iconTheme = {
+      name = lib.mkForce "Tela-dark";
+      package = lib.mkForce pkgs.tela-icon-theme;
+    };
   };
 
   programs.kitty = {

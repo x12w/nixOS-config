@@ -67,8 +67,10 @@ in
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  #networking.proxy.default = "http://127.0.0.1:7897";
+  # networking.proxy.default = "http://127.0.0.1:7897";
 
+  # 固件
+  hardware.enableRedistributableFirmware = true;
   # Enable networking
   networking.networkmanager.enable = true;
 

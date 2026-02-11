@@ -229,6 +229,7 @@ in
     lutris
     protonplus
     hmcl
+    kdePackages.plasma-browser-integration
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标

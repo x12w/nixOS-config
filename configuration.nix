@@ -167,7 +167,7 @@ in
   users.users.x12w = {
     isNormalUser = true;
     description = "x12w";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -225,6 +225,11 @@ in
     wineWowPackages.stagingFull
     winetricks
     zip
+
+    # --- kvm ---
+    spice-gtk         # 增强剪贴板共享和屏幕缩放
+    virt-viewer       # 远程查看器
+    bridge-utils      # 桥接网络工具
 
     # --- Rust ---
     rustc
@@ -292,6 +297,20 @@ in
   # zerotier
   services.zerotierone.enable = true;
   networking.firewall.allowedUDPPorts = [ 9993 ];
+
+  # kvm
+  virtualisation.libvirtd = {
+    enable = true;
+    # 启用 UEFI 支持 (用于运行 Windows 11 或现代 Linux)
+    qemu = {
+      package = pkgs.qemu_kvm;
+      # NVIDIA 显卡硬件加速
+      swtpm.enable = true; # 模拟 TPM，Windows 11 必需
+    };
+  };
+
+  # 启用 virt-manager 图形界面
+  programs.virt-manager.enable = true;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

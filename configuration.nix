@@ -227,6 +227,7 @@ in
     wineWowPackages.stagingFull
     winetricks
     zip
+    docker-compose
 
     # --- kvm ---
     spice-gtk         # 增强剪贴板共享和屏幕缩放

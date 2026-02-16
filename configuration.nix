@@ -57,7 +57,7 @@ in
   boot.loader.efi.canTouchEfiVariables = false;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 

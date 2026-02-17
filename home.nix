@@ -220,6 +220,8 @@ in
     ];
   };
 
+  programs.tmux.enable = true;
+
   home.packages = with pkgs; [
     eza
     fzf
@@ -258,7 +260,6 @@ in
     kvantum.apply = false;
   };
 
-  /*
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Ice"; # 可选: Bibata-Modern-Amber, Bibata-Modern-Classic 等
@@ -266,7 +267,6 @@ in
     gtk.enable = true;
     x11.enable = true;
   };
-  */
 
   qt = {
     enable = true;
@@ -310,8 +310,8 @@ in
       # 隐藏标题栏（在 KDE 下配合 Kvantum 效果更佳）
       hide_window_decorations = "no";
 
-      # 设置背景透明度（配合你的 NVIDIA 驱动和 Plasma 合成器 [cite: 53]）
-      # background_opacity = "0.95";
+      # 设置背景透明度（配合 NVIDIA 驱动和 Plasma 合成器）
+      background_opacity = "0.80";
     };
   };
 }

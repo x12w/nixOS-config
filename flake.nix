@@ -11,9 +11,10 @@
     };
     catppuccin.url = "github:catppuccin/nix/release-25.11";
     nur.url = "github:nix-community/NUR";
+    # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, nur,  ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -40,6 +41,8 @@
         }
 
         catppuccin.nixosModules.catppuccin
+
+        # easyconnect-flake.nixosModules.default
 
         { nixpkgs.overlays = [ nur.overlays.default ]; }
       ];

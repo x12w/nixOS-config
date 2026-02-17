@@ -352,6 +352,8 @@ in
   # Steam 需要 32 位图形驱动才能运行
   hardware.graphics.enable32Bit = true;
 
+  # programs.easyconnect.enable = true;
+
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
     "net.ipv4.conf.all.forwarding" = 1;
@@ -390,12 +392,17 @@ in
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
   services.openssh = {
-  enable = true;
-  settings = {
-    PasswordAuthentication = true; # 启用密码登录
-    PermitRootLogin = "no";        # 禁止 root 直接登录
+    enable = true;
+    settings = {
+      PasswordAuthentication = true; # 启用密码登录
+      PermitRootLogin = "no";        # 禁止 root 直接登录
+    };
   };
-};
+
+  # 环境变量
+  environment.variables = {
+    TMUX_TMPDIR = "/tmp";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

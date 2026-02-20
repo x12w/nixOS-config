@@ -228,6 +228,7 @@ in
     winetricks
     zip
     docker-compose
+    distrobox
 
     # --- kvm ---
     spice-gtk         # 增强剪贴板共享和屏幕缩放
@@ -296,6 +297,9 @@ in
   virtualisation.docker.enable = true;
   # 开启显卡支持
   hardware.nvidia-container-toolkit.enable = true;
+
+  # ubuntu 容器
+  virtualisation.podman.enable = true;
 
   # zerotier
   services.zerotierone.enable = true;

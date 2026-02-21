@@ -169,7 +169,7 @@ in
   users.users.x12w = {
     isNormalUser = true;
     description = "x12w";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -355,6 +355,9 @@ in
 
   # Steam 需要 32 位图形驱动才能运行
   hardware.graphics.enable32Bit = true;
+
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
 
   # programs.easyconnect.enable = true;
 

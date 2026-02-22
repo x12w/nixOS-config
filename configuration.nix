@@ -230,6 +230,7 @@ in
     docker-compose
     distrobox
     direnv
+    nil
 
     # --- kvm ---
     spice-gtk         # 增强剪贴板共享和屏幕缩放

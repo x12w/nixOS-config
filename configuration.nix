@@ -254,6 +254,9 @@ in
     # --- Java ---
     jdk
     maven
+    jdk8
+    jdk17
+    jdk21
 
     # --- Python ---
     python3
@@ -340,6 +343,11 @@ in
 
   programs.zsh = {
   enable = true;
+  };
+
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk17; # 设置系统默认版本
   };
 
   programs.obs-studio = {

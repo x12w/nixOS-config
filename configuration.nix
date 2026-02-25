@@ -264,6 +264,13 @@ in
     python3Packages.black
   ];
 
+  # 配置固定路径映射
+  environment.etc = {
+    "jdk8".source = pkgs.jdk8;
+    "jdk17".source = pkgs.jdk17;
+    "jdk21".source = pkgs.jdk21;
+  };
+
   catppuccin = {
     flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
     accent = "blue";

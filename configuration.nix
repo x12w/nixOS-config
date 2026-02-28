@@ -61,6 +61,8 @@ in
 
   boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 
+  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+
   networking.hostName = "x12w-nix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

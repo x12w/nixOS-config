@@ -291,7 +291,7 @@ in
 
   #代理
   services.daed = {
-    enable = false;
+    enable = true;
 
     openFirewall = {
       enable = true;
@@ -349,12 +349,6 @@ in
     autoStart = false;
   };
 */
-
-  programs.throne = {
-  enable = true;
-  package = pkgs.throne;
-  tunMode.enable = true;
-  };
 
   programs.zsh = {
   enable = true;

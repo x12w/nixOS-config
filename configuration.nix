@@ -132,6 +132,45 @@ in
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly"; # 每周执行一次
+    fileSystems = [ "/" ]; # 你的 Btrfs 挂载点
+  };
+
+  services.snapper = {
+    snapshotInterval = "hourly";
+    cleanupInterval = "daily";
+    
+    configs = {
+      root = {
+        SUBVOLUME = "/";
+        ALLOW_USERS = [ "x12w" ];
+        TIMELINE_CREATE = true;
+        TIMELINE_CLEANUP = true;
+        # 迁移后的新写法：直接写成属性
+        TIMELINE_LIMIT_HOURLY = 10;
+        TIMELINE_LIMIT_DAILY = 5;
+        TIMELINE_LIMIT_WEEKLY = 0;
+        TIMELINE_LIMIT_MONTHLY = 0;
+        TIMELINE_LIMIT_YEARLY = 0;
+      };
+
+      home = {
+        SUBVOLUME = "/home";
+        ALLOW_USERS = [ "x12w" ];
+        TIMELINE_CREATE = true;
+        TIMELINE_CLEANUP = true;
+        # 迁移后的新写法
+        TIMELINE_LIMIT_HOURLY = 5;
+        TIMELINE_LIMIT_DAILY = 3;
+        TIMELINE_LIMIT_WEEKLY = 0;
+        TIMELINE_LIMIT_MONTHLY = 0;
+        TIMELINE_LIMIT_YEARLY = 0;
+      };
+    };
+  };
+
   #镜像源设置
   nix.settings = {
     substituters = lib.mkForce [
@@ -233,6 +272,10 @@ in
     distrobox
     direnv
     nil
+    btrfs-progs # 核心工具 (通常已内置)
+    btdu        # Btrfs 磁盘空间分析器 (非常牛，能看到压缩后的真实占用)
+    btrfs-assistant # 图形化管理界面 (如果你想要 GUI 控制 Snapper)
+    snapper
 
     # --- kvm ---
     spice-gtk         # 增强剪贴板共享和屏幕缩放

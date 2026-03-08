@@ -7,26 +7,26 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./config/hardware-configuration.nix
 
-      ./programs/enable_only
-      ./programs/enable_and_config
+      ./config/programs/enable_only
+      ./config/programs/enable_and_config
 
-      ./services/enable_only
-      ./services/enable_and_config
+      ./config/services/enable_only
+      ./config/services/enable_and_config
 
-      ./fonts
+      ./config/fonts
 
-      ./hardware/nvidia
-      ./hardware/firmware
-      ./hardware/network
-      ./hardware/bluetooth
+      ./config/hardware/nvidia
+      ./config/hardware/firmware
+      ./config/hardware/network
+      ./config/hardware/bluetooth
 
-      ./boot
+      ./config/boot
 
-      ./users/x12w
+      ./config/users/x12w
 
-      ./i18n
+      ./config/i18n
     ];
 
 

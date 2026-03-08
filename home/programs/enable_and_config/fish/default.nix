@@ -11,10 +11,15 @@
 
     # 别名设置（如果你之前在 Bash 里有，可以挪过来）
     shellAliases = {
-      ll = "ls -l";
       rebuild = "sudo nixos-rebuild switch --flake .#x12w-nix";
       # 刚才讨论的快捷快照命令也可以放这
       snap = "sudo snapper -c root create --description 'Manual'";
+
+      ls = "eza --icons";
+      # ll 显示详细信息、图标、Git 状态
+      ll = "eza -lh --icons --git";
+      # lt 显示文件夹树状图
+      lt = "eza --tree --icons";
     };
 
     # 插件：推荐几个常用的

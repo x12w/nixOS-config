@@ -4,6 +4,7 @@
   imports = [
     ./starship
     ./fish
+    ./eza
   ];
 
   # 开启 Zsh

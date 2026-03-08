@@ -5,6 +5,7 @@
     ./starship
     ./fish
     ./eza
+    ./bat
   ];
 
   # 开启 Zsh

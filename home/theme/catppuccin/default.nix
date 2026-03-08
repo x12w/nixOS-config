@@ -8,5 +8,6 @@
     fcitx5.enable = true;
     kvantum.enable = true;
     kvantum.apply = false;
+    bat.enable = true;
   };
 }

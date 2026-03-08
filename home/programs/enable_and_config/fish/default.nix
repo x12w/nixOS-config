@@ -20,6 +20,8 @@
       ll = "eza -lh --icons --git";
       # lt 显示文件夹树状图
       lt = "eza --tree --icons";
+
+      cat = "bat";
     };
 
     # 插件：推荐几个常用的

@@ -18,6 +18,7 @@
     kdePackages.plasma-browser-integration
     libreoffice-qt-fresh
     prismlauncher
+    grc
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标

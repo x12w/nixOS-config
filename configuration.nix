@@ -2,174 +2,37 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
-
-let
-  myWinFonts = pkgs.stdenv.mkDerivation {
-    pname = "local-win-fonts";
-    version = "1.0";
-
-    src = pkgs.requireFile {
-      name = "winFonts.tar.gz";
-      # 使用你刚才得到的哈希值
-      sha256 = "1srdmk7fyjh1qxdf9lchf3wjfiv0za9i4nwzvf84ir6z4nj58xx1";
-      url = "手动生成的字体包";
-    };
-
-    # 关键修改：跳过默认的解压阶段，我们在 installPhase 手动处理
-    unpackPhase = "true";
-
-    installPhase = ''
-      mkdir -p $out/share/fonts/truetype
-      # 手动解压到当前目录
-      tar -xzf $src
-
-      # 递归查找解压出来的所有 ttf 和 ttc 文件并拷贝
-      # 这样即使打包时包含了子文件夹也没关系
-      find . -type f \( -name "*.[tT][tT][cC]" -o -name "*.[tT][tT][fF]" \) -exec cp {} $out/share/fonts/truetype/ \;
-    '';
-  };
-in
+{ pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
+      ./programs/enable_only
+      ./programs/enable_and_config
+
+      ./services/enable_only
+      ./services/enable_and_config
+
+      ./fonts
+
+      ./hardware/nvidia
+      ./hardware/firmware
+      ./hardware/network
+      ./hardware/bluetooth
+
+      ./boot
+
+      ./users/x12w
+
+      ./i18n
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = false;
 
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev"; # 对于 EFI 模式，保持 nodev
 
-    # --removable ---
-    efiInstallAsRemovable = true;
-    # ------------------------------------
-
-    useOSProber = true; # 引导其它硬盘上的系统
-  };
-
-  boot.plymouth.enable = true;
-
-  boot.loader.efi.canTouchEfiVariables = false;
-
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
-
-  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-
-  networking.hostName = "x12w-nix"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  # networking.proxy.default = "http://127.0.0.1:7897";
-
-  # 固件
-  hardware.enableRedistributableFirmware = true;
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
+  # time zone.
   time.timeZone = "Asia/Shanghai";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "zh_CN.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "zh_CN.UTF-8";
-    LC_IDENTIFICATION = "zh_CN.UTF-8";
-    LC_MEASUREMENT = "zh_CN.UTF-8";
-    LC_MONETARY = "zh_CN.UTF-8";
-    LC_NAME = "zh_CN.UTF-8";
-    LC_NUMERIC = "zh_CN.UTF-8";
-    LC_PAPER = "zh_CN.UTF-8";
-    LC_TELEPHONE = "zh_CN.UTF-8";
-    LC_TIME = "zh_CN.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "cn";
-    variant = "";
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly"; # 每周执行一次
-    fileSystems = [ "/" ]; # 你的 Btrfs 挂载点
-  };
-
-  services.snapper = {
-    snapshotInterval = "hourly";
-    cleanupInterval = "daily";
-    
-    configs = {
-      root = {
-        SUBVOLUME = "/";
-        ALLOW_USERS = [ "x12w" ];
-        TIMELINE_CREATE = true;
-        TIMELINE_CLEANUP = true;
-        # 迁移后的新写法：直接写成属性
-        TIMELINE_LIMIT_HOURLY = 10;
-        TIMELINE_LIMIT_DAILY = 5;
-        TIMELINE_LIMIT_WEEKLY = 0;
-        TIMELINE_LIMIT_MONTHLY = 0;
-        TIMELINE_LIMIT_YEARLY = 0;
-      };
-
-      home = {
-        SUBVOLUME = "/home";
-        ALLOW_USERS = [ "x12w" ];
-        TIMELINE_CREATE = true;
-        TIMELINE_CLEANUP = true;
-        # 迁移后的新写法
-        TIMELINE_LIMIT_HOURLY = 5;
-        TIMELINE_LIMIT_DAILY = 3;
-        TIMELINE_LIMIT_WEEKLY = 0;
-        TIMELINE_LIMIT_MONTHLY = 0;
-        TIMELINE_LIMIT_YEARLY = 0;
-      };
-    };
-  };
 
   #镜像源设置
   nix.settings = {
@@ -183,141 +46,8 @@ in
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  fonts = {
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      wqy_zenhei
-      jetbrains-mono
-      sarasa-gothic
-      nerd-fonts.jetbrains-mono
-      wqy_zenhei
-      corefonts
-      vista-fonts
-    ] ++ (if myWinFonts != null then [ myWinFonts ] else []);
-
-    fontconfig.defaultFonts = {
-      serif = [ "Noto Serif CJK SC" ];
-      sansSerif = [ "Noto Sans CJK SC" ];
-      monospace = [ "Noto Sans Mono CJK SC" ];
-    };
-
-    fontDir.enable = true;
-  };
-
-
-  users.users.x12w = {
-    isNormalUser = true;
-    description = "x12w";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
-
-    shell = pkgs.zsh;
-  };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  hardware.graphics.enable = true;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.nvidia = {
-
-  modesetting.enable = true;
-
-  powerManagement.enable = true;
-
-  powerManagement.finegrained = false;
-
-  open = true;
-
-  nvidiaSettings = true;
-
-  # package = config.boot.kernelPackages.nvidiaPackages.stable;
-  package = 
-    config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "580.126.18";
-      sha256_64bit = "sha256-p3gbLhwtZcZYCRTHbnntRU0ClF34RxHAMwcKCSqatJ0="; 
-      sha256_aarch64 = "sha256-pruxWQlLurymRL7PbR24NA6dNowwwX35p6j9mBIDcNs=";
-      openSha256 = "sha256-1Q2wuDdZ6KiA/2L3IDN4WXF8t63V/4+JfrFeADI1Cjg=";
-      settingsSha256 = "sha256-QMx4rUPEGp/8Mc+Bd8UmIet/Qr0GY8bnT/oDN8GAoEI=";
-      persistencedSha256 = lib.fakeSha256;
-    };
-  
-  };
-
-  hardware.nvidia.prime = {
-  nvidiaBusId = "PCI:1:0:0";
-  amdgpuBusId = "PCI:0:2:0";
-
-  sync.enable = true;
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    google-chrome
-    wpsoffice-cn
-    qq
-    wechat-uos
-    vscode
-    fastfetch
-    blueman
-    nvtopPackages.nvidia
-    wineWowPackages.stagingFull
-    winetricks
-    zip
-    docker-compose
-    distrobox
-    direnv
-    nil
-    btrfs-progs # 核心工具 (通常已内置)
-    btdu        # Btrfs 磁盘空间分析器 (非常牛，能看到压缩后的真实占用)
-    btrfs-assistant # 图形化管理界面 (如果你想要 GUI 控制 Snapper)
-    snapper
-
-    # --- kvm ---
-    spice-gtk         # 增强剪贴板共享和屏幕缩放
-    virt-viewer       # 远程查看器
-    bridge-utils      # 桥接网络工具
-
-    # --- Rust ---
-    rustc
-    cargo
-
-    # --- Haskell ---
-    ghc
-    stack
-
-    # --- C/C++ ---
-    gcc
-    gdb
-    cmake
-    gnumake
-
-    # --- Java ---
-    jdk
-    maven
-    jdk8
-    jdk17
-    jdk21
-
-    # --- Python ---
-    python3
-    python3Packages.pip
-    python3Packages.black
-  ];
 
   # 配置固定路径映射
   environment.etc = {
@@ -326,175 +56,11 @@ in
     "jdk21".source = pkgs.jdk21;
   };
 
-  catppuccin = {
-    flavor = "mocha"; # 选择你喜欢的：latte, frappe, macchiato, mocha
-    accent = "blue";
-    enable = true;    # 这会尝试为所有支持的 program.* 开启主题
-    grub.enable = true;
-    plymouth.enable = true;
-  };
-
-  #系统服务
-
-  #开启蓝牙硬件支持
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-
-  services.blueman.enable = true;
-
-  #代理
-  services.daed = {
-    enable = true;
-
-    openFirewall = {
-      enable = true;
-      port = 12345;
-    };
-  };
-
-  services.v2raya.enable = false;
-
-
-  #启用flatpak
-  services.flatpak.enable = true;
-  # 让桌面环境（如 KDE/GNOME）能搜到 Flatpak 安装的软件图标
-  xdg.portal.enable = true;
-
-  # 开启 Docker
-  virtualisation.docker.enable = true;
-  # 开启显卡支持
-  hardware.nvidia-container-toolkit.enable = true;
-
-  # ubuntu 容器
-  virtualisation.podman.enable = true;
-
-  # zerotier
-  services.zerotierone.enable = true;
-  networking.firewall.allowedUDPPorts = [ 9993 ];
-
-  # kvm
-  virtualisation.libvirtd = {
-    enable = true;
-    # 启用 UEFI 支持 (用于运行 Windows 11 或现代 Linux)
-    qemu = {
-      package = pkgs.qemu_kvm;
-      # NVIDIA 显卡硬件加速
-      swtpm.enable = true; # 模拟 TPM，Windows 11 必需
-    };
-  };
-
-  # 启用 virt-manager 图形界面
-  programs.virt-manager.enable = true;
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc
-    zlib
-    # 如果插件报错找不到某些库，在这里添加
-  ];
-
-/*
-  programs.clash-verge = {
-    enable = true;
-    package = pkgs.clash-verge-rev;
-    tunMode = false;
-    serviceMode = false;
-    autoStart = false;
-  };
-*/
-
-  programs.zsh = {
-  enable = true;
-  };
-
-  programs.java = {
-    enable = true;
-    package = pkgs.jdk17; # 设置系统默认版本
-  };
-
-  programs.obs-studio = {
-    enable = true;
-    enableVirtualCamera = true;
-  };
-
-  programs.steam = {
-    enable = true;
-    # 为 Steam 远程开启防火墙端口
-    remotePlay.openFirewall = true; 
-    # 为专用服务器开启防火墙端口
-    dedicatedServer.openFirewall = true; 
-  };
-
-  # Steam 需要 32 位图形驱动才能运行
-  hardware.graphics.enable32Bit = true;
-
-  programs.wireshark.enable = true;
-  programs.wireshark.package = pkgs.wireshark;
-
-  # programs.easyconnect.enable = true;
-
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv4.conf.all.forwarding" = 1;
-    # 同样需要关闭反向路径过滤，防止内核丢弃 TUN 流量
-    "net.ipv4.conf.all.rp_filter" = 0;
-    "net.ipv4.conf.default.rp_filter" = 0;
-  };
-
-  networking.firewall = {
-  enable = true;
-  # 必须信任 tun 接口，否则流量无法流转
-  # trustedInterfaces = [ "tun0" ];
-  };
-
-    i18n.inputMethod = {
-      type = "fcitx5";
-      enable = true;
-      fcitx5.addons = with pkgs; [
-        fcitx5-rime          # Rime 鼠须管
-        qt6Packages.fcitx5-chinese-addons # 包含拼音、五笔等基础插件
-        fcitx5-gtk           # GTK 程序的兼容层
-        fcitx5-lua           # 扩展支持
-      ];
-    };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = true; # 启用密码登录
-      PermitRootLogin = "no";        # 禁止 root 直接登录
-    };
-  };
-
   # 环境变量
   environment.variables = {
     TMUX_TMPDIR = "/tmp";
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11";
 
 }

@@ -11,10 +11,15 @@
     };
     catppuccin.url = "github:catppuccin/nix/release-25.11";
     nur.url = "github:nix-community/NUR";
+
+    winfonts = {
+      url = "git+file:///etc/nixos/fonts/windows_fonts";
+      flake = false; # 告诉 Nix 这只是一个普通文件夹，里面没有 flake.nix
+    };
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nur,  ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, nur, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -26,6 +31,7 @@
         inputs.daeuniverse.nixosModules.daed
 
         home-manager.nixosModules.home-manager
+
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

@@ -183,11 +183,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1772902544,
-        "narHash": "sha256-N5LFijRtwwESGCPBrftYURSULJWxBbUpgYEJ8u4j5ek=",
+        "lastModified": 1772944592,
+        "narHash": "sha256-opPfY/XUZwMb4xBdRkFBkWTjbiVyX1fhAdGnOWNCcvk=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "9d48850b60abe11afaa0f1da39266561b8e63e9f",
+        "rev": "170172d41d464693e151b25edd534a172582dbf0",
         "type": "github"
       },
       "original": {
@@ -202,7 +202,24 @@
         "daeuniverse": "daeuniverse",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_3",
-        "nur": "nur"
+        "nur": "nur",
+        "winfonts": "winfonts"
+      }
+    },
+    "winfonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772945231,
+        "narHash": "sha256-nYuBDd+xltvH0hojtD1C64hut5AjoHCuTSjaXOZsF1g=",
+        "ref": "refs/heads/main",
+        "rev": "48aeec20e4a1c4e7e0c658f6ec3d1b359bebab33",
+        "revCount": 1,
+        "type": "git",
+        "url": "file:///etc/nixos/fonts/windows_fonts"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///etc/nixos/fonts/windows_fonts"
       }
     }
   },

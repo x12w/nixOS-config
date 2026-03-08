@@ -24,6 +24,7 @@
     btdu        # Btrfs 磁盘空间分析器 (非常牛，能看到压缩后的真实占用)
     btrfs-assistant # 图形化管理界面 (如果你想要 GUI 控制 Snapper)
     snapper
+    fish
 
     # --- kvm ---
     spice-gtk         # 增强剪贴板共享和屏幕缩放
@@ -61,6 +62,8 @@
   programs.virt-manager.enable = true;
 
   programs.zsh.enable = true;
+
+  programs.fish.enable = true;
 
   # programs.easyconnect.enable = true;
 }

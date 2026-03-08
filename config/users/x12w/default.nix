@@ -10,6 +10,6 @@
     #  thunderbird
     ];
 
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 }

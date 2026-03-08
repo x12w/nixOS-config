@@ -3,6 +3,7 @@
 {
   imports = [
     ./starship
+    ./fish
   ];
 
   # 开启 Zsh

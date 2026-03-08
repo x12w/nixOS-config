@@ -12,6 +12,8 @@
     ./home/theme/cursor
 
     ./home/dotfile
+
+    ./home/scripts/clear_conflict
   ];
 
 

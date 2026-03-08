@@ -27,6 +27,8 @@
       ./config/users/x12w
 
       ./config/i18n
+
+      ./config/scripts/snap_check
     ];
 
 

@@ -10,6 +10,8 @@
     ./home/theme/catppuccin
     ./home/theme/layan
     ./home/theme/cursor
+
+    ./home/dotfile
   ];
 
 

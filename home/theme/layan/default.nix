@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   # 定义自定义的 Layan KDE 派生
@@ -48,6 +48,7 @@ in
 
   gtk = {
     enable = true;
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     theme = {
       name = lib.mkForce "Layan-Dark";
       package = lib.mkForce pkgs.layan-gtk-theme;

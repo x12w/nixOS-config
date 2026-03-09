@@ -234,6 +234,6 @@ style = 'blue bold dimmed'
 symbol = '󰢱 '
 
 [os]
-disabled = true
+disabled = false
 format = '[$symbol]($style)]'
 symbols = { AIX = 'AIX ', AlmaLinux = ' ', Alpaquita = ' ', Alpine = ' ', Amazon = ' ', Android = ' ', Arch = ' ', Artix = ' ', Bluefin = ' ', CachyOS = ' ', CentOS = ' ', Debian = ' ', DragonFly = ' ', Emscripten = ' ', EndeavourOS = ' ', Fedora = ' ', FreeBSD = ' ', Garuda = ' ', Gentoo = ' ', HardenedBSD = ' ', Illumos = ' ', Kali = ' ', Linux = ' ', Mabox = ' ', Macos = ' ', Manjaro = ' ', Mariner = ' ', MidnightBSD = ' ', Mint = ' ', NetBSD = '󰛳 ', NixOS = ' ', Nobara = ' ', OpenBSD = ' ', OpenCloudOS = ' ', OracleLinux = ' ', Pop = ' ', Raspbian = ' ', RedHatEnterprise = ' ', Redhat = ' ', Redox = ' ', RockyLinux = ' ', SUSE = ' ', Solus = ' ', Ubuntu = ' ', Ultramarine = ' ', Unknown = ' ', Uos = 'U ', Void = '  ', Windows = ' ', openEuler = ' ', openSUSE = ' ' }

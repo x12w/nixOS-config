@@ -14,5 +14,7 @@
     # ./neovim
     ./kitty
     ./nixvim
+    ./yazi
+    ./lazygit
   ];
 }

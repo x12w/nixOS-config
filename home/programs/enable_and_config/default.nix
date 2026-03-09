@@ -11,7 +11,8 @@
     ./git
     ./zoxide
     ./vscode
-    ./neovim
+    # ./neovim
     ./kitty
+    ./nixvim
   ];
 }

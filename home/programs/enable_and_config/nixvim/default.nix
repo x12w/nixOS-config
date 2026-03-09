@@ -1,21 +1,21 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 
 {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
 
-    # --- 全局基础设置 ---
+    # --- 全局基础设置 (vim.opt) ---
     opts = {
-      number = true;           # 显示行号
-      relativenumber = true;   # 相对行号
-      shiftwidth = 2;          # 缩进宽度
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
       tabstop = 2;
-      expandtab = true;        # 使用空格代替制表符
+      expandtab = true;
       smartindent = true;
-      termguicolors = true;    # 开启真彩色
-      mouse = "a";             # 开启鼠标支持
-      clipboard = "unnamedplus"; # 使用系统剪贴板
+      termguicolors = true;
+      mouse = "a";
+      clipboard = "unnamedplus";
     };
 
     # --- 皮肤与视觉 ---
@@ -24,21 +24,38 @@
       settings.flavour = "mocha";
     };
 
+    # --- 插件配置 (plugins) ---
     plugins = {
-      # 状态栏与标签页
+      web-devicons.enable = true;
       lualine.enable = true;
       bufferline.enable = true;
-      # 文件树与模糊搜索
       nvim-tree.enable = true;
       telescope.enable = true;
-      # 语法高亮 (Treesitter 会自动安装对应的语法解析器)
+
+      # 快速双击 j 退出插入模式
+      better-escape = {
+        enable = true;
+        settings = {
+          timeout = 200;
+          default_mappings = false;
+          mappings = {
+            i = {
+              j = {
+                j = "<Esc>";
+              };
+            };
+          };
+        };
+      };
+
+      # 语法高亮
       treesitter = {
         enable = true;
         nixGrammars = true;
         settings.highlight.enable = true;
       };
 
-      # --- 自动补全 (Autocomplete) ---
+      # 自动补全
       cmp = {
         enable = true;
         autoEnableSources = true;
@@ -57,34 +74,27 @@
         };
       };
 
-      # --- LSP 核心配置  ---
+      # LSP 核心配置
       lsp = {
         enable = true;
         servers = {
-          # 1. Nix 
           nil_ls.enable = true;
-          # 2. Rust
           rust_analyzer = {
             enable = true;
             installCargo = true;
             installRustc = true;
           };
-          # 3. Python
           pyright.enable = true;
-          # 4. C / C++
           clangd.enable = true;
-          # 5. Go
           gopls.enable = true;
-          # 6. Web (TS, JS, HTML, CSS)
-          ts_ls.enable = true; # 旧称 tsserver
+          ts_ls.enable = true;
           html.enable = true;
           cssls.enable = true;
-          # 7. Lua 
           lua_ls.enable = true;
         };
       };
 
-      # --- 自动格式化 (Format on Save) ---
+      # 自动格式化
       conform-nvim = {
         enable = true;
         settings = {
@@ -101,29 +111,14 @@
           };
         };
       };
+    }; # plugins 结束
 
-    plugins.better-escape = {
-      enable = true;
-      settings = {
-        timeout = 200; # 这里的超时独立于全局 timeoutlen
-        default_mappings = false; # 禁用默认的 jk 映射，我们要自定义
-        mappings = {
-          i = {
-            j = {
-              j = "<Esc>"; # 只有双击 j 才会退出
-            };
-          };
-        };
-      };
-    };
-    };
-
-    # --- 常用快捷键 ---
+    # --- 常用快捷键 (keymaps 属于 programs.nixvim 的直接子项) ---
     keymaps = [
       { mode = "n"; key = "<leader>e"; action = "<cmd>NvimTreeToggle<CR>"; }
       { mode = "n"; key = "<leader>ff"; action = "<cmd>Telescope find_files<CR>"; }
-      { mode = "n"; key = "gd"; action = "lua vim.lsp.buf.definition()"; } # 跳转定义
-      { mode = "n"; key = "K"; action = "lua vim.lsp.buf.hover()"; }      # 查看文档说明
+      { mode = "n"; key = "gd"; action = "lua vim.lsp.buf.definition()"; }
+      { mode = "n"; key = "K"; action = "lua vim.lsp.buf.hover()"; }
     ];
-  };
-};
+  }; # programs.nixvim 结束
+} # 整个大括号结束

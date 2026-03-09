@@ -1,7 +1,13 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 
 {
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      mesa
+    ];
+  };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 

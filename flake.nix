@@ -16,10 +16,20 @@
       url = "git+file:///etc/nixos/config/fonts/windows_fonts";
       flake = false; # 告诉 Nix 这只是一个普通文件夹，里面没有 flake.nix
     };
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, nur, dms, dgop, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

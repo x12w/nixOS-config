@@ -3,6 +3,8 @@
 {
   imports = [
     ./catppuccin
+    ./niri
+    ./dms
   ];
 
   programs.nix-ld.enable = true;

@@ -19,12 +19,16 @@
     libreoffice-qt-fresh
     prismlauncher
     grc
+    adwaita-icon-theme
 
     catppuccin-kde          # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标
     bibata-cursors
     layan-gtk-theme
     libsForQt5.qtstyleplugin-kvantum
+    kdePackages.qtsvg
+    kdePackages.kimageformats
+
 
     jetbrains.clion
     feishu

@@ -1,6 +1,6 @@
 # NixOS 系统从零构建指南 (x12w-nix)
 
-本指南旨在指导如何从零开始使用此配置重建系统 。该配置基于 **NixOS Unstable** 分支，集成了 **KDE Plasma 6** 、**NVIDIA 显卡驱动** 、**开发工具链** 以及 **Catppuccin** 个性化主题 。
+本指南旨在指导如何从零开始使用此配置重建系统 。该配置基于 **NixOS main** 分支，集成了 **KDE Plasma 6** 、**NVIDIA 显卡驱动** 、**开发工具链** 以及 **Catppuccin** 个性化主题 。
 
 ## 1. 基础环境准备
 
@@ -55,19 +55,11 @@ nix.settings.substituters = lib.mkForce [
 
 ### A. Windows 字体预加载 (版权避让)
 
-由于版权原因，Windows 字体（`winFonts.tar.gz`）不通过 Git 跟踪，也不从网络下载 。
+由于版权原因，Windows 字体不通过 Git 跟踪，也不从网络下载 。
 
-1. 确保你本地已打包好字体：`tar -czf winFonts.tar.gz -C ./winFont .`
-2. 执行以下命令将其手动导入 Nix Store ：
+1. 将本地字体存放至config/fonts/windows_fonts目录下并创建git存储库，在主仓库创建.gitignore文件:config/fonts/windows_fonts来屏蔽此仓库
+2. 执行nix flake update更新flake
 
-
-```bash
-nix-prefetch-url --name winFonts.tar.gz file:///path/to/your/winFonts.tar.gz
-
-```
-
-
-*注意：导入后的哈希值必须与配置文件中 `myWinFonts` 定义的 `sha256` 保持一致。*
 
 ### B. VSCode 插件认证问题
 

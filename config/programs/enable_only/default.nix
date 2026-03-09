@@ -25,6 +25,7 @@
     btrfs-assistant # 图形化管理界面 (如果你想要 GUI 控制 Snapper)
     snapper
     fish
+    niri
 
     # --- kvm ---
     spice-gtk         # 增强剪贴板共享和屏幕缩放

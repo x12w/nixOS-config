@@ -17,6 +17,11 @@
       flake = false; # 告诉 Nix 这只是一个普通文件夹，里面没有 flake.nix
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +34,7 @@
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nur, dms, dgop, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, nur, niri, dms, dgop, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

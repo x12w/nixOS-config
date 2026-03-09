@@ -5,6 +5,7 @@
     ./starship
     ./fish
     ./eza
+    ./dms
     ./bat
     ./zsh
     ./git

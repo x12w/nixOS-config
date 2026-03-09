@@ -4,7 +4,6 @@
   imports = [
     ./catppuccin
     ./niri
-    ./dms
     ./obs
     ./clash-verge-rev
     ./steam

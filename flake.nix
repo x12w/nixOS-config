@@ -31,10 +31,16 @@
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nur, niri, dms, dgop, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, catppuccin, nur, niri, dms, dgop, nixvim, ... }@inputs: {
 
     nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -57,6 +63,7 @@
             imports = [
               ./home.nix
               inputs.catppuccin.homeModules.catppuccin # 引入模块
+	      nixvim.homeModules.nixvim
             ];
           };
         }

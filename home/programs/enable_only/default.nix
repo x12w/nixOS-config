@@ -30,6 +30,7 @@
     libsForQt5.qtstyleplugin-kvantum
     kdePackages.qtsvg
     kdePackages.kimageformats
+    polonium
 
 
     jetbrains.clion

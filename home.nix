@@ -12,6 +12,7 @@
     ./home/theme/cursor
 
     ./home/dotfile
+    ./home/dotdesktop
 
     ./home/scripts/clear_conflict
   ];

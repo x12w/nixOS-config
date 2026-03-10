@@ -3,8 +3,8 @@
 {
   imports = [
     ./catppuccin
-    ./niri
-    ./hyprland
+    # ./niri
+    # ./hyprland
     ./obs
     ./clash-verge-rev
     ./steam

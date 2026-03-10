@@ -16,5 +16,6 @@
     ./nixvim
     ./yazi
     ./lazygit
+    ./zellij
   ];
 }

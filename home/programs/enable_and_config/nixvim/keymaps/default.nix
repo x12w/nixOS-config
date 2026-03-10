@@ -50,6 +50,13 @@
       options.desc = "关闭当前标签页";
     }
     {
+      mode = "n";
+      key = "<leader>w";
+      # 调用插件的开关函数
+      action = "<cmd>lua require('codewindow').toggle_minimap()<CR>";
+      options.desc = "切换小地图显示/隐藏";
+    }
+    {
       mode = "t";
       key = "<Esc>";
       action = "<C-\\><C-n>";

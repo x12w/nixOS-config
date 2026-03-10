@@ -6,7 +6,6 @@
 
     imports = [
       ./plugins
-      ./plugins/extra
       ./keymaps
     ];
 

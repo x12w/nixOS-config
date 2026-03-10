@@ -12,5 +12,7 @@
     ./treesitter
     ./better-escape
     ./simple-plugins
+    ./extra
+    ./oil
   ];
 }

@@ -57,6 +57,12 @@
       options.desc = "切换小地图显示/隐藏";
     }
     {
+      mode = "n";
+      key = "-"; # 习惯上用横杠打开
+      action = "<cmd>Oil<CR>";
+      options.desc = "打开 Oil 目录编辑器";
+    }
+    {
       mode = "t";
       key = "<Esc>";
       action = "<C-\\><C-n>";

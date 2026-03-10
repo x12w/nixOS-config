@@ -3,7 +3,7 @@
 {
   programs.fish = {
     enable = true;
-    
+
     # 初始化脚本：相当于你的 config.fish
     interactiveShellInit = ''
       set -g fish_greeting "" # 关掉那个烦人的欢迎语
@@ -22,12 +22,20 @@
       lt = "eza --tree --icons";
 
       cat = "bat";
+
+      how = "tldr";
     };
 
     # 插件：推荐几个常用的
     plugins = [
-      { name = "z"; src = pkgs.fishPlugins.z.src; }         # 快速跳转文件夹
-      { name = "grc"; src = pkgs.fishPlugins.grc.src; }     # 让命令输出五颜六色
+      {
+        name = "z";
+        src = pkgs.fishPlugins.z.src;
+      } # 快速跳转文件夹
+      {
+        name = "grc";
+        src = pkgs.fishPlugins.grc.src;
+      } # 让命令输出五颜六色
     ];
 
     functions = {
@@ -82,7 +90,7 @@
       };
 
       restoreall = {
-      body = ''
+        body = ''
           if test (count $argv) -eq 1
               set -l desc "$argv[1]"
               set -l targets

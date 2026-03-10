@@ -23,6 +23,11 @@
     wl-clipboard
     xclip
     go-musicfox
+    lazydocker
+    helix
+    btop
+    dust
+    tealdeer
 
     catppuccin-kde # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标

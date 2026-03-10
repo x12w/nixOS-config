@@ -4,10 +4,17 @@
   users.users.x12w = {
     isNormalUser = true;
     description = "x12w";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirtd"
+      "wireshark"
+      "fuse"
+    ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
 
     shell = pkgs.fish;

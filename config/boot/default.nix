@@ -20,12 +20,19 @@
 
   boot.loader.efi.canTouchEfiVariables = false;
 
+  boot.supportedFilesystems = [ "fuse" ];
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 
-  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
 
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;

@@ -21,17 +21,21 @@
     direnv
     nil
     btrfs-progs # 核心工具 (通常已内置)
-    btdu        # Btrfs 磁盘空间分析器 (非常牛，能看到压缩后的真实占用)
+    btdu # Btrfs 磁盘空间分析器 (非常牛，能看到压缩后的真实占用)
     btrfs-assistant # 图形化管理界面 (如果你想要 GUI 控制 Snapper)
     snapper
     fish
     niri
     hyprland
+    gocryptfs # 速度快，资源占用低
+    cryfs # 可选：如果你需要更强的隐私保护
+    # encfs    # 不推荐：除非你要兼容老旧设备，其安全性已有争议
+    kdePackages.plasma-vault
 
     # --- kvm ---
-    spice-gtk         # 增强剪贴板共享和屏幕缩放
-    virt-viewer       # 远程查看器
-    bridge-utils      # 桥接网络工具
+    spice-gtk # 增强剪贴板共享和屏幕缩放
+    virt-viewer # 远程查看器
+    bridge-utils # 桥接网络工具
 
     # --- Rust ---
     rustc

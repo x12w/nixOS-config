@@ -1,27 +1,23 @@
 { ... }:
 
-
-
 {
   imports = [
-    ./home/programs/enable_only
-    ./home/programs/enable_and_config
+    ./programs/enable_only
+    ./programs/enable_and_config
 
-    ./home/theme/catppuccin
-    ./home/theme/layan
-    ./home/theme/cursor
+    ./theme/catppuccin
+    ./theme/layan
+    ./theme/cursor
 
-    ./home/dotfile
-    ./home/dotdesktop
+    ./dotfile
+    ./dotdesktop
 
-    ./home/scripts/clear_conflict
+    ./scripts/clear_conflict
   ];
-
 
   # 注意：用户名和 homeDirectory 必须正确
   home.username = "x12w";
   home.homeDirectory = "/home/x12w";
-
 
   # 设置 Home Manager 状态版本（建议保持与系统安装时一致）
   home.stateVersion = "25.11";

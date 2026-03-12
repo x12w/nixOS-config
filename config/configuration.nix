@@ -1,33 +1,29 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { pkgs, lib, ... }:
 
 {
   imports = [
     # Include the results of the hardware scan.
 
-    ./config/programs/enable_only
-    ./config/programs/enable_and_config
+    ./programs/enable_only
+    ./programs/enable_and_config
 
-    ./config/services/enable_only
-    ./config/services/enable_and_config
+    ./services/enable_only
+    ./services/enable_and_config
 
-    ./config/fonts
+    ./fonts
 
-    ./config/hardware/nvidia
-    ./config/hardware/firmware
-    ./config/hardware/network
-    ./config/hardware/bluetooth
+    ./hardware/nvidia
+    ./hardware/firmware
+    ./hardware/network
+    ./hardware/bluetooth
 
-    ./config/boot
+    ./boot
 
-    ./config/users/x12w
+    ./users/x12w
 
-    ./config/i18n
+    ./i18n
 
-    ./config/scripts/snap_check
+    ./scripts/snap_check
   ];
 
   # time zone.

@@ -14,10 +14,10 @@
       corefonts
       vista-fonts
       (pkgs.runCommand "local-win-fonts" { } ''
-      mkdir -p $out/share/fonts/truetype
-      # 这里的 ${inputs.winfonts} 会被自动替换为该 Git 仓库在 Nix Store 里的路径
-      cp -r ${inputs.winfonts}/**/*.{ttf,ttc,TTF,TTC} $out/share/fonts/truetype/ || true
-    '')
+        mkdir -p $out/share/fonts/truetype
+        # 这里的 ${inputs.winfonts} 会被自动替换为该 Git 仓库在 Nix Store 里的路径
+        cp -r ${inputs.winfonts}/**/*.{ttf,ttc,TTF,TTC} $out/share/fonts/truetype/ || true
+      '')
     ];
 
     fontconfig.defaultFonts = {
@@ -27,5 +27,7 @@
     };
 
     fontDir.enable = true;
+
+    fontconfig.enable = true;
   };
 }

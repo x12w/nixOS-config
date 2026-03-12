@@ -5,33 +5,30 @@
 { pkgs, lib, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./config/hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
 
-      ./config/programs/enable_only
-      ./config/programs/enable_and_config
+    ./config/programs/enable_only
+    ./config/programs/enable_and_config
 
-      ./config/services/enable_only
-      ./config/services/enable_and_config
+    ./config/services/enable_only
+    ./config/services/enable_and_config
 
-      ./config/fonts
+    ./config/fonts
 
-      ./config/hardware/nvidia
-      ./config/hardware/firmware
-      ./config/hardware/network
-      ./config/hardware/bluetooth
+    ./config/hardware/nvidia
+    ./config/hardware/firmware
+    ./config/hardware/network
+    ./config/hardware/bluetooth
 
-      ./config/boot
+    ./config/boot
 
-      ./config/users/x12w
+    ./config/users/x12w
 
-      ./config/i18n
+    ./config/i18n
 
-      ./config/scripts/snap_check
-    ];
-
-
+    ./config/scripts/snap_check
+  ];
 
   # time zone.
   time.timeZone = "Asia/Shanghai";
@@ -46,7 +43,10 @@
 
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

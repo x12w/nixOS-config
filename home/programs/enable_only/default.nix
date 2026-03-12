@@ -44,6 +44,6 @@
     vlc
 
     # --- NUR ---
-    nur.repos.xddxdd.baidunetdisk
+    pkgs.nur.repos.xddxdd.baidunetdisk
   ];
 }

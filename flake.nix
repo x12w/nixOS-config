@@ -40,41 +40,54 @@
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nur, niri, dms, dgop, nixvim, ... }@inputs: {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      catppuccin,
+      nur,
+      niri,
+      dms,
+      dgop,
+      nixvim,
+      ...
+    }@inputs:
+    {
 
-    nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        # 关联现有的配置文件
-        ./configuration.nix
-        inputs.daeuniverse.nixosModules.dae
-        inputs.daeuniverse.nixosModules.daed
+      nixosConfigurations.x12w-nix = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          # 关联现有的配置文件
+          ./configuration.nix
+          inputs.daeuniverse.nixosModules.dae
+          inputs.daeuniverse.nixosModules.daed
 
-        home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
 
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup";
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
 
-          home-manager.extraSpecialArgs = { inherit inputs; };
-          home-manager.users.x12w = {
-            imports = [
-              ./home.nix
-              inputs.catppuccin.homeModules.catppuccin # 引入模块
-	      nixvim.homeModules.nixvim
-            ];
-          };
-        }
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.x12w = {
+              imports = [
+                ./home.nix
+                inputs.catppuccin.homeModules.catppuccin # 引入模块
+                nixvim.homeModules.nixvim
+              ];
+            };
+          }
 
-        catppuccin.nixosModules.catppuccin
+          catppuccin.nixosModules.catppuccin
 
-        # easyconnect-flake.nixosModules.default
+          # easyconnect-flake.nixosModules.default
 
-        { nixpkgs.overlays = [ nur.overlays.default ]; }
-      ];
+          { nixpkgs.overlays = [ nur.overlays.default ]; }
+        ];
+      };
+
     };
-
-  };
 }

@@ -13,10 +13,11 @@
       wqy_zenhei
       corefonts
       vista-fonts
+
       (pkgs.runCommand "local-win-fonts" { } ''
         mkdir -p $out/share/fonts/truetype
-        # 这里的 ${inputs.winfonts} 会被自动替换为该 Git 仓库在 Nix Store 里的路径
-        cp -r ${inputs.winfonts}/**/*.{ttf,ttc,TTF,TTC} $out/share/fonts/truetype/ || true
+        # 使用 find 递归查找所有子目录下的 ttf 和 ttc 文件 
+        find ${inputs.winfonts} -type f -iregex ".*\.tt[cf]" -exec cp {} $out/share/fonts/truetype/ \;
       '')
     ];
 

@@ -14,7 +14,6 @@
 
     winfonts = {
       url = "git+file:///etc/nixos/config/fonts/windows_fonts";
-      flake = false; # 告诉 Nix 这只是一个普通文件夹，里面没有 flake.nix
     };
 
     niri = {

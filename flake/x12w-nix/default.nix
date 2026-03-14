@@ -21,6 +21,7 @@
           ../../home/home.nix
           inputs.catppuccin.homeModules.catppuccin # 引入模块
           inputs.nixvim.homeModules.nixvim
+          inputs.plasma-manager.homeModules.plasma-manager
         ];
       };
     }

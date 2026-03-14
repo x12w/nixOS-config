@@ -17,5 +17,6 @@
     ./yazi
     ./lazygit
     ./zellij
+    ./plasma-manager
   ];
 }

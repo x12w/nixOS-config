@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -32,6 +32,7 @@
     # encfs    # 不推荐：除非你要兼容老旧设备，其安全性已有争议
     kdePackages.plasma-vault
     fontconfig
+    inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # --- kvm ---
     spice-gtk # 增强剪贴板共享和屏幕缩放

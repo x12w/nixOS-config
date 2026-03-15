@@ -42,6 +42,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    ghostty.url = "github:ghostty-org/ghostty";
+
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
@@ -57,6 +59,7 @@
       dgop,
       nixvim,
       plasma-manager,
+      ghostty,
       ...
     }@inputs:
     {

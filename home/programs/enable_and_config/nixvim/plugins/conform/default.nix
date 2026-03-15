@@ -7,7 +7,7 @@
         timeout_ms = 500;
       };
       formatters_by_ft = {
-        nix = [ "nixfmt" ];
+        nix = [ "nixfmt-rfc-style" ];
         python = [ "black" ];
         rust = [ "rustfmt" ];
         javascript = [ "prettier" ];

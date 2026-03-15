@@ -18,5 +18,6 @@
     ./lazygit
     ./zellij
     ./plasma-manager
+    ./ghostty
   ];
 }

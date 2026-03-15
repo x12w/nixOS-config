@@ -9,6 +9,8 @@
     efiSupport = true;
     device = "nodev"; # 对于 EFI 模式，保持 nodev
 
+    configurationLimit = 5;
+
     # --removable ---
     efiInstallAsRemovable = true;
     # ------------------------------------

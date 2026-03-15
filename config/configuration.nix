@@ -24,6 +24,8 @@
     ./i18n
 
     ./scripts/snap_check
+
+    ./nix
   ];
 
   # time zone.

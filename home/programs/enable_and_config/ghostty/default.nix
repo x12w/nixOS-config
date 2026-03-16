@@ -18,7 +18,9 @@
 
       # 启用 GPU 硬件加速相关的特性
       font-thicken = true; # 字体加粗效果更自然
-      term = "ghostty";
+      term = "Ghostty";
     };
+
+    systemd.enable = true;
   };
 }

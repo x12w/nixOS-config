@@ -14,12 +14,15 @@
       resvg
       poppler
       fzf
+      ueberzugpp
+      _7zz
     ];
 
     settings = {
       mgr = {
         show_hidden = true;
         sort_by = "mtime";
+        preview_protocol = "ueberzug";
       };
     };
   };

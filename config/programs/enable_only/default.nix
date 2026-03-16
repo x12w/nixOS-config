@@ -33,6 +33,9 @@
     kdePackages.plasma-vault
     fontconfig
     inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ueberzugpp
+    fd
+    _7zz
 
     # --- kvm ---
     spice-gtk # 增强剪贴板共享和屏幕缩放

@@ -4,6 +4,7 @@
   imports = [
     ./programs/enable_only
     ./programs/enable_and_config
+    ./programs/autostart
 
     ./theme/catppuccin
     ./theme/layan

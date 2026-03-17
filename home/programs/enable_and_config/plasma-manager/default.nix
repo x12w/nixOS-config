@@ -141,5 +141,20 @@
       "kscreenlockerrc"."Greeter"."WallpaperPlugin" = "org.kde.slideshow";
       "kscreenlockerrc"."Greeter/Wallpaper/org.kde.slideshow/General"."SlidePaths" = "/home/x12w/图片/壁纸/";
     };
+
+    panels = [
+      {
+        location = "top";
+        height = 36;
+        widgets = [
+          # 必须在这里显式列出所有你需要的部件，否则它们会被删除
+          "org.kde.plasma.kickoff"
+          "org.kde.plasma.icontasks" # 任务栏
+          "org.kde.plasma.marginsseparator"
+          "org.kde.plasma.systemtray" # 系统托盘（包含输入法图标）
+          "org.kde.plasma.digitalclock" # 数字时钟
+        ];
+      }
+    ];
   };
 }

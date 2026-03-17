@@ -130,8 +130,9 @@
       "kwinrc"."Tiling"."padding" = 4;
 
       # 输入法 Wayland 支持
-      "kwinrc"."Wayland"."InputMethod[$e]" =
-        "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
+      # "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      "kwinrc"."Wayland"."VirtualKeyboard" = "org.fcitx.Fcitx5";
 
       # 键盘布局
       "kxkbrc"."Layout"."LayoutList" = "us";

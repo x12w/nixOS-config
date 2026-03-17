@@ -19,10 +19,11 @@
     type = "fcitx5";
     enable = true;
     fcitx5.addons = with pkgs; [
-      fcitx5-rime          # Rime 鼠须管
+      fcitx5-rime # Rime 鼠须管
       qt6Packages.fcitx5-chinese-addons # 包含拼音、五笔等基础插件
-      fcitx5-gtk           # GTK 程序的兼容层
-      fcitx5-lua           # 扩展支持
+      fcitx5-gtk # GTK 程序的兼容层
+      kdePackages.fcitx5-qt
+      fcitx5-lua # 扩展支持
     ];
   };
 }

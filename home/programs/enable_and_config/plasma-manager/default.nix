@@ -141,20 +141,5 @@
       "kscreenlockerrc"."Greeter"."WallpaperPlugin" = "org.kde.slideshow";
       "kscreenlockerrc"."Greeter/Wallpaper/org.kde.slideshow/General"."SlidePaths" = "/home/x12w/图片/壁纸/";
     };
-
-    panels = [
-      {
-        widgets = [
-          {
-            iconTasks = {
-              launchers = [
-                "applications:org.kde.dolphin.desktop"
-                "applications:google-chrome.desktop"
-              ];
-            };
-          }
-        ];
-      }
-    ];
   };
 }

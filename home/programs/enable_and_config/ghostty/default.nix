@@ -13,12 +13,12 @@
       window-decoration = false;
       cursor-style = "block";
       shell-integration = "fish";
-      background-opacity = 0.7;
+      background-opacity = 0.1;
       background-blur-radius = 20;
 
       # 启用 GPU 硬件加速相关的特性
       font-thicken = true; # 字体加粗效果更自然
-      term = "Ghostty";
+      term = "ghostty";
     };
 
     systemd.enable = true;

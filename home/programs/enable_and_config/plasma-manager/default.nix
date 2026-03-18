@@ -117,7 +117,7 @@
         ];
       };
 
-      "services/ghostty.desktop"."_launch" = "Ctrl+Alt+T";
+      "services/com.mitchellh.ghostty.desktop"."_launch" = "Ctrl+Alt+T";
     };
 
     # --- 4. 底层配置 (configFile) ---

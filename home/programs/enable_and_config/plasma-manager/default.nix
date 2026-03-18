@@ -2,7 +2,7 @@
 {
   programs.plasma = {
     enable = true;
-    overrideConfig = true;
+    overrideConfig = false;
 
     # --- 1. 桌面外观 (Workspace) ---
     # 对应文档中的 programs.plasma.workspace.*

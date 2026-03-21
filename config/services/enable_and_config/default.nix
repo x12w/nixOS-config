@@ -66,11 +66,9 @@
     enable = true;
     settings = {
       PasswordAuthentication = true; # 启用密码登录
-      PermitRootLogin = "no";        # 禁止 root 直接登录
+      PermitRootLogin = "no"; # 禁止 root 直接登录
     };
   };
-
-
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -105,4 +103,9 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  services.udev.extraRules = ''
+    # 允许普通用户访问 HIDRAW 设备（用于 VIA 调词典/改键）
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666"
+  '';
 }

@@ -27,7 +27,10 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "usbcore.autosuspend=-1"
+  ];
 
   boot.initrd.kernelModules = [
     "nvidia"
@@ -43,4 +46,12 @@
     "net.ipv4.conf.all.rp_filter" = 0;
     "net.ipv4.conf.default.rp_filter" = 0;
   };
+
+  # 1. 调整苹果驱动参数，使其符合 Windows 逻辑
+  boot.extraModprobeConfig = ''
+    # fnmode=2: F1-F12 默认为标准功能键（不需要按住 Fn）
+    # swap_opt_cmd=0: 禁止交换 Alt 和 Win 键
+    # iso_layout=0: 确保符号键位不按 ISO 布局偏移
+    options hid_apple fnmode=2 swap_opt_cmd=0 iso_layout=0
+  '';
 }

@@ -163,7 +163,18 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
         float nz2 = triNoise2d(pos.xz*vec2(.5,.7), 0.);
         col += mix(vec3(0.2,0.25,0.5)*0.08,vec3(0.3,0.3,0.5)*0.7, nz2*0.4);
     }
+
+
+    // 1. 从 iChannel0 采样当前的终端文字/屏幕内容
+    vec4 terminalContent = texture(iChannel0, q);
+
+    // 2. 混合逻辑：
+    // col 是极光颜色
+    // terminalContent.rgb 是文字颜色
     
-	fragColor = vec4(col * 0.1, 0.1);
+    // 方案 A: 滤色模式 (Screen Blend) - 文字和极光都亮，最适合终端
+    vec3 finalRGB = 1.0 - (1.0 - col * 0.8) * (1.0 - terminalContent.rgb);
+    
+	fragColor = vec4(finalRGB, 1.0);
 }
 

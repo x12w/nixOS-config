@@ -42,7 +42,7 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    ghostty.url = "github:ghostty-org/ghostty";
+    ghostty.url = "github:ghostty-org/ghostty/69e0673478b4e92d1a5f0a1e1c41091218f853af";
 
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };

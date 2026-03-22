@@ -67,32 +67,44 @@ vec3 color(vec2 pos) {
 }
 
 // --- 主渲染逻辑 ---
-void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    // 1. 坐标归一化与比例校正
     vec2 qCoord = fragCoord.xy / iResolution.xy;
     const float scaleFactor = 2.1;
     vec2 uv = scaleFactor * (fragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
     aaScale = 0.5 * scaleFactor / iResolution.y;
-    
-    // 慢速动画
-    U = sin(0.1 * iTime) * 0.5 + 0.5; 
-    V = sin(0.2 * iTime) * 0.5 + 0.5; 
+
+    // 2. 慢速几何形变动画 (已调慢至 0.1 - 0.4 系数)
+    U = sin(0.1 * iTime) * 0.5 + 0.5;
+    V = sin(0.2 * iTime) * 0.5 + 0.5;
     W = sin(0.4 * iTime) * 0.5 + 0.5;
-    
+
+    // 3. 初始化几何参数并计算当前像素的特效颜色
     init(); 
     vec3 tessCol = color(uv);
 
-    // 1. 采样文字内容
+    // 4. 关键：采样终端文字层 (iChannel0)
     vec4 txt = texture(iChannel0, qCoord);
     
-    // 2. 文字检测系数 (isText)
-    float isText = clamp(length(txt.rgb) * 2.5, 0.0, 1.0);
-    
-    // 3. 混合：在文字下方，将线条亮度进一步减半 (tessCol * 0.5)
-    // 这样文字背后几乎是纯黑，灰色线条只在空白处可见
-    vec3 dimmedLines = mix(tessCol, vec3(0.0), isText * 0.8);
-    
-    // 4. 合成最终输出
-    vec3 finalRGB = dimmedLines + txt.rgb;
+    // 5. 计算文字的存在感 (Presence)
+    // 我们提取文字的亮度，并将其映射为 0.0 到 1.0 的系数
+    float textPresence = clamp(length(txt.rgb) * 2.0, 0.0, 1.0);
 
-    fragColor = vec4(finalRGB, 0.6);
+    // --- 混合逻辑 A: 颜色 (RGB) ---
+    // 在有文字的地方，将灰色线条亮度压低 80% (mix 到 0.0)，防止干扰阅读
+    vec3 backgroundLines = mix(tessCol, vec3(0.0), textPresence * 0.8);
+    // 叠加纯白文字
+    vec3 finalRGB = backgroundLines + txt.rgb;
+
+    // --- 混合逻辑 B: 透明度 (Alpha) ---
+    // 核心解决：背景透明但文字不透明
+    // 0.7 是你想要的窗口透明度 (背景)
+    // 1.0 是文字区域的不透明度 (确保字符不发虚)
+    float finalAlpha = mix(0.4, 0.7, textPresence);
+
+    // 6. 最终输出
+    // 这样当你在打字时，字符所在的像素是 100% 不透明的，
+    // 而周围的几何线条背景则是 70% 透明，能透出桌面壁纸并触发模糊。
+    fragColor = vec4(finalRGB, finalAlpha);
 }

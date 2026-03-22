@@ -1,24 +1,26 @@
+// --- 基础几何参数 ---
 const int Iterations = 20;
 const int pParam = 3;
 const int qParam = 3;
 const int rParam = 4;
 float U = 1.; float V = 1.; float W = 0.;
 const float SRadius = 0.01;
-const vec3 segColor = vec3(1.0, 1.0, 1.0); // 白色线条
-const vec3 backGroundColor = vec3(0.02, 0.02, 0.02); // 极深背景
+
+// --- 颜色调整：改为中灰色 ---
+const vec3 segColor = vec3(0.4, 0.4, 0.4); // 线条：中灰色 (0.4)
+const vec3 backGroundColor = vec3(0.01, 0.01, 0.01); // 背景：极深灰
 
 #define PI 3.14159
 vec3 nb, nc, p, q, pA, pB, pC;
 float spaceType = 0.;
 float aaScale = 0.005;
 
-// --- 几何函数 (保持原样) ---
+// --- 核心几何函数 ---
 float hdott(vec3 a, vec3 b) { return spaceType * dot(a.xy, b.xy) + a.z * b.z; }
 float hdots(vec3 a, vec3 b) { return dot(a.xy, b.xy) + spaceType * a.z * b.z; }
 float hlengtht(vec3 v) { return sqrt(abs(hdott(v, v))); }
 float hlengths(vec3 v) { return sqrt(abs(hdots(v, v))); }
 vec3 hnormalizet(vec3 v) { return v * (1. / hlengtht(v)); }
-mat2 mm2(in float a){float c = cos(a), s = sin(a);return mat2(c,s,-s,c);}
 
 void init() {
     spaceType = float(sign(qParam * rParam + pParam * rParam + pParam * qParam - pParam * qParam * rParam));
@@ -64,22 +66,33 @@ vec3 color(vec2 pos) {
     return mix(segColor, backGroundColor, smoothstep(-1., 1., ds * 0.5 / aaScale));
 }
 
+// --- 主渲染逻辑 ---
 void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     vec2 qCoord = fragCoord.xy / iResolution.xy;
     const float scaleFactor = 2.1;
     vec2 uv = scaleFactor * (fragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
     aaScale = 0.5 * scaleFactor / iResolution.y;
-    U = sin(0.1*iTime)*.5+.5; V = sin(0.2*iTime)*.5+.5; W = sin(0.4*iTime)*.5+.5;
+    
+    // 慢速动画
+    U = sin(0.1 * iTime) * 0.5 + 0.5; 
+    V = sin(0.2 * iTime) * 0.5 + 0.5; 
+    W = sin(0.4 * iTime) * 0.5 + 0.5;
+    
     init(); 
     vec3 tessCol = color(uv);
 
-    // 采样文字层
+    // 1. 采样文字内容
     vec4 txt = texture(iChannel0, qCoord);
+    
+    // 2. 文字检测系数 (isText)
+    float isText = clamp(length(txt.rgb) * 2.5, 0.0, 1.0);
+    
+    // 3. 混合：在文字下方，将线条亮度进一步减半 (tessCol * 0.5)
+    // 这样文字背后几乎是纯黑，灰色线条只在空白处可见
+    vec3 dimmedLines = mix(tessCol, vec3(0.0), isText * 0.8);
+    
+    // 4. 合成最终输出
+    vec3 finalRGB = dimmedLines + txt.rgb;
 
-    // 核心逻辑：差值混合
-    // 如果文字(1,1,1)遇到线条(1,1,1)，结果是(0,0,0)黑色
-    // 如果文字(1,1,1)遇到背景(0,0,0)，结果是(1,1,1)白色
-    vec3 finalRGB = abs(txt.rgb - tessCol * 0.5); 
-
-    fragColor = vec4(finalRGB, 1.0);
+    fragColor = vec4(finalRGB, 0.6);
 }

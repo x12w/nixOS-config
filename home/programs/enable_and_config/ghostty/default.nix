@@ -13,8 +13,9 @@
       window-decoration = false;
       cursor-style = "block";
       shell-integration = "fish";
-      # background-opacity = 0.1;
-      # background-blur-radius = 20;
+      background-opacity = 0.3;
+      background-blur = true;
+      background-blur-radius = 20;
 
       # 背景
       custom-shader = "${./shaders/tessellation.glsl}";

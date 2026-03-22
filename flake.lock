@@ -179,15 +179,16 @@
         "flake-compat": "flake-compat",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_3",
+        "systems": "systems",
         "zig": "zig",
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1773922787,
-        "narHash": "sha256-4VV8pKqUT/Ng4jLNbhUjDST4zPSsiwmVR8TiYbQcvlY=",
+        "lastModified": 1774167646,
+        "narHash": "sha256-ufKFZDcqv8DCowAAo1a+qQx6VSr0YeC56KpiyjjoeQU=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "69e0673478b4e92d1a5f0a1e1c41091218f853af",
+        "rev": "8a788a350e105398b1c32df74a4a962e3d723032",
         "type": "github"
       },
       "original": {
@@ -663,7 +664,10 @@
           "ghostty",
           "nixpkgs"
         ],
-        "systems": "systems"
+        "systems": [
+          "ghostty",
+          "systems"
+        ]
       },
       "locked": {
         "lastModified": 1773145353,

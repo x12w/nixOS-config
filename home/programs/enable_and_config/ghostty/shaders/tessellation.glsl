@@ -111,7 +111,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     // 非文字区域的 Alpha 逻辑：
     //   没线条的区域：0.7 (深色半透明底色)
     //   有线条的区域：0.0 (完全透明切口)
-    float shaderAlpha = mix(0.7, 0.0, lineMask); 
+    float shaderAlpha = mix(0.7, 0.4, lineMask); 
 
     // 叠加文字后的 Final Alpha：
     //   有文字区域：强制 1.0 (纯白实心文字)

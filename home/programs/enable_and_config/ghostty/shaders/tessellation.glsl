@@ -1,14 +1,18 @@
+// Apollonian Gasket Gasket Fractal with Transparent Cuts - Ghostty Optimized
+// inspired by fractalforums.com script
+
 // --- 基础几何参数 ---
-const int Iterations = 20;
+const int Iterations = 20; // 迭代次数。如果键盘断连，请将其减小至 10-12
 const int pParam = 3;
 const int qParam = 3;
 const int rParam = 4;
 float U = 1.; float V = 1.; float W = 0.;
-const float SRadius = 0.01;
+const float SRadius = 0.01; // 线条粗细
 
-// --- 颜色调整：改为中灰色 ---
-const vec3 segColor = vec3(0.4, 0.4, 0.4); // 线条：中灰色 (0.4)
-const vec3 backGroundColor = vec3(0.01, 0.01, 0.01); // 背景：极深灰
+// --- 颜色调整：仅定义底色区域颜色 ---
+// 线条区域将是透明的，不需要颜色。
+// 底色：极深灰 (用于非文字区域)
+const vec3 backGroundColor = vec3(0.01, 0.01, 0.01); 
 
 #define PI 3.14159
 vec3 nb, nc, p, q, pA, pB, pC;
@@ -57,54 +61,62 @@ float dist2Segments(vec3 z, float r) {
     float dc = dist2Segment(z, nc * vec3(1., 1., spaceType), r);
     return min(min(da, db), dc);
 }
-vec3 color(vec2 pos) {
+
+// --- 关键修改：提取线条遮罩而非颜色 ---
+float computeLineMask(vec2 pos) {
     float r = length(pos);
     vec3 z3 = vec3(2. * pos, 1. - spaceType * r * r) * 1. / (1. + spaceType * r * r);
-    if (spaceType == -1. && r >= 1.) return backGroundColor;
+    if (spaceType == -1. && r >= 1.) return 0.0; //庞加莱盘外部设为底色
     z3 = fold(z3);
     float ds = dist2Segments(z3, r);
-    return mix(segColor, backGroundColor, smoothstep(-1., 1., ds * 0.5 / aaScale));
+    // 返回 1.0 (在线条上，用于切割) 到 0.0 (底色上，用于保留) 的系数
+    return smoothstep(1.0, -1.0, ds * 0.5 / aaScale); 
 }
 
 // --- 主渲染逻辑 ---
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    // 1. 坐标归一化与比例校正
     vec2 qCoord = fragCoord.xy / iResolution.xy;
     const float scaleFactor = 2.1;
     vec2 uv = scaleFactor * (fragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
     aaScale = 0.5 * scaleFactor / iResolution.y;
 
-    // 2. 慢速几何形变动画 (已调慢至 0.1 - 0.4 系数)
+    // 动画
     U = sin(0.1 * iTime) * 0.5 + 0.5;
     V = sin(0.2 * iTime) * 0.5 + 0.5;
     W = sin(0.4 * iTime) * 0.5 + 0.5;
 
-    // 3. 初始化几何参数并计算当前像素的特效颜色
     init(); 
-    vec3 tessCol = color(uv);
+    
+    // 3. 计算几何线条遮罩 (1.0=线条，0.0=背景)
+    float lineMask = computeLineMask(uv);
 
-    // 4. 关键：采样终端文字层 (iChannel0)
+    // 4. 采样终端文字层
     vec4 txt = texture(iChannel0, qCoord);
     
-    // 5. 计算文字的存在感 (Presence)
-    // 我们提取文字的亮度，并将其映射为 0.0 到 1.0 的系数
-    float textPresence = clamp(length(txt.rgb) * 2.0, 0.0, 1.0);
+    // 5. 计算文字存在感
+    float textPresence = clamp(length(txt.rgb) * 2.5, 0.0, 1.0);
 
-    // --- 混合逻辑 A: 颜色 (RGB) ---
-    // 在有文字的地方，将灰色线条亮度压低 80% (mix 到 0.0)，防止干扰阅读
-    vec3 backgroundLines = mix(tessCol, vec3(0.0), textPresence * 0.8);
-    // 叠加纯白文字
-    vec3 finalRGB = backgroundLines + txt.rgb;
+    // --- 核心修改：基于切割逻辑的混合 ---
 
-    // --- 混合逻辑 B: 透明度 (Alpha) ---
-    // 核心解决：背景透明但文字不透明
-    // 0.7 是你想要的窗口透明度 (背景)
-    // 1.0 是文字区域的不透明度 (确保字符不发虚)
-    float finalAlpha = mix(0.4, 0.7, textPresence);
+    // 1. 颜色 (RGB)：
+    // 由于线条是透明的，我们只需要处理底色和文字。
+    // 在有文字的地方，强制底色变为纯黑 (vec3(0.0))，保护白色文字。
+    // 在没文字的地方，显示 backGroundColor。
+    vec3 backgroundRGB = mix(backGroundColor, vec3(0.0), textPresence);
+    // 叠加文字
+    vec3 finalRGB = backgroundRGB + txt.rgb;
 
-    // 6. 最终输出
-    // 这样当你在打字时，字符所在的像素是 100% 不透明的，
-    // 而周围的几何线条背景则是 70% 透明，能透出桌面壁纸并触发模糊。
+    // 2. 透明度 (Alpha)：实现切割的核心
+    // 非文字区域的 Alpha 逻辑：
+    //   没线条的区域：0.7 (深色半透明底色)
+    //   有线条的区域：0.0 (完全透明切口)
+    float shaderAlpha = mix(0.7, 0.0, lineMask); 
+
+    // 叠加文字后的 Final Alpha：
+    //   有文字区域：强制 1.0 (纯白实心文字)
+    //   无文字区域：显示 shaderAlpha (有线条切口的背景)
+    float finalAlpha = mix(shaderAlpha, 1.0, textPresence);
+
     fragColor = vec4(finalRGB, finalAlpha);
 }

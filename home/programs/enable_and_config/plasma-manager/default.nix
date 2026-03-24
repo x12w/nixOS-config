@@ -18,7 +18,7 @@
 
       # 修正：幻灯片壁纸配置
       wallpaperSlideShow = {
-        path = "/home/x12w/图片/壁纸/";
+        path = "${../../../../pictures}";
         interval = 300;
       };
     };
@@ -140,7 +140,9 @@
 
       # 锁屏幻灯片同步
       "kscreenlockerrc"."Greeter"."WallpaperPlugin" = "org.kde.slideshow";
-      "kscreenlockerrc"."Greeter/Wallpaper/org.kde.slideshow/General"."SlidePaths" = "/home/x12w/图片/壁纸/";
+      "kscreenlockerrc"."Greeter/Wallpaper/org.kde.slideshow/General"."SlidePaths" = "${
+        ../../../../pictures
+      }";
     };
 
     panels = [

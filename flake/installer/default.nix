@@ -5,7 +5,7 @@
     # 1. 导入官方 ISO 最小化安装镜像的基础模块
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-    # 2. 导入主逻辑配置 (确保它不再导入 hardware-configuration.nix)
+    # 2. 导入主逻辑配置
     ../../config/configuration.nix
 
     # 3. 必须显式包含的外部功能模块
@@ -40,6 +40,7 @@
         ../../home/home.nix
         inputs.catppuccin.homeModules.catppuccin
         inputs.nixvim.homeModules.nixvim
+        inputs.plasma-manager.homeModules.plasma-manager
       ];
     }
   ];

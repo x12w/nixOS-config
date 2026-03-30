@@ -7,6 +7,7 @@
     settings = {
       theme = "catppuccin-mocha"; # 保持视觉一致性
       default_layout = "default"; # 使用紧凑布局，最大化代码空间
+      show_startup_tips = false;
       pane_frames = false; # 关闭面板边框，让界面更清爽
 
       # 界面微调

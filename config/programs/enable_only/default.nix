@@ -36,6 +36,9 @@
     ueberzugpp
     fd
     _7zz
+    binutils
+    coreutils-full
+    file
 
     # --- kvm ---
     spice-gtk # 增强剪贴板共享和屏幕缩放

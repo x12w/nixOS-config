@@ -21,7 +21,7 @@
         # 确保 Overlay 生效，解决 NUR 找不到的问题
         nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
-        # 允许非自由软件 (如果百度网盘需要)
+        # 允许非自由软件
         nixpkgs.config.allowUnfree = true;
 
         # 自动登录

@@ -101,7 +101,7 @@
 
       "ksmserver" = {
         "Lock Session" = [
-          "Meta+L"
+          "Meta+Z"
           "Screensaver"
         ];
         "Log Out" = "Ctrl+Alt+Del";

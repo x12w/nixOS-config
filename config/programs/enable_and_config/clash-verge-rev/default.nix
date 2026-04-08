@@ -2,10 +2,10 @@
 
 {
   programs.clash-verge = {
-    enable = false;
+    enable = true;
     package = pkgs.clash-verge-rev;
-    tunMode = false;
-    serviceMode = false;
+    tunMode = true;
+    serviceMode = true;
     autoStart = false;
-    };
+  };
 }

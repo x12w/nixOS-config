@@ -48,6 +48,7 @@
     # --- Rust ---
     rustc
     cargo
+    rustup
 
     # --- Haskell ---
     ghc

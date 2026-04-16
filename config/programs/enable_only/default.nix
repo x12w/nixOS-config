@@ -8,7 +8,7 @@
     google-chrome
     wpsoffice-cn
     qq
-    wechat-uos
+    wechat
     vscode
     fastfetch
     blueman

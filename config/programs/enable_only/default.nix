@@ -46,8 +46,6 @@
     bridge-utils # 桥接网络工具
 
     # --- Rust ---
-    rustc
-    cargo
     rustup
 
     # --- Haskell ---

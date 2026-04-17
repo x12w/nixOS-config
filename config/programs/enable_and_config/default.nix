@@ -11,6 +11,7 @@
     ./kvm
     ./java
     ./wireshark
+    ./fuse
   ];
 
   programs.nix-ld.enable = true;

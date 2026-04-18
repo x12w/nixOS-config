@@ -39,6 +39,9 @@
     binutils
     coreutils-full
     file
+    (winboat.override {
+      electron = pkgs.electron_40; # 假设 electron_40 已经稳定支持
+    })
 
     # --- kvm ---
     spice-gtk # 增强剪贴板共享和屏幕缩放

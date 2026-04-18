@@ -19,6 +19,8 @@
 
     ./boot
 
+    ./environment
+
     ./users/x12w
 
     ./i18n

@@ -30,6 +30,8 @@
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "usbcore.autosuspend=-1"
+    "clocksource=tsc"
+    "tsc=reliable"
   ];
 
   boot.initrd.kernelModules = [

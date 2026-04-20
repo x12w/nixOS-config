@@ -3,6 +3,7 @@
 {
   virtualisation.libvirtd = {
     enable = true;
+    onBoot = "start";
     # 启用 UEFI 支持 (用于运行 Windows 11 或现代 Linux)
     qemu = {
       package = pkgs.qemu_kvm;

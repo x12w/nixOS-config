@@ -182,55 +182,44 @@
 
       proxy-vm = {
         body = ''
-          function proxy-vm
-              set -l vm_lan_ip "10.0.0.1"
-              set -l vm_ssh_user "root"
-              
-              # 1. 检查输入
-              if test (count $argv) -eq 0; or test "$argv[1]" != "on" -a "$argv[1]" != "off"
-                  echo "用法: proxy-vm [on|off]"
+          set -l vm_lan_ip "10.0.0.1"
+          set -l vm_ssh_user "root"
+
+          if test "$argv[1]" = "on"
+              # 1. 寻找物理网关并【锁定】
+              set -l real_gw (ip route show default | grep -vE 'virbr|docker|10.0.0' | awk '{print $3}' | head -n 1)
+              set -l real_dev (ip route show default | grep -vE 'virbr|docker|10.0.0' | awk '{print $5}' | head -n 1)
+
+              if test -z "$real_gw"
+                  echo "❌ 无法定位物理网关。"
                   return 1
               end
 
-              if test "$argv[1]" = "on"
-                  # 获取当前的真实物理网关 (跳过虚拟网段)
-                  set -l real_gw (ip route show | grep default | grep -v "10.0.0" | awk '{print $3}' | head -n 1)
-                  
-                  echo "🔍 正在从虚拟机同步节点信息..."
-                  
-                  # 2. 远程获取节点地址 (需提前配置 SSH 免密)
-                  set -l node_addr (ssh -o ConnectTimeout=2 $vm_ssh_user@$vm_lan_ip "uci get passwall.@global[0].tcp_node" 2>/dev/null | xargs -I {} ssh $vm_ssh_user@$vm_lan_ip "uci get passwall.{}.address" 2>/dev/null)
-
-                  if test -z "$node_addr"
-                      echo "❌ 无法获取节点。请确认虚拟机已开启、PassWall 已配置且 SSH 免密已打通。"
-                      return 1
-                  end
-
-                  echo "🌐 节点地址: $node_addr"
-                  
-                  # 3. 解析并特赦 IP，防止回环
-                  set -l node_ips (dig +short $node_addr | grep -E '^[0-9.]+$')
-                  if test -z "$node_ips"
-                      set node_ips $node_addr
-                  end
-
+              # 2. 特赦节点 (获取 IP 逻辑不变)
+              set -l node_info (ssh -o ConnectTimeout=2 $vm_ssh_user@$vm_lan_ip "uci get passwall.@global[0].tcp_node" 2>/dev/null | xargs -I {} ssh $vm_ssh_user@$vm_lan_ip "uci get passwall.{}.address" 2>/dev/null)
+              if test -n "$node_info"
+                  set -l node_ips (dig +short $node_info | grep -E '^[0-9.]+$'); test -z "$node_ips"; and set node_ips $node_info
                   for ip in $node_ips
-                      sudo ip route add $ip via $real_gw 2>/dev/null
-                      echo "✅ 特赦节点: $ip -> $real_gw"
+                      sudo ip route add $ip via $real_gw dev $real_dev 2>/dev/null
                   end
-
-                  # 4. 切换默认网关和 DNS
-                  sudo ip route replace default via $vm_lan_ip
-                  echo "nameserver $vm_lan_ip" | sudo tee /etc/resolv.conf > /dev/null
-                  
-                  echo "🚀 旁路代理已开启！"
-
-              else
-                  echo "🏠 正在恢复原生网络配置..."
-                  # 重启 NetworkManager 强行重置路由表和 DNS
-                  sudo systemctl restart NetworkManager
-                  echo "✅ 已恢复由 NetworkManager 管理的默认路由。"
+                  echo "✅ 节点特赦完成"
               end
+
+              # 3. 【核心修正】强制清理所有旧的默认路由，只留虚拟机
+              sudo ip route del default 2>/dev/null
+              sudo ip route add default via $vm_lan_ip dev virbr1
+              
+              # 4. 写入 DNS
+              echo -e "nameserver $vm_lan_ip\nnameserver 223.5.5.5" | sudo tee /etc/resolv.conf > /dev/null
+              echo "🚀 代理模式已锁定出口至 10.0.0.1"
+
+          else if test "$argv[1]" = "off"
+              echo "🏠 恢复原生网络..."
+              sudo rm -f /etc/resolv.conf
+              # 删掉我们手动加的默认路由，NM 就会自动把自己的 192.168.8.1 补上来
+              sudo ip route del default via $vm_lan_ip 2>/dev/null
+              sudo systemctl restart NetworkManager
+              echo "✅ 已重置。"
           end
         '';
       };

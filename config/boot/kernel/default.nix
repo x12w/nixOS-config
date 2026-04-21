@@ -16,12 +16,39 @@ let
     hash = "sha256-ehDv8bF7k/2Kf4b8CCoSm51U/MOoFuLsRXqe5wZ57sE="; # 记得更新这里的 Hash
   };
 
+  patchedConfig = pkgs.runCommand "patched-cachyos-bore-config" { } ''
+    # 1. 拷贝原始配置
+    cp ${cachyConfigRepo}/linux-cachyos-bore/config $out
+
+    # 2. 给目标文件增加写权限，否则 sed 无法修改
+    chmod +w $out
+
+    # 3. 执行修改逻辑
+    echo "Applying CachyOS specific patches to .config..."
+
+    # 开启 BORE 调度器
+    sed -i 's/# CONFIG_SCHED_BORE is not set/CONFIG_SCHED_BORE=y/' $out
+    grep -q "CONFIG_SCHED_BORE=y" $out || echo "CONFIG_SCHED_BORE=y" >> $out
+
+    # 提升至 1000Hz
+    sed -i 's/CONFIG_HZ_300=y/# CONFIG_HZ_300 is not set/' $out
+    sed -i 's/CONFIG_HZ=300/CONFIG_HZ=1000/' $out
+    grep -q "CONFIG_HZ_1000=y" $out || echo "CONFIG_HZ_1000=y" >> $out
+
+    # 强制全抢占
+    sed -i 's/CONFIG_PREEMPT_DYNAMIC=y/CONFIG_PREEMPT_DYNAMIC=n/' $out
+    grep -q "CONFIG_PREEMPT=y" $out || echo "CONFIG_PREEMPT=y" >> $out
+
+    # 修改版本后缀
+    sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="-cachyos"/' $out
+  '';
+
   customKernel =
     (pkgs.linuxManualConfig {
       version = "7.0.0-cachyos";
-      modDirVersion = "7.0.0";
+      modDirVersion = "7.0.0-cachyos";
       src = cachySource;
-      configfile = "${cachyConfigRepo}/linux-cachyos/config";
+      configfile = patchedConfig;
       allowImportFromDerivation = true;
     }).overrideAttrs
       (old: {

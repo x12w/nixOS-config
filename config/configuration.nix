@@ -33,21 +33,6 @@
   # time zone.
   time.timeZone = "Asia/Shanghai";
 
-  #镜像源设置
-  nix.settings = {
-    substituters = lib.mkForce [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
-      "https://cache.nixos.org"
-    ];
-
-  };
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

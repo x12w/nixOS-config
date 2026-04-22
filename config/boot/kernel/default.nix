@@ -3,8 +3,7 @@
 let
   cachySource = pkgs.fetchFromGitHub {
     owner = "CachyOS";
-    repo = "linux"; # 注意这里是 linux，不是 linux-cachyos
-    # 锁定到 7.0 的稳定补丁分支
+    repo = "linux";
     rev = "cachyos-7.0.0-1";
     hash = "sha256-Ybd0pKC07JqFX+U/xYNUFnpKBeEXwhJgXqa2qocEOu4=";
   };
@@ -13,52 +12,85 @@ let
     owner = "CachyOS";
     repo = "linux-cachyos";
     rev = "master";
-    hash = "sha256-ehDv8bF7k/2Kf4b8CCoSm51U/MOoFuLsRXqe5wZ57sE="; # 记得更新这里的 Hash
+    hash = "sha256-ehDv8bF7k/2Kf4b8CCoSm51U/MOoFuLsRXqe5wZ57sE=";
   };
 
+  # 获取 BORE 补丁
+  borePatch = pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/cachyos/kernel-patches/master/7.0/sched/0001-bore-cachy.patch";
+    sha256 = "sha256-Yb9qGDg/r8VjQ4m/YJXnOI8phyqmB5vHwk14veV2lw0=";
+  };
+
+  # 创建修改后的 config，同时应用 BORE 补丁
   patchedConfig = pkgs.runCommand "patched-cachyos-bore-config" { } ''
     # 1. 拷贝原始配置
     cp ${cachyConfigRepo}/linux-cachyos-bore/config $out
 
-    # 2. 给目标文件增加写权限，否则 sed 无法修改
+    # 2. 给目标文件增加写权限
     chmod +w $out
 
-    # 3. 执行修改逻辑
-    echo "Applying CachyOS specific patches to .config..."
+    echo "Applying CachyOS BORE configuration patches to .config..."
 
-    # 开启 BORE 调度器
-    sed -i 's/# CONFIG_SCHED_BORE is not set/CONFIG_SCHED_BORE=y/' $out
-    grep -q "CONFIG_SCHED_BORE=y" $out || echo "CONFIG_SCHED_BORE=y" >> $out
+    # ============ 关键：BORE 调度器配置 ============
+    # 删除旧的 SCHED_BORE 配置
+    sed -i '/CONFIG_SCHED_BORE/d' $out
+    sed -i '/CONFIG_SCHED_ALT/d' $out
+    sed -i '/CONFIG_SCHED_BMQ/d' $out
 
-    # 提升至 1000Hz
-    sed -i 's/CONFIG_HZ_300=y/# CONFIG_HZ_300 is not set/' $out
-    sed -i 's/CONFIG_HZ=300/CONFIG_HZ=1000/' $out
+    # 添加 BORE 调度器
+    echo "CONFIG_SCHED_BORE=y" >> $out
+
+    # ============ 提升至 1000Hz ============
+    sed -i 's/^CONFIG_HZ_300=y/# CONFIG_HZ_300 is not set/' $out
+    sed -i 's/^CONFIG_HZ=300/CONFIG_HZ=1000/' $out
     grep -q "CONFIG_HZ_1000=y" $out || echo "CONFIG_HZ_1000=y" >> $out
 
-    # 强制全抢占
-    sed -i 's/CONFIG_PREEMPT_DYNAMIC=y/CONFIG_PREEMPT_DYNAMIC=n/' $out
-    grep -q "CONFIG_PREEMPT=y" $out || echo "CONFIG_PREEMPT=y" >> $out
+    # ============ 强制全抢占（禁用 PREEMPT_DYNAMIC）============
+    sed -i 's/^# CONFIG_PREEMPT_DYNAMIC is not set/CONFIG_PREEMPT_DYNAMIC=n/' $out
+    sed -i 's/^CONFIG_PREEMPT_DYNAMIC=y/# CONFIG_PREEMPT_DYNAMIC is not set/' $out
+
+    # 确保 PREEMPT=y
+    sed -i 's/^# CONFIG_PREEMPT is not set/CONFIG_PREEMPT=y/' $out
+    grep -q "^CONFIG_PREEMPT=y" $out || echo "CONFIG_PREEMPT=y" >> $out
+
+    # 禁用 PREEMPT_LAZY
+    sed -i 's/^CONFIG_PREEMPT_LAZY=y/# CONFIG_PREEMPT_LAZY is not set/' $out
+
+    # ============ 启用 CACHY 配置 ============
+    sed -i 's/^# CONFIG_CACHY is not set/CONFIG_CACHY=y/' $out
+    grep -q "^CONFIG_CACHY=y" $out || echo "CONFIG_CACHY=y" >> $out
+
+    # ============ 性能优化 ============
+    # 透明大页
+    sed -i 's/^# CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS is not set/CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS=y/' $out
+
+    # 编译优化（O3）
+    sed -i 's/^CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE=y/# CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE is not set/' $out
+    sed -i 's/^# CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3 is not set/CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3=y/' $out
 
     # 修改版本后缀
-    sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="-cachyos"/' $out
+    sed -i 's/^CONFIG_LOCALVERSION=""/CONFIG_LOCALVERSION="-cachyos-bore"/' $out
+
+    echo "✓ Configuration patching completed"
   '';
 
   customKernel =
     (pkgs.linuxManualConfig {
-      version = "7.0.0-cachyos";
-      modDirVersion = "7.0.0-cachyos";
+      version = "7.0.0-cachyos-bore";
+      modDirVersion = "7.0.0-cachyos-bore";
       src = cachySource;
       configfile = patchedConfig;
       allowImportFromDerivation = true;
     }).overrideAttrs
       (old: {
-        # 强制注入 passthru 属性，让 NixOS 模块能看到这个内核支持的特性
+        patches = (old.patches or [ ]) ++ [ borePatch ];
         passthru = (old.passthru or { }) // {
           features = (old.passthru.features or { }) // {
-            ia32Emulation = true; # 专门对付 graphics.enable32Bit 的检查
+            ia32Emulation = true;
           };
         };
       });
+
 in
 
 {

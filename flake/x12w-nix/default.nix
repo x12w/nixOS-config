@@ -30,7 +30,12 @@
 
     # easyconnect-flake.nixosModules.default
 
-    { nixpkgs.overlays = [ inputs.nur.overlays.default ]; }
+    {
+      nixpkgs.overlays = [
+        inputs.nur.overlays.default
+        inputs.nix-cachyos-kernel.overlays.pinned
+      ];
+    }
 
   ];
 }

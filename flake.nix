@@ -44,6 +44,8 @@
 
     ghostty.url = "github:ghostty-org/ghostty/69e0673478b4e92d1a5f0a1e1c41091218f853af";
 
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
     # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
   };
 
@@ -60,6 +62,7 @@
       nixvim,
       plasma-manager,
       ghostty,
+      nix-cachyos-kernel,
       ...
     }@inputs:
     {

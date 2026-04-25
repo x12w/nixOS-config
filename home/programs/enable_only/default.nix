@@ -14,6 +14,7 @@
     (bottles.override { removeWarningPopup = true; })
     lutris
     protonplus
+    protonup-qt
     hmcl
     kdePackages.plasma-browser-integration
     libreoffice-qt-fresh

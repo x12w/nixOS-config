@@ -12,6 +12,16 @@
     enable = true;
     defaultEditor = true;
 
+    extraPackages = with pkgs; [
+      bear
+      clang-tools
+      cmake
+      gcc
+      gnumake
+      ninja
+      pkg-config
+    ];
+
     # --- 全局基础设置 (vim.opt) ---
     opts = {
       number = true;

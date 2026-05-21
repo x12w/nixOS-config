@@ -16,6 +16,9 @@
       "https://attic.xuyh0120.win/lantian"
     ];
 
+    max-jobs = "auto";
+    cores = 0;
+
     trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
   };
 

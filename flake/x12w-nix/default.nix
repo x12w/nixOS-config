@@ -34,6 +34,33 @@
       nixpkgs.overlays = [
         inputs.nur.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
+
+        (final: prev: {
+          polonium = prev.stdenvNoCC.mkDerivation {
+            pname = "polonium";
+            version = "1.1-a1";
+
+            src = prev.fetchurl {
+              url = "https://github.com/zeroxoneafour/polonium/releases/download/v1.1-a1/polonium.kwinscript";
+              hash = "sha256-kzL9kIbZgtLpLHYsxC5fWDNumn6yDm4vMDoFKlSCbHk=";
+            };
+
+            nativeBuildInputs = [
+              prev.unzip
+            ];
+
+            dontUnpack = true;
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p $out/share/kwin/scripts/polonium
+              unzip "$src" -d $out/share/kwin/scripts/polonium
+
+              runHook postInstall
+            '';
+          };
+        })
       ];
     }
 

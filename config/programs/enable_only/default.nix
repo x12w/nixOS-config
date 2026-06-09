@@ -7,13 +7,11 @@
     git
     google-chrome
     wpsoffice-cn
-    qq
-    wechat
     vscode
     fastfetch
     blueman
-    nvtopPackages.nvidia
-    wineWowPackages.stagingFull
+    nvtopPackages.full
+    wineWow64Packages.stagingFull
     winetricks
     zip
     docker-compose
@@ -39,9 +37,7 @@
     binutils
     coreutils-full
     file
-    (winboat.override {
-      electron = pkgs.electron_40; # 假设 electron_40 已经稳定支持
-    })
+    winboat
     gparted
     nmap
     bind

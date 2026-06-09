@@ -21,7 +21,7 @@
   home.homeDirectory = "/home/x12w";
 
   # 设置 Home Manager 状态版本（建议保持与系统安装时一致）
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   # 设置输入法环境变量
   home.sessionVariables = {

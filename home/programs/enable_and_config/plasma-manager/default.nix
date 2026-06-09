@@ -25,13 +25,49 @@
 
     # --- 2. 窗口管理与虚拟桌面 (KWin) ---
     kwin = {
-      # 16 个虚拟桌面，4 行布局
       virtualDesktops = {
         number = 16;
         rows = 4;
       };
-      # 对应 kwinrc.Plugins.wobblywindowsEnabled
+
       effects.wobblyWindows.enable = true;
+
+      edgeBarrier = 0;
+      cornerBarrier = false;
+
+      tiling.padding = 4;
+
+      scripts.polonium = {
+        enable = true;
+
+        settings = {
+          borderVisibility = "noBorderTiled";
+          callbackDelay = 100;
+          enableDebug = false;
+
+          filter = {
+            processes = [
+              "org.kde.krunner"
+              "plasmashell"
+            ];
+
+            windowTitles = [
+              "Picture-in-Picture"
+            ];
+          };
+
+          layout = {
+            engine = "binaryTree";
+            insertionPoint = "activeWindow";
+            rotate = false;
+          };
+
+          maximizeSingleWindow = true;
+          resizeAmount = 100;
+          saveOnTileEdit = true;
+          tilePopups = false;
+        };
+      };
     };
 
     # --- 3. 完整快捷键映射 (Shortcuts) ---
@@ -124,11 +160,6 @@
     # 用于处理官方未直接提供高级选项的设置
     configFile = {
       "ksplashrc"."KSplash"."Theme" = "Catppuccin-Frappe-Blue";
-
-      # 启用 Polonium 并设置内边距
-      "kwinrc"."Plugins"."poloniumEnabled" = true;
-      "kwinrc"."Tiling"."padding" = 4;
-
       # 输入法 Wayland 支持
       "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
       # "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";

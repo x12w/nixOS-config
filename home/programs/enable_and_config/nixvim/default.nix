@@ -3,6 +3,7 @@
 {
 
   programs.nixvim = {
+    nixpkgs.source = pkgs.path;
 
     imports = [
       ./plugins

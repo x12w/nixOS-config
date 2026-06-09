@@ -3,7 +3,6 @@
 {
   extraPlugins = with pkgs.vimPlugins; [
     flatten-nvim
-    codewindow-nvim
     nvim-surround
   ];
 
@@ -22,15 +21,6 @@
           end
         end,
       }
-    })
-
-    local codewindow = require('codewindow')
-    codewindow.setup({
-      active_in_terminals = false, -- 终端里不显示，避免干扰
-      auto_enable = true,          -- 自动开启
-      exclude_filetypes = { 'neo-tree', 'toggleterm', 'NvimTree', 'prompt' },
-      use_lsp = true,              -- 显示 LSP 错误
-      use_git = true,              -- 显示 Git 修改
     })
 
     require("nvim-surround").setup({})

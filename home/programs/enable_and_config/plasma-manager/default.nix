@@ -162,6 +162,7 @@
       "ksplashrc"."KSplash"."Theme" = "Catppuccin-Frappe-Blue";
 
       "kwinrc"."Plugins"."karouselEnabled" = true;
+      "kwinrc"."Plugins"."geometry_changeEnabled" = true;
       # 输入法 Wayland 支持
       "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
       # "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";

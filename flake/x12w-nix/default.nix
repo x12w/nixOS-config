@@ -108,6 +108,46 @@
               runHook postInstall
             '';
           };
+
+          kwin4-effect-geometry-change = prev.stdenvNoCC.mkDerivation {
+            pname = "kwin4-effect-geometry-change";
+            version = "1.5";
+
+            src = prev.fetchurl {
+              url = "https://github.com/peterfajdiga/kwin4_effect_geometry_change/releases/download/v1.5/kwin4_effect_geometry_change_1_5.tar.gz";
+              hash = "sha256-dmUaJEZfg8gy65bcnTSzrBLHXRtxKYwqxGGopLLMCFA=";
+            };
+
+            nativeBuildInputs = [
+              prev.gnutar
+              prev.gzip
+              prev.findutils
+              prev.coreutils
+            ];
+
+            dontUnpack = true;
+
+            installPhase = ''
+              runHook preInstall
+
+              tmpdir="$(mktemp -d)"
+              tar -xzf "$src" -C "$tmpdir"
+
+              metadata="$(find "$tmpdir" -name metadata.json -type f | head -n 1)"
+              if [ -z "$metadata" ]; then
+                echo "error: metadata.json not found in geometry-change effect archive"
+                find "$tmpdir" -maxdepth 4 -type f | sort
+                exit 1
+              fi
+
+              root="$(dirname "$metadata")"
+
+              mkdir -p "$out/share/kwin/effects/geometry_change"
+              cp -r "$root"/* "$out/share/kwin/effects/geometry_change/"
+
+              runHook postInstall
+            '';
+          };
         })
       ];
     }

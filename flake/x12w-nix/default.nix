@@ -148,6 +148,21 @@
               runHook postInstall
             '';
           };
+
+          qq = prev.qq.overrideAttrs (old: {
+            version = "3.2.29-49738";
+
+            src = prev.fetchurl {
+              url = "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_amd64_01.deb";
+              hash = "sha256-HjgoB5ZzyUmUvA9HgNXYUoZHY5kgZZhi1J0cLyoZjiU=";
+            };
+
+            installPhase =
+              builtins.replaceStrings
+                [ "rm -r $out/opt/QQ/resources/app/sharp-lib" ]
+                [ "# keep bundled sharp-lib for newer QQ" ]
+                old.installPhase;
+          });
         })
       ];
     }

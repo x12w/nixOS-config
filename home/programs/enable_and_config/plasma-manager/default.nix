@@ -38,7 +38,7 @@
       tiling.padding = 4;
 
       scripts.polonium = {
-        enable = true;
+        enable = false;
 
         settings = {
           borderVisibility = "noBorderTiled";
@@ -160,6 +160,8 @@
     # 用于处理官方未直接提供高级选项的设置
     configFile = {
       "ksplashrc"."KSplash"."Theme" = "Catppuccin-Frappe-Blue";
+
+      "kwinrc"."Plugins"."karouselEnabled" = true;
       # 输入法 Wayland 支持
       "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
       # "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";

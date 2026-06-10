@@ -54,8 +54,56 @@
             installPhase = ''
               runHook preInstall
 
-              mkdir -p $out/share/kwin/scripts/polonium
-              unzip "$src" -d $out/share/kwin/scripts/polonium
+              tmpdir="$(mktemp -d)"
+              unzip -q "$src" -d "$tmpdir"
+
+              mkdir -p "$out/share/kwin/scripts/polonium"
+
+              # Polonium 的 kwinscript 解压后是 pkg/metadata.json + pkg/contents/...
+              cp -r "$tmpdir/pkg/"* "$out/share/kwin/scripts/polonium/"
+
+              runHook postInstall
+            '';
+          };
+        })
+
+        (final: prev: {
+          karousel = prev.stdenvNoCC.mkDerivation {
+            pname = "karousel";
+            version = "0.17";
+
+            src = prev.fetchurl {
+              url = "https://github.com/peterfajdiga/karousel/releases/download/v0.17/karousel_0_17.tar.gz";
+              hash = "sha256-SS4pYtwOUQ5HeaDu38KqMRwu4+S2YhZI6uYO2+ML0cM=";
+            };
+
+            nativeBuildInputs = [
+              prev.gnutar
+              prev.gzip
+              prev.findutils
+              prev.coreutils
+            ];
+
+            dontUnpack = true;
+
+            installPhase = ''
+              runHook preInstall
+
+              tmpdir="$(mktemp -d)"
+              tar -xzf "$src" -C "$tmpdir"
+
+              metadata="$(find "$tmpdir" -name metadata.json -type f | head -n 1)"
+
+              if [ -z "$metadata" ]; then
+                echo "error: metadata.json not found in Karousel archive"
+                find "$tmpdir" -maxdepth 4 -type f | sort
+                exit 1
+              fi
+
+              root="$(dirname "$metadata")"
+
+              mkdir -p "$out/share/kwin/scripts/karousel"
+              cp -r "$root"/* "$out/share/kwin/scripts/karousel/"
 
               runHook postInstall
             '';

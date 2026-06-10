@@ -142,8 +142,8 @@
 
               root="$(dirname "$metadata")"
 
-              mkdir -p "$out/share/kwin/effects/geometry_change"
-              cp -r "$root"/* "$out/share/kwin/effects/geometry_change/"
+              mkdir -p "$out/share/kwin/effects/kwin4_effect_geometry_change"
+              cp -r "$root"/* "$out/share/kwin/effects/kwin4_effect_geometry_change/"
 
               runHook postInstall
             '';

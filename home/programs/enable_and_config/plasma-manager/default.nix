@@ -84,32 +84,50 @@
         "Kill Window" = "Meta+Ctrl+Esc";
         "Edit Tiles" = "Meta+T";
 
-        # Polonium 磁贴插件快捷键
-        "PoloniumFocusAbove" = "Meta+K";
-        "PoloniumFocusBelow" = "Meta+J";
-        "PoloniumFocusLeft" = "Meta+H";
-        "PoloniumFocusRight" = "Meta+L";
-        "PoloniumResizeAbove" = "Meta+Ctrl+K";
-        "PoloniumResizeBelow" = "Meta+Ctrl+J";
-        "PoloniumResizeLeft" = "Meta+Ctrl+H";
-        "PoloniumResizeRight" = "Meta+Ctrl+L";
-        "PoloniumRetileWindow" = "Meta+Shift+Space";
-        "PoloniumCycleEngine" = "Meta+|";
+        # --- Karousel: focus ---
+        "karousel-focus-left" = "Meta+H";
+        "karousel-focus-right" = "Meta+L";
+        "karousel-focus-up" = "Meta+K";
+        "karousel-focus-down" = "Meta+J";
+        "karousel-focus-start" = "Meta+Home";
+        "karousel-focus-end" = "Meta+End";
 
-        # 虚拟桌面切换与窗口移动
-        "Switch to Next Desktop" = "Ctrl+K";
-        "Switch to Previous Desktop" = "Ctrl+J";
-        "Switch to Desktop 1" = "Ctrl+F1";
-        "Switch to Desktop 2" = "Ctrl+F2";
-        "Switch to Desktop 3" = "Ctrl+F3";
-        "Window to Desktop 1" = "Meta+!";
-        "Window to Desktop 2" = "Meta+@";
-        "Window to Desktop 3" = "Meta+#";
-        "Window to Desktop 4" = "Meta+$";
-        "Window to Next Desktop" = "Ctrl+Shift+L";
-        "Window to Previous Desktop" = "Ctrl+Shift+H";
-        "Window to Next Screen" = "Meta+Shift+Right";
-        "Window to Previous Screen" = "Meta+Shift+Left";
+        # --- Karousel: move window ---
+        "karousel-window-move-left" = "Meta+Shift+H";
+        "karousel-window-move-right" = "Meta+Shift+L";
+        "karousel-window-move-up" = "Meta+Shift+K";
+        "karousel-window-move-down" = "Meta+Shift+J";
+        "karousel-window-move-start" = "Meta+Shift+Home";
+        "karousel-window-move-end" = "Meta+Shift+End";
+
+        # --- Karousel: move column ---
+        "karousel-column-move-left" = "Meta+Ctrl+Shift+H";
+        "karousel-column-move-right" = "Meta+Ctrl+Shift+L";
+        "karousel-column-move-start" = "Meta+Ctrl+Shift+Home";
+        "karousel-column-move-end" = "Meta+Ctrl+Shift+End";
+
+        # --- Karousel: width / layout ---
+        "karousel-column-width-increase" = "Meta+Ctrl+=";
+        "karousel-column-width-decrease" = "Meta+Ctrl+-";
+        "karousel-cycle-preset-widths" = "Meta+R";
+        "karousel-cycle-preset-widths-reverse" = "Meta+Shift+R";
+        "karousel-columns-width-equalize" = "Meta+Ctrl+X";
+        "karousel-column-toggle-stacked" = "Meta+X";
+
+        # --- Karousel: floating ---
+        "karousel-window-toggle-floating" = "Meta+F";
+
+        # --- Karousel: scroll ---
+        "karousel-grid-scroll-focused" = "Meta+Alt+Return";
+        "karousel-grid-scroll-left-column" = "Meta+Alt+H";
+        "karousel-grid-scroll-right-column" = "Meta+Alt+L";
+        "karousel-grid-scroll-left" = "Meta+Alt+PgUp";
+        "karousel-grid-scroll-right" = "Meta+Alt+PgDown";
+        "karousel-grid-scroll-start" = "Meta+Alt+Home";
+        "karousel-grid-scroll-end" = "Meta+Alt+End";
+
+        # --- Karousel: grid placement ---
+        "karousel-screen-switch" = "Meta+Ctrl+Return";
 
         # 缩放
         "view_actual_size" = "Meta+0";
@@ -162,7 +180,7 @@
       "ksplashrc"."KSplash"."Theme" = "Catppuccin-Frappe-Blue";
 
       "kwinrc"."Plugins"."karouselEnabled" = true;
-      "kwinrc"."Plugins"."geometry_changeEnabled" = true;
+      "kwinrc"."Plugins"."kwin4_effect_geometry_changeEnabled" = true;
       # 输入法 Wayland 支持
       "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
       # "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";

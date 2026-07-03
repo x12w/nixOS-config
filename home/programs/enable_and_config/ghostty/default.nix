@@ -13,12 +13,12 @@
       window-decoration = false;
       cursor-style = "block";
       shell-integration = "fish";
-      background-opacity = 0.3;
+      background-opacity = 0.5;
       background-blur = true;
-      background-blur-radius = 20;
+      background-blur-radius = 5;
 
       # 背景
-      custom-shader = "${./shaders/quadtree.glsl}";
+      custom-shader = "${./shaders/another_quadtree.glsl}";
 
       # 启用 GPU 硬件加速相关的特性
       font-thicken = true; # 字体加粗效果更自然

@@ -13,7 +13,7 @@
       window-decoration = false;
       cursor-style = "block";
       shell-integration = "fish";
-      background-opacity = 0.5;
+      background-opacity = 0.1;
       background-blur = true;
       background-blur-radius = 5;
 

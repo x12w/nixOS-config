@@ -28,7 +28,7 @@
 
     inputs.catppuccin.nixosModules.catppuccin
 
-    # easyconnect-flake.nixosModules.default
+    inputs.easyconnect.nixosModules.default
 
     {
       nixpkgs.overlays = [

@@ -83,5 +83,5 @@
 
   programs.fish.enable = true;
 
-  # programs.easyconnect.enable = true;
+  programs.easyconnect.enable = true;
 }

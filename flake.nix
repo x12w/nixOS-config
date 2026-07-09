@@ -46,7 +46,7 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    # easyconnect-flake.url = "path:/home/x12w/projects/nix/easyconnect";
+    easyconnect.url = "github:x12w/SCUT_easyconnect_nix/main";
   };
 
   outputs =
@@ -63,6 +63,7 @@
       plasma-manager,
       ghostty,
       nix-cachyos-kernel,
+      easyconnect,
       ...
     }@inputs:
     {

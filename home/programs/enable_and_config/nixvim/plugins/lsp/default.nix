@@ -1,20 +1,5 @@
 { pkgs, ... }:
 
-let
-  queryDrivers = [
-    "${pkgs.gcc}/bin/gcc"
-    "${pkgs.gcc}/bin/g++"
-    "${pkgs.gcc}/bin/c++"
-
-    "/run/current-system/sw/bin/gcc"
-    "/run/current-system/sw/bin/g++"
-    "/run/current-system/sw/bin/c++"
-
-    "/nix/store/*/bin/*gcc*"
-    "/nix/store/*/bin/*g++*"
-    "/nix/store/*/bin/*c++*"
-  ];
-in
 {
   plugins.lsp = {
     enable = true;
@@ -30,32 +15,27 @@ in
         enable = true;
         package = pkgs.clang-tools;
 
+        # NOTE: Do NOT pass --query-driver here. The clangd wrapper script
+        # deliberately skips setting CPATH/CPLUS_INCLUDE_PATH when
+        # --query-driver is present, which breaks header discovery for
+        # C++ standard library headers (like <concepts>).
+        # Removing --query-driver lets the wrapper inject the correct
+        # include paths from the Nix clang/gcc environment.
         cmd = [
-          "${pkgs.coreutils}/bin/env"
-          "LC_ALL=C"
-          "LANG=C"
           "${pkgs.clang-tools}/bin/clangd"
           "--background-index"
           "--clang-tidy"
           "--completion-style=detailed"
           "--header-insertion=iwyu"
-          "--query-driver=${builtins.concatStringsSep "," queryDrivers}"
         ];
 
         extraOptions = {
           init_options = {
+            # Fallback flags used when no compile_commands.json is found.
+            # The wrapper already sets CPLUS_INCLUDE_PATH for system headers;
+            # these ensure the right C++ standard is used.
             fallbackFlags = [
-              "-std=c++20"
-              "-xc++"
-              "--gcc-toolchain=${pkgs.gcc}"
-              "-isystem"
-              "${pkgs.gcc.cc}/include/c++/${pkgs.gcc.version}"
-              "-isystem"
-              "${pkgs.gcc.cc}/include/c++/${pkgs.gcc.version}/x86_64-unknown-linux-gnu"
-              "-isystem"
-              "${pkgs.gcc.cc}/include/c++/${pkgs.gcc.version}/backward"
-              "-isystem"
-              "${pkgs.glibc.dev}/include"
+              "-std=c++23"
             ];
           };
         };

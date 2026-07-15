@@ -62,6 +62,8 @@
     gdb
     cmake
     gnumake
+    clang
+    clang-tools
 
     # --- Java ---
     jdk

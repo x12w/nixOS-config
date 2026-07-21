@@ -36,6 +36,11 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Allow insecure packages (e.g. EOL Electron pulled in by vscode/qq/wechat/etc.)
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-40.10.5"
+  ];
+
   # 配置固定路径映射
   environment.etc = {
     "jdk8".source = pkgs.jdk8;

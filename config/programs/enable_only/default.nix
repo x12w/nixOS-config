@@ -26,7 +26,6 @@
     niri
     hyprland
     gocryptfs # 速度快，资源占用低
-    cryfs # 可选：如果你需要更强的隐私保护
     # encfs    # 不推荐：除非你要兼容老旧设备，其安全性已有争议
     kdePackages.plasma-vault
     fontconfig

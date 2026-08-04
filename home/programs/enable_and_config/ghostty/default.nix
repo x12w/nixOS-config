@@ -14,8 +14,8 @@
       cursor-style = "block";
       shell-integration = "fish";
       background-opacity = 0.1;
-      background-blur = true;
-      background-blur-radius = 5;
+      # background-blur 现在接受数值作为模糊半径（旧版 boolean + background-blur-radius 已废弃）
+      background-blur = 5;
 
       # 背景
       custom-shader = "${./shaders/another_quadtree.glsl}";
@@ -27,4 +27,5 @@
 
     systemd.enable = true;
   };
+
 }

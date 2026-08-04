@@ -2,14 +2,14 @@
   description = "x12w's nixos configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     daeuniverse.url = "github:daeuniverse/flake.nix";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix/release-26.05";
+    catppuccin.url = "github:catppuccin/nix";
     nur.url = "github:nix-community/NUR";
 
     winfonts = {
@@ -32,7 +32,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-26.05";
+      url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -42,7 +42,7 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    ghostty.url = "github:ghostty-org/ghostty/69e0673478b4e92d1a5f0a1e1c41091218f853af";
+    ghostty.url = "github:ghostty-org/ghostty";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 

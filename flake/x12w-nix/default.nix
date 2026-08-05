@@ -35,6 +35,15 @@
         inputs.nur.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
 
+        # Fix: pin glaze to nixpkgs version.
+        # NUR/cachyos overlay upgrades glaze to 8.x, but hyprland's
+        # CMakeLists.txt requires `find_package(glaze 7...<8)`, so
+        # glaze 8.x is rejected and the build falls back to FetchContent
+        # (which needs git+network – fails in Nix sandbox).
+        (final: prev: {
+          glaze = inputs.nixpkgs.legacyPackages.${prev.system}.glaze;
+        })
+
         (final: prev: {
           polonium = prev.stdenvNoCC.mkDerivation {
             pname = "polonium";

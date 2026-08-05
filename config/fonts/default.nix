@@ -10,7 +10,6 @@
       jetbrains-mono
       sarasa-gothic
       nerd-fonts.jetbrains-mono
-      wqy_zenhei
       corefonts
       vista-fonts
 
@@ -24,7 +23,7 @@
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif CJK SC" ];
       sansSerif = [ "Noto Sans CJK SC" ];
-      monospace = [ "Noto Sans Mono CJK SC" ];
+      monospace = [ "JetBrainsMono Nerd Font" ];
     };
 
     fontDir.enable = true;

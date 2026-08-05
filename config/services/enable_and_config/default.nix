@@ -12,5 +12,6 @@
     ./print
     ./sound
     ./udev
+    # ./sing-box
   ];
 }

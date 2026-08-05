@@ -12,6 +12,7 @@
     ./java
     ./wireshark
     ./fuse
+    ./throne
   ];
 
   programs.nix-ld.enable = true;

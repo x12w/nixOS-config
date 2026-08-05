@@ -28,6 +28,7 @@
     gocryptfs # 速度快，资源占用低
     # encfs    # 不推荐：除非你要兼容老旧设备，其安全性已有争议
     kdePackages.plasma-vault
+    plasma-panel-colorizer
     fontconfig
     inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
     ueberzugpp

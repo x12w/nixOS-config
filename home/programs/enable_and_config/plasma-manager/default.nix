@@ -112,7 +112,7 @@
         "karousel-cycle-preset-widths" = "Meta+R";
         "karousel-cycle-preset-widths-reverse" = "Meta+Shift+R";
         "karousel-columns-width-equalize" = "Meta+Ctrl+X";
-        "karousel-column-toggle-stacked" = "Meta+X";
+        "karousel-column-toggle-stacked" = "Meta+Shift+X";
 
         # --- Karousel: floating ---
         "karousel-window-toggle-floating" = "Meta+F";
@@ -151,6 +151,7 @@
           "Meta"
           "Alt+F1"
         ];
+        "next wallpaper image" = "Meta+X";
       };
 
       "ksmserver" = {
@@ -182,8 +183,8 @@
       "kwinrc"."Plugins"."karouselEnabled" = true;
       "kwinrc"."Plugins"."kwin4_effect_geometry_changeEnabled" = true;
       # 输入法 Wayland 支持
+      "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
-      # "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       "kwinrc"."Wayland"."VirtualKeyboard" = "org.fcitx.Fcitx5";
 
       # 键盘布局
@@ -208,6 +209,7 @@
           "org.kde.plasma.marginsseparator"
           "org.kde.plasma.systemtray" # 系统托盘（包含输入法图标）
           "org.kde.plasma.digitalclock" # 数字时钟
+          "luisbocanegra.panel.colorizer" # 面板美化（放最后效果最稳定）
         ];
       }
     ];

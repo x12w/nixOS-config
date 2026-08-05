@@ -71,6 +71,16 @@
     jdk17
     jdk21
 
+    # --- Go ---
+    go
+    gopls
+
+    # --- Zig ---
+    zig
+
+    # --- TypeScript/JavaScript ---
+    nodejs
+
     # --- Python ---
     python3
     python3Packages.pip

@@ -10,6 +10,8 @@
         nix = [ "nixfmt-rfc-style" ];
         python = [ "black" ];
         rust = [ "rustfmt" ];
+        go = [ "gofumpt" ];
+        zig = [ "zigfmt" ];
         javascript = [ "prettier" ];
         typescript = [ "prettier" ];
       };

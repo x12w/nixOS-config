@@ -41,6 +41,7 @@
         };
       };
       gopls.enable = true;
+      zls.enable = true;
       ts_ls.enable = true;
       html.enable = true;
       cssls.enable = true;

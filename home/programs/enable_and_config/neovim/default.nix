@@ -33,6 +33,13 @@
       clippy
       rustfmt
 
+      # --- Go ---
+      go
+      gopls
+
+      # --- Zig ---
+      zls
+
       # --- Haskell ---
       ghc
       haskell-language-server
@@ -40,12 +47,11 @@
       stack
       haskellPackages.fourmolu
 
-
-
       # --- Python ---
       pyright
 
-      # 其他通用工具
+      # --- TypeScript/JavaScript ---
+      nodejs
       nodePackages.typescript-language-server
     ];
   };

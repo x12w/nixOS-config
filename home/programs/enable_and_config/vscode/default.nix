@@ -27,6 +27,12 @@
         tamasfe.even-better-toml # 优化 Cargo.toml 编辑体验
         serayuzgur.crates # 自动检测 Rust 依赖库版本
 
+        # --- Go ---
+        golang.go
+
+        # --- Zig ---
+        ziglang.vscode-zig
+
         # --- Haskell ---
         haskell.haskell # 核心 Haskell 插件 (提供 HLS 支持)
         justusadam.language-haskell # 增强的语法高亮

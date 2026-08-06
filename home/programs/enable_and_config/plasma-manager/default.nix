@@ -202,14 +202,33 @@
       {
         location = "top";
         height = 36;
+        floating = true;
         widgets = [
-          # 必须在这里显式列出所有你需要的部件，否则它们会被删除
+          # ═══════════ 左侧：启动器 + 系统监视器 ═══════════
           "org.kde.plasma.kickoff"
-          "org.kde.plasma.icontasks" # 任务栏
-          "org.kde.plasma.marginsseparator"
-          "org.kde.plasma.systemtray" # 系统托盘（包含输入法图标）
-          "org.kde.plasma.digitalclock" # 数字时钟
-          "luisbocanegra.panel.colorizer" # 面板美化（放最后效果最稳定）
+          "org.kde.plasma.systemmonitor.memory"
+          "org.kde.plasma.systemmonitor.cpu"
+          "org.kde.plasma.diskquota"
+          "org.kde.plasma.systemmonitor.net"
+          "org.kde.plasma.systemmonitor.diskactivity"
+          "org.kde.plasma.folder"
+          "org.kde.plasma.showActivityManager"
+
+          # 弹性间隙 — 推开左右两侧
+          { panelSpacer.expanding = true; }
+
+          # ═══════════ 中间：任务栏 ═══════════
+          "org.kde.plasma.icontasks"
+
+          # 弹性间隙 — 推开左右两侧
+          { panelSpacer.expanding = true; }
+
+          # ═══════════ 右侧：托盘 + 时钟 ═══════════
+          "org.kde.plasma.systemtray"
+          "org.kde.plasma.digitalclock"
+
+          # 面板美化（Blur Widgets 预设效果）
+          "luisbocanegra.panel.colorizer"
         ];
       }
     ];

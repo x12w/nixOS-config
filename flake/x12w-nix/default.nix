@@ -13,7 +13,7 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = "hm-backup";
+      home-manager.backupCommand = ''mv -f "$srcPath" "$srcPath.bak"'';
 
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.users.x12w = {

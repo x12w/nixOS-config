@@ -38,9 +38,9 @@
         # --- Fontconfig fix: remove xsi:nil="true" from config files ---
         (import ../../config/programs/overlays/fontconfig-fix.nix)
 
-        # --- Custom baidunetdisk: no dependency on removed electron_11 ---
+        # --- Custom baidunetdisk 8.7.0: from standalone flake, no dependency on removed electron_11 ---
         (final: prev: {
-          baidunetdisk = prev.callPackage ../../config/programs/overlays/baidunetdisk.nix { };
+          baidunetdisk = inputs.baidunetdisk.packages.x86_64-linux.default;
         })
 
         (final: prev: {

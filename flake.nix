@@ -47,6 +47,8 @@
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     easyconnect.url = "github:x12w/SCUT_easyconnect_nix/main";
+
+    baidunetdisk.url = "path:/home/x12w/projects/baidunetdisk-nix";
   };
 
   outputs =
@@ -64,6 +66,7 @@
       ghostty,
       nix-cachyos-kernel,
       easyconnect,
+      baidunetdisk,
       ...
     }@inputs:
     {

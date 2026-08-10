@@ -35,6 +35,14 @@
         inputs.nur.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
 
+        # --- Fontconfig fix: remove xsi:nil="true" from config files ---
+        (import ../../config/programs/overlays/fontconfig-fix.nix)
+
+        # --- Custom baidunetdisk: no dependency on removed electron_11 ---
+        (final: prev: {
+          baidunetdisk = prev.callPackage ../../config/programs/overlays/baidunetdisk.nix { };
+        })
+
         (final: prev: {
           polonium = prev.stdenvNoCC.mkDerivation {
             pname = "polonium";

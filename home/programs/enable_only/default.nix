@@ -47,6 +47,7 @@
     vlc
 
     # --- NUR ---
-    pkgs.nur.repos.xddxdd.baidunetdisk
+    # baidunetdisk is now provided by local overlay (fixes electron_11 removal)
+    pkgs.baidunetdisk
   ];
 }

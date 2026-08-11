@@ -173,6 +173,7 @@
       };
 
       "services/com.mitchellh.ghostty.desktop"."_launch" = "Ctrl+Alt+T";
+      "services/org.kde.konsole.desktop"."_launch" = "none";
     };
 
     # --- 4. 底层配置 (configFile) ---
@@ -183,7 +184,8 @@
       "kwinrc"."Plugins"."karouselEnabled" = true;
       "kwinrc"."Plugins"."kwin4_effect_geometry_changeEnabled" = true;
       # 输入法 Wayland 支持
-      "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      "kwinrc"."Wayland"."InputMethod[$e]" =
+        "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
       "kwinrc"."Wayland"."VirtualKeyboard" = "org.fcitx.Fcitx5";
 
@@ -201,7 +203,7 @@
     panels = [
       {
         location = "top";
-        height = 36;
+        height = 44;
         floating = true;
         widgets = [
           # ═══════════ 左侧：启动器 + 系统监视器 ═══════════
@@ -232,5 +234,27 @@
         ];
       }
     ];
+  };
+
+  # --- Ghostty 快捷键修复 ---
+  # plasma-manager 写入 kglobalshortcutsrc 后，KDE 的 kglobalacceld
+  # 会覆写 services/ 区域，导致 ghostty 快捷键丢失，回退到 Konsole。
+  # 这里用 kwriteconfig6（KDE 原生工具）在 plasma-manager 之后重新设置，
+  # KDE 会正确识别并保留。
+  home.activation = {
+    fix-ghostty-shortcut = {
+      after = [ "configure-plasma" ];
+      before = [ ];
+      data = ''
+        if command -v kwriteconfig6 >/dev/null 2>&1; then
+          kwriteconfig6 --file kglobalshortcutsrc \
+            --group "services/com.mitchellh.ghostty.desktop" \
+            --key "_launch" "Ctrl+Alt+T"
+          kwriteconfig6 --file kglobalshortcutsrc \
+            --group "services/org.kde.konsole.desktop" \
+            --key "_launch" "none"
+        fi
+      '';
+    };
   };
 }

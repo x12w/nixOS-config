@@ -33,6 +33,7 @@
     wechat
     qq
     rnote
+    baidunetdisk
 
     catppuccin-kde # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标
@@ -46,7 +47,5 @@
     zerotierone
     vlc
 
-    # --- NUR ---
-    pkgs.nur.repos.xddxdd.baidunetdisk
   ];
 }

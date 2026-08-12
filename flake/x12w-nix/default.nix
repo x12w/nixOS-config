@@ -35,6 +35,11 @@
         inputs.nur.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
 
+        # baidunetdisk 8.7.0 — from standalone flake
+        (final: prev: {
+          baidunetdisk = inputs.baidunetdisk.packages.x86_64-linux.default;
+        })
+
         (final: prev: {
           polonium = prev.stdenvNoCC.mkDerivation {
             pname = "polonium";

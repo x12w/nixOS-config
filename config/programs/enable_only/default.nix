@@ -52,7 +52,11 @@
     bridge-utils # 桥接网络工具
 
     # --- Rust ---
-    rustup
+    rustc
+    cargo
+    rust-analyzer
+    rustfmt
+    clippy
 
     # --- Haskell ---
     ghc

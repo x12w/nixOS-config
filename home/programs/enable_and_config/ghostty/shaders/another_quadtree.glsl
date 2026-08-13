@@ -14,9 +14,15 @@
 // 方块颜色：暗石墨色，不偏淡蓝
 #define BASE_COLOR vec3(0.032, 0.036, 0.060)
 
-// 方块透明度范围
-#define ALPHA_MIN 0.36
-#define ALPHA_MAX 0.86
+// 方块透明度范围（现在由方块大小驱动，见 mainImage 里的映射）
+// 大方块 → 不透明度高（透明度低）→ 接近 ALPHA_MAX（不设满，保留一点通透）
+// 小方块 → 不透明度低（透明度高）→ 接近 ALPHA_MIN（最小方块完全透明）
+#define ALPHA_MIN 0.0
+#define ALPHA_MAX 0.85
+
+// 大小 → 透明度 的曲线指数：
+// 1.0 = 线性；<1.0 让大小对比更明显（小方块更快变透明）；>1.0 更平缓
+#define SIZE_ALPHA_CURVE 0.6
 
 // 背景先整体压暗
 #define BG_DIM_STRENGTH 0.24
@@ -38,9 +44,8 @@
 // 文字保护强度
 #define TEXT_PROTECT 3.8
 
-// 深色底 alpha
-// 数值越大，整体越不透明、越暗
-#define BG_ALPHA 0.66
+// 分割线（四叉树边框）的固定不透明度
+#define BG_ALPHA 0.55
 
 
 vec4 blurTerminal(vec2 uv, float amount)
@@ -90,7 +95,6 @@ void mainImage( out vec4 fragColor, vec2 fragCoord )
     U *= 0.5;
 
     vec3 baseColor = BASE_COLOR;
-    float currentAlpha = 0.52;
     bool isLine = false;
 
     // --- 2. 四叉树迭代 ---
@@ -113,13 +117,15 @@ void mainImage( out vec4 fragColor, vec2 fragCoord )
         r *= 2.0;
 
         if (r > H) break;
-
-        currentAlpha = clamp(
-            currentAlpha + (decision - 0.5) * 0.22,
-            ALPHA_MIN,
-            ALPHA_MAX
-        );
     }
+
+    // --- 2.5 方块大小 → 透明度映射 ---
+    // r 每细分一层翻倍（r = 2^depth），所以 r 越大 = 方块越小。
+    // 大方块（r 小）→ 不透明度高（透明度低）→ 接近 ALPHA_MAX
+    // 小方块（r 大）→ 不透明度低（透明度高）→ 接近 ALPHA_MIN
+    float maxLogR = log2(max(H, 1.0));            // r 最多增长到 H
+    float sizeFactor = clamp(log2(r) / maxLogR, 0.0, 1.0); // 0=最大块, 1=最小块
+    float currentAlpha = mix(ALPHA_MAX, ALPHA_MIN, pow(sizeFactor, SIZE_ALPHA_CURVE));
 
     // --- 3. 根据透明度计算模糊强度 ---
     float blurAmount = smoothstep(ALPHA_MIN, ALPHA_MAX, currentAlpha);
@@ -194,14 +200,15 @@ void mainImage( out vec4 fragColor, vec2 fragCoord )
     // --------------------------------------------------
 
     // 关键：
-    // 分割线区域也保留 BG_ALPHA，不再完全透明漏出桌面。
-    // 非分割线区域使用四叉树 alpha，但最低不低于 BG_ALPHA。
+    // 分割线（边框）固定使用 BG_ALPHA，作为深色网格框架。
+    // 方块区域直接用 currentAlpha —— 完全由大小决定透明度，
+    // 不再用 BG_ALPHA 兜底，这样「大方块不透明、小方块透明」才看得见。
     float finalAlpha;
 
     if (isLine) {
         finalAlpha = BG_ALPHA;
     } else {
-        finalAlpha = max(currentAlpha, BG_ALPHA);
+        finalAlpha = currentAlpha;
     }
 
     // 文字区域保持不透明

@@ -1,4 +1,5 @@
-// Ghostty Shader: Dark Transparent Quadtree Background
+// Ghostty Shader: Inverted Quadtree Background
+// 逻辑与 another_quadtree 相反：大方块透明、小方块不透明。
 // Based on: https://www.shadertoy.com/view/lljSDy
 
 #define s(a)       ( sin(a) )
@@ -15,13 +16,13 @@
 #define BASE_COLOR vec3(0.032, 0.036, 0.060)
 
 // 方块透明度范围（现在由方块大小驱动，见 mainImage 里的映射）
-// 大方块 → 不透明度高（透明度低）→ 接近 ALPHA_MAX（不设满，保留一点通透）
-// 小方块 → 不透明度低（透明度高）→ 接近 ALPHA_MIN（最小方块完全透明）
-#define ALPHA_MIN 0.0
-#define ALPHA_MAX 0.85
+// 逻辑相反：大方块 → 透明度高（不透明度低）→ 接近 ALPHA_MIN（保留一点，不完全透明）
+//          小方块 → 透明度低（不透明度高）→ 接近 ALPHA_MAX
+#define ALPHA_MIN 0.30
+#define ALPHA_MAX 0.88
 
 // 大小 → 透明度 的曲线指数：
-// 1.0 = 线性；<1.0 让大小对比更明显（小方块更快变透明）；>1.0 更平缓
+// 1.0 = 线性；<1.0 让大小对比更明显（大方块更快变透明）；>1.0 更平缓
 #define SIZE_ALPHA_CURVE 0.6
 
 // 背景先整体压暗
@@ -163,11 +164,12 @@ void mainImage( out vec4 fragColor, vec2 fragCoord )
 
     // --- 2.5 方块大小 → 透明度映射 ---
     // r 每细分一层翻倍（r = 2^depth），所以 r 越大 = 方块越小。
-    // 大方块（r 小）→ 不透明度高（透明度低）→ 接近 ALPHA_MAX
-    // 小方块（r 大）→ 不透明度低（透明度高）→ 接近 ALPHA_MIN
+    // 逻辑相反：大方块（r 小）→ 不透明度低（透明度高）→ 接近 ALPHA_MIN
+    //          小方块（r 大）→ 不透明度高（透明度低）→ 接近 ALPHA_MAX
     float maxLogR = log2(max(H, 1.0));            // r 最多增长到 H
     float sizeFactor = clamp(log2(r) / maxLogR, 0.0, 1.0); // 0=最大块, 1=最小块
-    float currentAlpha = mix(ALPHA_MAX, ALPHA_MIN, pow(sizeFactor, SIZE_ALPHA_CURVE));
+    // sizeFactor=0（最大块）→ ALPHA_MIN（透明）；=1（最小块）→ ALPHA_MAX（不透明）
+    float currentAlpha = mix(ALPHA_MIN, ALPHA_MAX, pow(sizeFactor, SIZE_ALPHA_CURVE));
 
     // --- 3. 根据透明度计算模糊强度 ---
     float blurAmount = smoothstep(ALPHA_MIN, ALPHA_MAX, currentAlpha);
@@ -249,7 +251,7 @@ void mainImage( out vec4 fragColor, vec2 fragCoord )
     // 关键：
     // 分割线（边框）固定使用 BG_ALPHA，作为深色网格框架。
     // 方块区域直接用 currentAlpha —— 完全由大小决定透明度，
-    // 不再用 BG_ALPHA 兜底，这样「大方块不透明、小方块透明」才看得见。
+    // 不再用 BG_ALPHA 兜底，这样「大方块透明、小方块不透明」才看得见。
     float finalAlpha;
 
     if (isLine) {

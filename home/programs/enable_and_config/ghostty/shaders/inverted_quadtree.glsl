@@ -48,10 +48,6 @@
 // 文字保护强度
 #define TEXT_PROTECT 3.8
 
-// 局部对比度文字检测：辅助识别暗色文字（浅色背景上的暗字）
-#define TEXT_CONTRAST 4.0
-#define TEXT_DETECT_RADIUS 5.0
-
 // 分割线（四叉树边框）的固定不透明度
 #define BG_ALPHA 0.55
 
@@ -104,22 +100,6 @@ vec4 blurTerminal(vec2 uv, float amount)
     if (wsum > 1e-4) col /= wsum;
 
     return col;
-}
-
-
-// 简单均值模糊（不剔除文字），用于估计局部背景亮度，辅助识别暗色文字
-vec3 simpleBlur(vec2 uv, float radiusPx)
-{
-    vec2 px = 1.0 / iResolution.xy;
-    vec3 c = vec3(0.0);
-    float n = 0.0;
-    for (int j = -2; j <= 2; j++) {
-        for (int k = -2; k <= 2; k++) {
-            c += texture(iChannel0, uv + vec2(float(j), float(k)) * radiusPx * px).rgb;
-            n += 1.0;
-        }
-    }
-    return c / n;
 }
 
 
@@ -183,13 +163,8 @@ void mainImage( out vec4 fragColor, vec2 fragCoord )
     vec4 txtSharp = texture(iChannel0, q);
     vec4 txtBlur  = blurTerminal(q, blurAmount);
 
-    // 文字检测：亮度 + 局部对比度，亮字/暗字都能识别
-    float sharpLum = length(txtSharp.rgb);
-    float bgLum = length(simpleBlur(q, TEXT_DETECT_RADIUS));
-    float textPresence = clamp(
-        max(sharpLum * TEXT_PROTECT, abs(sharpLum - bgLum) * TEXT_CONTRAST),
-        0.0, 1.0
-    );
+    // 文字检测：亮度越高越可能是文字
+    float textPresence = clamp(length(txtSharp.rgb) * TEXT_PROTECT, 0.0, 1.0);
     float nonText = 1.0 - textPresence;
 
     // 非文字区域使用模糊，文字区域使用清晰纹理

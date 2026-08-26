@@ -16,7 +16,7 @@
     protonup-qt
     hmcl
     kdePackages.plasma-browser-integration
-    libreoffice-qt-fresh
+    libreoffice-qt-stable
     prismlauncher
     grc
     adwaita-icon-theme

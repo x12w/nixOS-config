@@ -45,6 +45,7 @@
     karousel
     kwin4-effect-geometry-change
     kdePackages.qttools
+    psmisc
 
     # --- kvm ---
     spice-gtk # 增强剪贴板共享和屏幕缩放

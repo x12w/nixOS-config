@@ -23,7 +23,7 @@
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif CJK SC" ];
       sansSerif = [ "Noto Sans CJK SC" ];
-      monospace = [ "JetBrainsMono Nerd Font" ];
+      monospace = [ "JetBrainsMono Nerd Font" "Sarasa Mono SC" "Noto Sans Mono CJK SC" ];
     };
 
     fontDir.enable = true;

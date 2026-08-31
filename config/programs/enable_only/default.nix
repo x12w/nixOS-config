@@ -14,6 +14,7 @@
     wineWow64Packages.stagingFull
     winetricks
     zip
+    unzip
     docker-compose
     distrobox
     direnv
@@ -92,6 +93,7 @@
     python3
     python3Packages.pip
     python3Packages.black
+    conda
   ];
 
   # 启用 virt-manager 图形界面

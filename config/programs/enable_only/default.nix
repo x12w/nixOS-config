@@ -94,6 +94,7 @@
     python3Packages.pip
     python3Packages.black
     conda
+    uv
   ];
 
   # 启用 virt-manager 图形界面

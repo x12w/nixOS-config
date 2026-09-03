@@ -28,6 +28,7 @@
     btop
     dust
     tealdeer
+    sops
     foliate
     obsidian
     wechat

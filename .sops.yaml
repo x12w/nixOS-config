@@ -1,0 +1,7 @@
+keys:
+  - &x12w age1xp0u76uw6utg00nftm6vsdgwek30fk3dsq7m09uv7a02ranl95cqye7dwn
+creation_rules:
+  - path_regex: secrets\.yaml
+    key_groups:
+      - age:
+          - *x12w

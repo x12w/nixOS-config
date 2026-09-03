@@ -49,6 +49,8 @@
     easyconnect.url = "github:x12w/SCUT_easyconnect_nix/main";
 
     baidunetdisk.url = "github:x12w/baidunetdisk-nix/main";
+
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs =

@@ -9,6 +9,7 @@
     inputs.daeuniverse.nixosModules.daed
 
     inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
 
     {
       home-manager.useGlobalPkgs = true;
@@ -24,6 +25,13 @@
           inputs.plasma-manager.homeModules.plasma-manager
         ];
       };
+    }
+
+    {
+      # sops-nix 密钥管理
+      sops.age.keyFile = "/home/x12w/.config/sops/age/keys.txt";
+      sops.defaultSopsFile = ../../secrets.yaml;
+      sops.secrets.github-token = { };
     }
 
     inputs.catppuccin.nixosModules.catppuccin

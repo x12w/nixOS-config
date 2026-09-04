@@ -26,11 +26,13 @@
       # 刚才讨论的快捷快照命令也可以放这
       # snap = "sudo snapper -c root create --description 'Manual'";
 
-      ls = "eza --icons";
+      # 注意: eza 0.20+ 的 --icons 接受可选值 [always|auto|never],
+      # 必须写成 --icons=always, 否则后面跟目录名时会被当成该选项的值而报错
+      ls = "eza --icons=always";
       # ll 显示详细信息、图标、Git 状态
-      ll = "eza -lh --icons --git";
+      ll = "eza -lh --icons=always --git";
       # lt 显示文件夹树状图
-      lt = "eza --tree --icons";
+      lt = "eza --tree --icons=always";
 
       cat = "bat";
 

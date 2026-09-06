@@ -12,10 +12,6 @@
     catppuccin.url = "github:catppuccin/nix";
     nur.url = "github:nix-community/NUR";
 
-    winfonts = {
-      url = "git+file:///etc/nixos/config/fonts/windows_fonts";
-    };
-
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";

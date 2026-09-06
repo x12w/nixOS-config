@@ -1,2 +1,3 @@
-config/fonts/windows_fonts
 result
+# 字体文件不版本控制（用户自备），目录结构保留以便明确存放位置
+config/fonts/windows_fonts/*.tt[cf]

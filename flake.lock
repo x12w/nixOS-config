@@ -668,8 +668,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
-        "sops-nix": "sops-nix",
-        "winfonts": "winfonts"
+        "sops-nix": "sops-nix"
       }
     },
     "sops-nix": {
@@ -721,21 +720,6 @@
         "ref": "future-26.11",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "winfonts": {
-      "locked": {
-        "lastModified": 1773413692,
-        "narHash": "sha256-bEL6unl0FAdN7qMBy4xWh00YCC0XAciORtWabgBP1cA=",
-        "ref": "refs/heads/main",
-        "rev": "289ded0575ebde1408ad1f67a0665baad7544ad0",
-        "revCount": 2,
-        "type": "git",
-        "url": "file:///etc/nixos/config/fonts/windows_fonts"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///etc/nixos/config/fonts/windows_fonts"
       }
     },
     "xwayland-satellite-stable": {

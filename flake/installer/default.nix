@@ -12,18 +12,16 @@
     inputs.daeuniverse.nixosModules.dae
     inputs.daeuniverse.nixosModules.daed
     inputs.catppuccin.nixosModules.catppuccin
+    inputs.easyconnect.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
+
+    # 与主系统共用同一份 overlay（NUR / cachyos 内核 / baidunetdisk、codex-app 等自定义包）
+    ../overlays
 
     # 4. 镜像环境补丁
     (
       { lib, pkgs, ... }:
       {
-        # 确保 Overlay 生效，解决 NUR 找不到的问题
-        nixpkgs.overlays = [
-          inputs.nur.overlays.default
-          inputs.nix-cachyos-kernel.overlays.pinned
-        ];
-
         # 允许非自由软件
         nixpkgs.config.allowUnfree = true;
 

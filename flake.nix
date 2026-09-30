@@ -52,6 +52,8 @@
     baidunetdisk.url = "github:x12w/baidunetdisk-nix/main";
 
     sops-nix.url = "github:Mic92/sops-nix";
+
+    codex-app.url = "github:x12w/codex-app-nix/main";
   };
 
   outputs =
@@ -70,6 +72,7 @@
       nix-cachyos-kernel,
       easyconnect,
       baidunetdisk,
+      codex-app,
       ...
     }@inputs:
     {

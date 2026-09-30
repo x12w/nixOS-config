@@ -48,6 +48,11 @@
           baidunetdisk = inputs.baidunetdisk.packages.x86_64-linux.default;
         })
 
+        # codex-app
+        (final: prev: {
+          codex-app = inputs.codex-app.packages.x86_64-linux.default;
+        })
+
         (final: prev: {
           polonium = prev.stdenvNoCC.mkDerivation {
             pname = "polonium";

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # 允许 Home Manager 管理自己
@@ -17,7 +17,14 @@
     hmcl
     kdePackages.plasma-browser-integration
     libreoffice-qt-stable
-    prismlauncher
+    (prismlauncher.override {
+      additionalLibs = [
+        pkgs.nss
+        pkgs.nspr
+        pkgs.libgbm
+        pkgs.glib
+      ];
+    })
     grc
     adwaita-icon-theme
     wl-clipboard
@@ -38,8 +45,13 @@
     cc-switch
     claude-code
     bilibili
-    zotero
+    # zotero 10.0.2 只能跑在 Firefox 140 ESR 上（原因见 flake.nix 的 nixpkgs-fx140）
+    (zotero.override {
+      firefox-esr-153-unwrapped =
+        inputs.nixpkgs-fx140.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firefox-esr-140-unwrapped;
+    })
     codex-app
+    bubblewrap
 
     catppuccin-kde # 提供全局主题、色彩方案和窗口装饰
     catppuccin-papirus-folders # 提供配套图标

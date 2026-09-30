@@ -3,6 +3,20 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # 仅用于给 zotero 提供 Gecko 运行时，不要用它构建其它东西。
+    # zotero 10.0.2 的 app/scripts/fetch_xulrunner 硬编码依赖 Firefox 140 ESR 的
+    # omni.ja 结构：它会对 modules/ActorManagerParent.sys.mjs 等内容做
+    # remove_between 'AboutTranslations: \{' / replace_line / check_line 之类的文本替换，
+    # 匹配不上就直接 exit 1。nixpkgs 在 2026-09 的更新里淘汰了 firefox-esr-140-unwrapped，
+    # 并把 pkgs.zotero 改指 firefox-esr-153-unwrapped，于是构建在 prepare_build 阶段
+    # 报 "AboutTranslations: \{ and ^  }, not found in modules/ActorManagerParent.sys.mjs -- aborting"。
+    # 这里固定 nixpkgs 在 2026-09-19（最后一个 zotero 仍配 ESR 140 的版本）的提交。
+    # 上游 zotero master 已改用 Gecko 153.3.0esr；nixpkgs 侧 issue #568692 记录了这个构建
+    # 失败，PR #567192（zotero 10.0.2 -> 10.0.4）是真正的修复。等它合入后，
+    # 删除本输入 + flake.lock 里的条目 + enable_only/default.nix 里的 zotero override。
+    nixpkgs-fx140.url = "github:NixOS/nixpkgs/20b1ddd1aa5ace70c9468305030aa4f9ef79671b";
+
     daeuniverse.url = "github:daeuniverse/flake.nix";
 
     home-manager = {

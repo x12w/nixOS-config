@@ -18,11 +18,23 @@
     kdePackages.plasma-browser-integration
     libreoffice-qt-stable
     (prismlauncher.override {
-      additionalLibs = [
-        pkgs.nss
-        pkgs.nspr
-        pkgs.libgbm
-        pkgs.glib
+      additionalLibs = with pkgs; [
+        nss
+        nspr
+        libgbm
+        glib
+        at-spi2-core
+        cups
+        libdrm
+        libxcomposite
+        libxdamage
+        libxfixes
+        expat
+        libxcb
+        libxkbcommon
+        dbus
+        pango
+        cairo
       ];
     })
     grc

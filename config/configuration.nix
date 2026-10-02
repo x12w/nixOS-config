@@ -55,4 +55,13 @@
 
   system.stateVersion = "26.05";
 
+  # 2026-10-01: RAM and the 32 GiB swap filled while Java and training
+  # workers ran together. oomd was running but did not monitor app.slice.
+  # Monitor applications separately so the desktop session stays responsive.
+  systemd.oomd.enable = true;
+  systemd.user.slices.app.sliceConfig = {
+    ManagedOOMMemoryPressure = "kill";
+    ManagedOOMMemoryPressureLimit = "60%";
+  };
+
 }

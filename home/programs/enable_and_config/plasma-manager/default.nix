@@ -4,6 +4,13 @@
     enable = true;
     overrideConfig = false;
 
+    # The unrestricted home index reached 3.24 million files / 14.73 GiB.
+    # Keep filename search, but avoid indexing development trees and snapshots.
+    configFile."baloofilerc"."General" = {
+      "only basic indexing" = true;
+      "exclude folders" = "/home/x12w/projects/,/home/x12w/.snapshots/";
+    };
+
     # --- 1. 桌面外观 (Workspace) ---
     # 对应文档中的 programs.plasma.workspace.*
     workspace = {

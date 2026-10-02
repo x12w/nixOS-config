@@ -8,6 +8,23 @@
     inputs.nur.overlays.default
     inputs.nix-cachyos-kernel.overlays.pinned
 
+    (final: prev: {
+      kdePackages = prev.kdePackages.overrideScope (kfinal: kprev: {
+        kde-gtk-config = kprev.kde-gtk-config.overrideAttrs (old: {
+          # Both GTK modules leave live signal handlers when GTK unloads them.
+          # Keep their code mapped for the lifetime of the process; otherwise
+          # portal-gtk calls the unmapped reload_colours callback at login.
+          postPatch = (old.postPatch or "") + ''
+            for module in color-reload-module window-decorations-reload-module; do
+              substituteInPlace "$module/CMakeLists.txt" \
+                --replace-fail 'add_library(' 'add_link_options("LINKER:-z,nodelete")
+            add_library('
+            done
+          '';
+        });
+      });
+    })
+
     # baidunetdisk 8.7.0 — from standalone flake
     (final: prev: {
       baidunetdisk = inputs.baidunetdisk.packages.x86_64-linux.default;

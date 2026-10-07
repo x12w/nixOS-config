@@ -139,11 +139,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1783839749,
-        "narHash": "sha256-a/C5jsxJE0PDZUyCwyj+g40SmLNDKDxZw82qy1DgrD0=",
+        "lastModified": 1791386531,
+        "narHash": "sha256-PWWXmwGneJZkFVJLpqZ8Owv98v7DX0yMtF8mTaRLplA=",
         "owner": "x12w",
         "repo": "SCUT_easyconnect_nix",
-        "rev": "10886cce746c9f423c405b070e7ec4fc7b16f1bb",
+        "rev": "462977dca20328bd4fa72444b28234d99d257e79",
         "type": "github"
       },
       "original": {

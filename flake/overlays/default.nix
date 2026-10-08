@@ -9,20 +9,22 @@
     inputs.nix-cachyos-kernel.overlays.pinned
 
     (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (kfinal: kprev: {
-        kde-gtk-config = kprev.kde-gtk-config.overrideAttrs (old: {
-          # Both GTK modules leave live signal handlers when GTK unloads them.
-          # Keep their code mapped for the lifetime of the process; otherwise
-          # portal-gtk calls the unmapped reload_colours callback at login.
-          postPatch = (old.postPatch or "") + ''
-            for module in color-reload-module window-decorations-reload-module; do
-              substituteInPlace "$module/CMakeLists.txt" \
-                --replace-fail 'add_library(' 'add_link_options("LINKER:-z,nodelete")
-            add_library('
-            done
-          '';
-        });
-      });
+      kdePackages = prev.kdePackages.overrideScope (
+        kfinal: kprev: {
+          kde-gtk-config = kprev.kde-gtk-config.overrideAttrs (old: {
+            # Both GTK modules leave live signal handlers when GTK unloads them.
+            # Keep their code mapped for the lifetime of the process; otherwise
+            # portal-gtk calls the unmapped reload_colours callback at login.
+            postPatch = (old.postPatch or "") + ''
+              for module in color-reload-module window-decorations-reload-module; do
+                substituteInPlace "$module/CMakeLists.txt" \
+                  --replace-fail 'add_library(' 'add_link_options("LINKER:-z,nodelete")
+              add_library('
+              done
+            '';
+          });
+        }
+      );
     })
 
     # baidunetdisk 8.7.0 — from standalone flake
@@ -33,6 +35,21 @@
     # codex-app
     (final: prev: {
       codex-app = inputs.codex-app.packages.x86_64-linux.default;
+    })
+
+    # Coremail Ubuntu beta client
+    (final: prev: {
+      # Use XWayland and the NixOS trust store until these runtime fixes
+      # are included in the pinned remote flake.
+      coremail =
+        inputs.coremail.packages.${final.stdenv.hostPlatform.system}.default.overrideAttrs
+          (old: {
+            postFixup = (old.postFixup or "") + ''
+              wrapProgram "$out/bin/coremail" \
+                --set GDK_BACKEND x11 \
+                --set-default SSL_CERT_FILE /etc/ssl/certs/ca-certificates.crt
+            '';
+          });
     })
 
     (final: prev: {

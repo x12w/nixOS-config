@@ -7,6 +7,7 @@
     git
     google-chrome
     wpsoffice-cn
+    coremail
     vscode
     fastfetch
     blueman

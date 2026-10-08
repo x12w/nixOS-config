@@ -68,6 +68,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     codex-app.url = "github:x12w/codex-app-nix/main";
+
+    coremail.url = "github:x12w/SCUT-coremail-nix";
   };
 
   outputs =
@@ -87,6 +89,7 @@
       easyconnect,
       baidunetdisk,
       codex-app,
+      coremail,
       ...
     }@inputs:
     {

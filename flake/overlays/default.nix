@@ -9,6 +9,15 @@
     inputs.nix-cachyos-kernel.overlays.pinned
 
     (final: prev: {
+      # typescript-language-server 6.0.2 的 pnpm 依赖哈希不匹配；上游修复后移除。
+      typescript-language-server = prev.typescript-language-server.overrideAttrs (old: {
+        pnpmDeps = old.pnpmDeps.overrideAttrs {
+          outputHash = "sha256-xR/EF60lVBsITKgH7wCM2wHM46PFQevD51KfCENSUH4=";
+        };
+      });
+    })
+
+    (final: prev: {
       kdePackages = prev.kdePackages.overrideScope (
         kfinal: kprev: {
           kde-gtk-config = kprev.kde-gtk-config.overrideAttrs (old: {

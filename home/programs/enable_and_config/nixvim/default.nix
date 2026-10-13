@@ -3,7 +3,8 @@
 {
 
   programs.nixvim = {
-    nixpkgs.source = pkgs.path;
+    # 复用系统包集合，确保 LSP 等依赖继承系统 overlay 中的修复。
+    nixpkgs.useGlobalPackages = true;
 
     imports = [
       ./plugins

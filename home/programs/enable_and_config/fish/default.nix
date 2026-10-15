@@ -166,66 +166,8 @@
       };
 
       proxy-switch = {
-        description = "切换代理/直连模式: proxy-switch [on|off|status] [IP]";
-        body = ''
-          set -l ROUTER_IP "192.168.8.1"
-          set -l DEFAULT_PI_IP "192.168.8.31"
-
-          set -l MODE "$argv[1]"
-          set -l TARGET_IP "$argv[2]"
-
-          # 兼容旧用法: proxy-switch <IP> 直接切到该 IP 的代理模式
-          if string match -qr '^[0-9.]+$' "$MODE"
-              set TARGET_IP "$MODE"
-              set MODE on
-          end
-
-          # 不带参数: 根据当前网关自动切换
-          if test -z "$MODE"
-              set -l current_gw (ip route show default | awk '{print $3}' | head -n 1)
-              if test "$current_gw" = "$ROUTER_IP"
-                  set MODE on
-              else
-                  set MODE off
-              end
-          end
-
-          switch "$MODE"
-              case on
-                  test -z "$TARGET_IP"; and set TARGET_IP "$DEFAULT_PI_IP"
-                  echo "📡 切换至代理模式 | 目标网关: $TARGET_IP"
-                  if not ping -c 1 -W 1 "$TARGET_IP" > /dev/null
-                      echo "❌ 错误: 无法连接到 $TARGET_IP"
-                      return 1
-                  end
-                  sudo ip route replace default via "$TARGET_IP"; or return 1
-                  echo "nameserver $TARGET_IP" | sudo tee /etc/resolv.conf > /dev/null; or return 1
-                  echo "✅ 已切换至代理模式 (网关 $TARGET_IP)"
-
-              case off
-                  echo "🏠 恢复直连模式 | 目标网关: $ROUTER_IP"
-                  sudo ip route replace default via "$ROUTER_IP"; or return 1
-                  echo "nameserver $ROUTER_IP" | sudo tee /etc/resolv.conf > /dev/null; or return 1
-                  echo "✅ 已恢复直连模式 (网关 $ROUTER_IP)"
-
-              case status
-                  set -l current_gw (ip route show default | awk '{print $3}' | head -n 1)
-                  set -l dns (awk '/^nameserver/ {print $2; exit}' /etc/resolv.conf)
-                  if test "$current_gw" = "$ROUTER_IP"
-                      echo "🌐 直连模式 | 网关 $current_gw | DNS $dns"
-                  else
-                      echo "🌐 代理模式 | 网关 $current_gw | DNS $dns"
-                  end
-
-              case '*'
-                  echo "用法: proxy-switch [on|off|status] [IP]"
-                  echo "  on      切换到代理模式 (默认 $DEFAULT_PI_IP)"
-                  echo "  off     恢复直连模式"
-                  echo "  status  查看当前模式"
-                  echo "  不带参数: 根据当前网关自动切换"
-                  return 1
-          end
-        '';
+        description = "切换代理模式: proxy-switch [on|global|off|restore|status] [IP]";
+        body = builtins.readFile ./proxy-switch.fish;
       };
 
       proxy-vm = {

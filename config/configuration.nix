@@ -26,6 +26,7 @@
     ./i18n
 
     ./scripts/snap_check
+    ./scripts/proxy-switch
 
     ./nix
   ];

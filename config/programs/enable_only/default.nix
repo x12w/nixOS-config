@@ -90,6 +90,8 @@
 
     # --- TypeScript/JavaScript ---
     nodejs
+    typescript # 提供 tsc：类型检查、编译
+    tsx # 方便直接运行 .ts 文件
 
     # --- Python ---
     python3

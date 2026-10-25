@@ -40,6 +40,9 @@
   # Allow insecure packages (e.g. EOL Electron pulled in by vscode/qq/wechat/etc.)
   nixpkgs.config.permittedInsecurePackages = [
     "electron-40.10.5"
+    # Zotero 10.0.4 内置此运行时；ESR 140 已于 2026-10-13 停止安全维护。
+    # 暂时仅放行这一版本，待 nixpkgs 的 Zotero 升级到受支持的 ESR 后移除。
+    "firefox-esr-140-bin-unwrapped-140.17.0esr"
   ];
 
   # 配置固定路径映射

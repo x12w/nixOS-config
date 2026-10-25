@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   # 允许 Home Manager 管理自己
@@ -57,11 +57,7 @@
     cc-switch
     claude-code
     bilibili
-    # zotero 10.0.2 只能跑在 Firefox 140 ESR 上（原因见 flake.nix 的 nixpkgs-fx140）
-    (zotero.override {
-      firefox-esr-153-unwrapped =
-        inputs.nixpkgs-fx140.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firefox-esr-140-unwrapped;
-    })
+    zotero
     codex-app
     bubblewrap
 

@@ -46,6 +46,11 @@
       codex-app = inputs.codex-app.packages.x86_64-linux.default;
     })
 
+    # DeepSeek Harness desktop, maintained in its standalone fork.
+    (final: prev: {
+      deepseek-harness = inputs.deepseek-harness.packages.${final.stdenv.hostPlatform.system}.default;
+    })
+
     # Coremail Ubuntu beta client
     (final: prev: {
       # Use XWayland and the NixOS trust store until these runtime fixes

@@ -56,6 +56,11 @@
 
     codex-app.url = "github:x12w/codex-app-nix/main";
 
+    deepseek-harness = {
+      url = "github:x12w/deepseek-harness-nix/codex/nix-packaging";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     coremail.url = "github:x12w/SCUT-coremail-nix";
   };
 

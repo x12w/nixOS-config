@@ -109,6 +109,27 @@
         "type": "github"
       }
     },
+    "deepseek-harness": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793186697,
+        "narHash": "sha256-aDQEJGFhL2D/pK3+WzKnqfBNKUlTjhyxrjn1o2uYdgU=",
+        "owner": "x12w",
+        "repo": "deepseek-harness-nix",
+        "rev": "899126cdd66f433303815f04e39c061ddb8f3a4b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "x12w",
+        "ref": "codex/nix-packaging",
+        "repo": "deepseek-harness-nix",
+        "type": "github"
+      }
+    },
     "dgop": {
       "inputs": {
         "nixpkgs": [
@@ -729,6 +750,7 @@
         "codex-app": "codex-app",
         "coremail": "coremail",
         "daeuniverse": "daeuniverse",
+        "deepseek-harness": "deepseek-harness",
         "dgop": "dgop",
         "dms": "dms",
         "easyconnect": "easyconnect",

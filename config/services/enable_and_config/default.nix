@@ -1,6 +1,6 @@
 {
   imports = [
-    ./daed
+    # ./daed
     ./btrfs
     ./snapper
     ./flatpak

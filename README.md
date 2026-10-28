@@ -2,6 +2,8 @@
 
 本指南旨在指导如何从零开始使用此配置重建系统 。该配置基于 **NixOS main** 分支，集成了 **KDE Plasma 6** 、**NVIDIA 显卡驱动** 、**开发工具链** 以及 **Catppuccin** 个性化主题 。
 
+DeepSeek Harness Linux 桌面版由[独立 fork](https://github.com/x12w/deepseek-harness-nix/tree/codex/nix-packaging/nix)构建，本仓库仅引用其 flake 并声明安装。
+
 ## 1. 基础环境准备
 
 在正式应用此配置前，需先在初始安装的系统中开启必要特性并加速下载。

@@ -158,7 +158,7 @@
           "Meta"
           "Alt+F1"
         ];
-        "next wallpaper image" = "Meta+X";
+        "Slideshow Wallpaper Next Image" = "Meta+X";
       };
 
       "ksmserver" = {

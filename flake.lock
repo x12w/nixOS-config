@@ -116,11 +116,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793186697,
-        "narHash": "sha256-aDQEJGFhL2D/pK3+WzKnqfBNKUlTjhyxrjn1o2uYdgU=",
+        "lastModified": 1793378873,
+        "narHash": "sha256-haFgVWcSkhWCKKAght6HbH6Ai/eQ9RJSv4LN41w4/jI=",
         "owner": "x12w",
         "repo": "deepseek-harness-nix",
-        "rev": "899126cdd66f433303815f04e39c061ddb8f3a4b",
+        "rev": "e4f2dcef4100935a18ef7f074002f31cc3fc8b25",
         "type": "github"
       },
       "original": {

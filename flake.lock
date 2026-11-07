@@ -42,11 +42,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1790964759,
-        "narHash": "sha256-b+CeHF27nqeJABNa4ytiYeWWX20ZsIZD6pDMXMklTAc=",
+        "lastModified": 1793679214,
+        "narHash": "sha256-g7gOhVsG2p+j5hPr4DIzUlcY8GthEHmmZeVUhSooelY=",
         "owner": "x12w",
         "repo": "codex-app-nix",
-        "rev": "8da695156a419cf7373a3f49756a31728199be87",
+        "rev": "ae2a041d1db9a48ea37c0a9d57db42a0c7f6f35e",
         "type": "github"
       },
       "original": {

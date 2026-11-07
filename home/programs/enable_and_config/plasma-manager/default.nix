@@ -158,6 +158,8 @@
           "Meta"
           "Alt+F1"
         ];
+        # overrideConfig = false 会保留旧动作；显式解绑，避免抢占 Win+X。
+        "next wallpaper image" = "none";
         "Slideshow Wallpaper Next Image" = "Meta+X";
       };
 

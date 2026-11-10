@@ -77,6 +77,14 @@
       };
     };
 
+    # 壁纸插件的全局动作可能被停用，但通过 D-Bus 调用仍有效。
+    # 使用独立命令快捷键接管 Win+X，避免依赖插件的按键注册状态。
+    hotkeys.commands.next-wallpaper = {
+      name = "下一张壁纸";
+      key = "Meta+X";
+      command = ''${pkgs.kdePackages.qttools}/bin/qdbus org.kde.kglobalaccel /component/plasmashell org.kde.kglobalaccel.Component.invokeShortcut "Slideshow Wallpaper Next Image"'';
+    };
+
     # --- 3. 完整快捷键映射 (Shortcuts) ---
     # 严格匹配你文件中定义的键值对
     shortcuts = {
@@ -158,9 +166,9 @@
           "Meta"
           "Alt+F1"
         ];
-        # overrideConfig = false 会保留旧动作；显式解绑，避免抢占 Win+X。
+        # overrideConfig = false 会保留旧绑定；统一交给上面的命令快捷键。
         "next wallpaper image" = "none";
-        "Slideshow Wallpaper Next Image" = "Meta+X";
+        "Slideshow Wallpaper Next Image" = "none";
       };
 
       "ksmserver" = {
